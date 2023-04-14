@@ -12,7 +12,6 @@ module.exports = {
       // console.log("env", env.REACT_APP_TES);
       webpackConfig.devtool = "source-map";
       return webpackConfig;
-      
     },
   },
   devServer: {
