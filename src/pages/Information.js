@@ -9,6 +9,12 @@ function Information() {
       const res = await getAuth();
     })();
   }, []);
-  return <>Information</>;
+  return (
+    <>
+      <button type="button" className="btn btn-primary">
+        information
+      </button>
+    </>
+  );
 }
 export default Information;
