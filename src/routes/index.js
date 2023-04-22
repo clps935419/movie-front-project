@@ -14,7 +14,7 @@ const routeConfig = [
         element: <Information />,
       },
       {
-        path: "/test",
+        path: "/movies",
         element: <Test />,
       },
     ],
