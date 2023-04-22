@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from "@/utils/axios.js";
 
 export const getAuth = (props) => {
   return axios({
-    url: `/api/auth`,
+    url: `/auth`,
     method: "GET",
     ...props,
   });

@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.5",
     "bootstrap": "^5.2.3",
+    "clsx": "^1.2.1",
     "js-cookie": "^3.0.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
@@ -19,6 +20,7 @@
     "react-scripts": "5.0.1",
     "sass": "^1.62.0",
     "sort-by": "^1.2.0",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

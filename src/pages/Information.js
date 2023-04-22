@@ -9,9 +9,16 @@ function Information() {
       const res = await getAuth();
     })();
   }, []);
+
   return (
     <>
-      <button type="button" className="btn btn-primary">
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={async () => {
+          const res = await getAuth();
+        }}
+      >
         information
       </button>
     </>
