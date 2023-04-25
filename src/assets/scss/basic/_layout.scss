@@ -1,0 +1,97 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 17.5px 14px 12px;
+  a {
+    text-decoration: none;
+    color: #3d3d3d;
+  }
+  @include media-breakpoint-up(lg) {
+    padding: 20px 5%;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  @include media-breakpoint-up(xl) {
+    padding: 20px 10%;
+  }
+  @include media-breakpoint-up(xxl) {
+    padding: 20px 16%;
+  }
+  &__logo {
+    margin-bottom: 0;
+    a {
+      background-image: url("../../image/logo.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 109px;
+      height: 31px;
+      display: block;
+      text-indent: 101%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    @include media-breakpoint-up(lg) {
+      margin-right: 14%;
+    }
+    @include media-breakpoint-up(xl) {
+      margin-right: 21%;
+    }
+  }
+  &__nav {
+    gap: 26px;
+    display: none;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      align-items: center;
+      margin-right: 11%;
+    }
+  }
+  &__fast-btn {
+    gap: 16px;
+    display: none;
+    > button {
+      min-width: 144px;
+    }
+    a {
+      color: #ffffff;
+    }
+    .btn-outline-secondary {
+      a {
+        color: #3d3d3d;
+      }
+    }
+    @include media-breakpoint-up(lg) {
+      display: flex;
+    }
+  }
+  &__hamburger-icon {
+    width: 33px;
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+    > span {
+      background-color: #3d3d3d;
+      height: 3px;
+      display: block;
+      position: relative;
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #3d3d3d;
+        position: absolute;
+      }
+      &::before {
+        top: -8px;
+      }
+      &::after {
+        bottom: -8px;
+      }
+    }
+  }
+}
