@@ -19,7 +19,7 @@ function Information() {
           const res = await getAuth();
         }}
       >
-        information
+        測試
       </button>
     </>
   );

@@ -17,11 +17,15 @@ function Header() {
           </li>
         </ul>
         <div className="header__fast-btn">
-          <button type="button" class="btn btn-primary">
-            <a href="">快速訂票</a>
+          <button type="button " class="btn btn-primary">
+            <a href="" className="fs-6">
+              快速訂票
+            </a>
           </button>
           <button type="button" class="btn btn-outline-secondary">
-            <a href="">會員登入</a>
+            <a href="" className="fs-6">
+              會員登入
+            </a>
           </button>
         </div>
         <div className="header__hamburger-icon">
