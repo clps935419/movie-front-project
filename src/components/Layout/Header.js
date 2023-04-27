@@ -3,7 +3,7 @@ function Header() {
     <>
       <header className="header">
         <h1 className="header__logo">
-          <a href="">CineK</a>
+          <a href="/home">CineK</a>
         </h1>
         <ul className="header__nav">
           <li>
@@ -17,15 +17,11 @@ function Header() {
           </li>
         </ul>
         <div className="header__fast-btn">
-          <button type="button " class="btn btn-primary">
-            <a href="" className="fs-6">
-              快速訂票
-            </a>
+          <button type="button " className="btn btn-customBtn1">
+            快速訂票
           </button>
-          <button type="button" class="btn btn-outline-secondary">
-            <a href="" className="fs-6">
-              會員登入
-            </a>
+          <button type="button" className="btn btn-outline-customBtn1">
+            會員登入
           </button>
         </div>
         <div className="header__hamburger-icon">

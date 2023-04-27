@@ -11,7 +11,6 @@
 
   a {
     text-decoration: none;
-    color: #3d3d3d;
   }
   @include media-breakpoint-up(lg) {
     padding: 20px 5%;
@@ -51,6 +50,12 @@
     > li {
       font-weight: 400;
     }
+    a {
+      color: var(--neutralColors800);
+      &:hover {
+        color: var(--primaryColor);
+      }
+    }
     @include media-breakpoint-up(lg) {
       display: flex;
       align-items: center;
@@ -63,14 +68,6 @@
     > button {
       // min-width: 144px;
       // padding: 8px 0;
-    }
-    a {
-      color: #ffffff;
-    }
-    .btn-outline-secondary {
-      a {
-        color: #3d3d3d;
-      }
     }
     @include media-breakpoint-up(lg) {
       display: flex;
@@ -104,10 +101,18 @@
     }
   }
 }
-.content{
+.content {
+  padding-top: 58px;
   height: calc(100% - 244px);
+  &.noPdTop {
+    padding-top: 0px;
+    @include media-breakpoint-up(lg) {
+      padding-top: 0px;
+    }
+  }
   @include media-breakpoint-up(lg) {
-      height: calc(100% - 120px);
+    height: calc(100% - 120px);
+    padding-top: 82px;
   }
 }
 .footer {
@@ -117,8 +122,8 @@
   align-items: center;
   background-color: #3d3d3d;
   height: 244px;
-  color: #FFFFFF;
-  
+  color: #ffffff;
+
   @include media-breakpoint-up(lg) {
     padding: 0px 5%;
     flex-direction: row;
@@ -158,9 +163,9 @@
       width: auto;
       gap: 24px;
     }
-    a{
+    a {
       text-decoration: none;
-      color: #FFFFFF;
+      color: #ffffff;
     }
   }
 }

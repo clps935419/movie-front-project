@@ -3,6 +3,10 @@
 @import "./overwrite/variables";//bootstrap變數
 
 @import "bootstrap/scss/bootstrap";
+////////////////////上述三支為客製bootstrap變數方法//////////////
+
 
 @import "./basic/layout.scss";
 @import "./basic/common.scss";//專案樣式
+@import "./basic/variables";//專案變數
+@import "./overwrite/common";//由於bootstrap按鈕狀態變數顏色只能調深淺度，所以用蓋的
