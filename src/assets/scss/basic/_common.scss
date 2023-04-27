@@ -1,0 +1,16 @@
+@font-face {
+  font-family: custom-sans-serif;
+  src: url("../../../assets/font/NotoSansTC-Regular.otf");
+  unicode-range: U+4E00-9FFF;
+}
+
+html,
+body,
+#root,
+.wrapper {
+  height: 100%;
+  font-family: custom-sans-serif Helvetica;
+  font-size: 16px;
+}
+
+
