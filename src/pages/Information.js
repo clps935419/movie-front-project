@@ -12,7 +12,7 @@ function Information() {
 
   return (
     <>
-      <button
+      {/* <button
         type="button"
         className="btn btn-primary"
         onClick={async () => {
@@ -20,7 +20,7 @@ function Information() {
         }}
       >
         測試
-      </button>
+      </button> */}
     </>
   );
 }
