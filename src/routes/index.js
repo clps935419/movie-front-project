@@ -2,19 +2,31 @@ import Layout from "@/components/Layout";
 import Information from '@/pages/Information';
 import Test from '@/pages/Test';
 import NotFound from "@/pages/NotFound";
+import { Navigate } from "react-router-dom";
 
 const routeConfig = [
   {
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <Information /> },
       {
-        path: "/information",
+        index: true,
+        element: <Navigate to="/home" />,
+      },
+      {
+        path: "/home",
         element: <Information />,
       },
       {
-        path: "/test",
+        path: "/movies",
+        element: <Test />,
+      },
+      {
+        path: "/activity",
+        element: <Test />,
+      },
+      {
+        path: "/theaters",
         element: <Test />,
       },
     ],
@@ -23,9 +35,9 @@ const routeConfig = [
     path: "*",
     element: <NotFound />,
   },
-//   {
-//     path: "login",
-//     element: <Information />,
-//   },
+  //   {
+  //     path: "login",
+  //     element: <Information />,
+  //   },
 ];
 export default routeConfig;
