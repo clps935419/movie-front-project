@@ -143,6 +143,11 @@
     width: 109px;
     height: 31px;
     margin-bottom: 32px;
+    display: block;
+    text-indent: 101%;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
     @include media-breakpoint-up(lg) {
       flex-direction: row;
       margin-bottom: 0;

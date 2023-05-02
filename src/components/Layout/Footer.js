@@ -1,24 +1,27 @@
+import { Link, link } from "react-router-dom";
 
-function Footer(){
+function Footer() {
   return (
     <>
       <footer className="footer">
-        <div className="footer__logo"></div>
+        <div className="footer__logo">
+          <Link to="/home">CineK</Link>
+        </div>
         <ul className="footer__nav">
           <li>
-            <a href="/movies">影城資訊</a>
+            <Link to="/movies">影城資訊</Link>
           </li>
           <li>
-            <a href="/theaters">會員資訊</a>
+            <Link to="/theaters">會員資訊</Link>
           </li>
           <li>
-            <a href="/activity">關於我們</a>
+            <Link to="/activity">關於我們</Link>
           </li>
           <li>
-            <a href="/activity">徵才資訊</a>
+            <Link to="/activity">徵才資訊</Link>
           </li>
           <li>
-            <a href="/activity">常見問題 </a>
+            <Link to="/activity">常見問題</Link>
           </li>
         </ul>
         <div>Copyright © 2023 CineK影城</div>
