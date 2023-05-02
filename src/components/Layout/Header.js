@@ -1,19 +1,21 @@
+import { Link, link } from "react-router-dom";
+
 function Header() {
   return (
     <>
       <header className="header">
         <h1 className="header__logo">
-          <a href="/home">CineK</a>
+          <Link to="/home">CineK</Link>
         </h1>
         <ul className="header__nav">
           <li>
-            <a href="/movies">電影介紹</a>
+            <Link to="/movies">電影介紹</Link>
           </li>
           <li>
-            <a href="/theaters">影城介紹</a>
+            <Link to="/theaters">影城介紹</Link>
           </li>
           <li>
-            <a href="/activity">活動介紹</a>
+            <Link to="/activity">活動介紹</Link>
           </li>
         </ul>
         <div className="header__fast-btn">
@@ -31,4 +33,4 @@ function Header() {
     </>
   );
 }
-export default Header
+export default Header;
