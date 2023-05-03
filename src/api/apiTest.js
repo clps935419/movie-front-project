@@ -15,3 +15,11 @@ export const postLogin = (props) => {
     ...props,
   });
 };
+
+export const postSingup = (props) => {
+  return axios({
+    url: `/user/singup`,
+    method: 'post',
+    ...props,
+  });
+};

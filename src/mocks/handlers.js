@@ -32,4 +32,25 @@ export const handlers = [
       })
     );
   }),
+  rest.post('/api/user/singup', (req, res, ctx) => {
+    const { email, password, checkPassword } = req.body;
+
+    if (email === '' || password !== checkPassword) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          status: 'fail',
+          message: '信箱或密碼格式錯誤',
+        })
+      );
+    }
+
+    return res(
+      // Respond with a 200 status code
+      ctx.status(200),
+      ctx.json({
+        status: 'success',
+      })
+    );
+  }),
 ];
