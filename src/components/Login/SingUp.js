@@ -1,18 +1,26 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { apiTest } from '@/api';
 import LoginContext from './store/LoginContext';
 
-const { postLogin } = apiTest;
+const { postSingup } = apiTest;
 const SingUp = ({ closeModal }) => {
+  const navigate = useNavigate();
   const context = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSingUp = async () => {
-    await postLogin({ data: { email, password } }).then(({ data }) => {
-      if (data.status === 'success') closeModal();
-    });
+    await postSingup({ data: { email, password, checkPassword } })
+      .then(({ data }) => {
+        if (data.status === 'success') {
+          closeModal();
+          navigate('/member');
+        }
+      })
+      .catch(({ response }) => setErrorMessage(response.data.message));
   };
 
   const handleBackSingIn = () => {
@@ -70,7 +78,10 @@ const SingUp = ({ closeModal }) => {
             />
           </div>
         </div>
+
+        <p className="text-danger">{errorMessage}</p>
       </div>
+
       <div className="modal-footer">
         <button type="button" className="btn btn-primary" onClick={handleBackSingIn}>
           返回登入
