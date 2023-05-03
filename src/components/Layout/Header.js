@@ -1,6 +1,6 @@
 import { Link, link } from "react-router-dom";
 
-function Header() {
+function Header({ openloginModal }) {
   return (
     <>
       <header className="header">
@@ -22,7 +22,7 @@ function Header() {
           <button type="button " className="btn btn-customBtn1">
             快速訂票
           </button>
-          <button type="button" className="btn btn-outline-customBtn1">
+          <button type="button" className="btn btn-outline-customBtn1" onClick={openloginModal}>
             會員登入
           </button>
         </div>
