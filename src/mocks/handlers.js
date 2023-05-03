@@ -53,4 +53,25 @@ export const handlers = [
       })
     );
   }),
+  rest.post('/api/user/recoverPassword', (req, res, ctx) => {
+    const { email } = req.body;
+
+    if (email !== 'test@gmail.com') {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          status: 'fail',
+          message: '查無此信箱',
+        })
+      );
+    }
+
+    return res(
+      // Respond with a 200 status code
+      ctx.status(200),
+      ctx.json({
+        status: 'success',
+      })
+    );
+  }),
 ];

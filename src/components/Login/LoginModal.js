@@ -4,6 +4,7 @@ import LoginReducer from './store/LoginReducer';
 import { Modal } from 'bootstrap';
 import SingIn from './SingIn';
 import SingUp from './SingUp';
+import RecoverPassword from './RecoverPassword';
 
 const LoginModal = ({ modalRef }) => {
   const [state, dispatch] = useReducer(LoginReducer, { status: 'singin' });
@@ -14,6 +15,10 @@ const LoginModal = ({ modalRef }) => {
 
   const changeSingUp = () => {
     dispatch({ type: 'singup' });
+  };
+
+  const changeRecoverPassword = () => {
+    dispatch({ type: 'recoverPassword' });
   };
 
   const closeModal = () => {
@@ -29,13 +34,16 @@ const LoginModal = ({ modalRef }) => {
     };
   }, [modalRef]);
 
+  let content = <SingIn closeModal={closeModal} />;
+
+  if (state.status === 'singup') content = <SingUp closeModal={closeModal} />;
+  if (state.status === 'recoverPassword') content = <RecoverPassword closeModal={closeModal} />;
+
   return (
-    <LoginContext.Provider value={{ state, changeSingIn, changeSingUp }}>
+    <LoginContext.Provider value={{ state, changeSingIn, changeSingUp, changeRecoverPassword }}>
       <div className="modal" tabIndex={-1} ref={modalRef}>
         <div className="modal-dialog">
-          <div className="modal-content">
-            {state.status === 'singin' ? <SingIn closeModal={closeModal} /> : <SingUp closeModal={closeModal} />}
-          </div>
+          <div className="modal-content">{content}</div>
         </div>
       </div>
     </LoginContext.Provider>
