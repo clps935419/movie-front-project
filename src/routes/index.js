@@ -1,12 +1,13 @@
-import Layout from "@/components/Layout";
+import Layout from '@/components/Layout';
 import Information from '@/pages/Information';
 import Test from '@/pages/Test';
-import NotFound from "@/pages/NotFound";
-import { Navigate } from "react-router-dom";
+import Member from '@/pages/Member';
+import NotFound from '@/pages/NotFound';
+import { Navigate } from 'react-router-dom';
 
 const routeConfig = [
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
@@ -14,25 +15,29 @@ const routeConfig = [
         element: <Navigate to="/home" />,
       },
       {
-        path: "/home",
+        path: '/home',
         element: <Information />,
       },
       {
-        path: "/movies",
+        path: '/movies',
         element: <Test />,
       },
       {
-        path: "/activity",
+        path: '/activity',
         element: <Test />,
       },
       {
-        path: "/theaters",
+        path: '/theaters',
         element: <Test />,
+      },
+      {
+        path: '/member',
+        element: <Member />,
       },
     ],
   },
   {
-    path: "*",
+    path: '*',
     element: <NotFound />,
   },
   //   {
