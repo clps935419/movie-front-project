@@ -60,10 +60,10 @@ const SingIn = ({ closeModal }) => {
 
       <div className="modal-footer d-flex justify-content-between">
         <div>
-          <button type="button" className="btn btn-primary me-2" onClick={closeModal}>
+          <button type="button" className="btn btn-warning me-2" onClick={context.changeRecoverPassword}>
             忘記密碼
           </button>
-          <button type="button" className="btn btn-primary" onClick={context.changeSingUp}>
+          <button type="button" className="btn btn-secondary" onClick={context.changeSingUp}>
             註冊
           </button>
         </div>

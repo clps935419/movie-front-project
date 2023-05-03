@@ -83,7 +83,7 @@ const SingUp = ({ closeModal }) => {
       </div>
 
       <div className="modal-footer">
-        <button type="button" className="btn btn-primary" onClick={handleBackSingIn}>
+        <button type="button" className="btn btn-secondary" onClick={handleBackSingIn}>
           返回登入
         </button>
         <button type="button" className="btn btn-primary" onClick={handleSingUp}>

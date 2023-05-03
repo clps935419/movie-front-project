@@ -23,3 +23,11 @@ export const postSingup = (props) => {
     ...props,
   });
 };
+
+export const postRecoverPassword = (props) => {
+  return axios({
+    url: `/user/recoverPassword`,
+    method: 'post',
+    ...props,
+  });
+};
