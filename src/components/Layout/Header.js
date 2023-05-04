@@ -1,6 +1,15 @@
 import { Link, link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { clearAuth } from '@/store/slice/authSlice';
 
 function Header({ openloginModal }) {
+  const authStore = useSelector((store) => store['movie-app'].authReducer.auth);
+  const dispatch = useDispatch();
+
+  const handleSingout = () => {
+    dispatch(clearAuth());
+  };
+
   return (
     <>
       <header className="header">
@@ -22,9 +31,15 @@ function Header({ openloginModal }) {
           <button type="button " className="btn btn-customBtn1">
             快速訂票
           </button>
-          <button type="button" className="btn btn-outline-customBtn1" onClick={openloginModal}>
-            會員登入
-          </button>
+          {authStore.token === '' ? (
+            <button type="button" className="btn btn-outline-customBtn1" onClick={openloginModal}>
+              會員登入
+            </button>
+          ) : (
+            <button type="button" className="btn btn-outline-customBtn1" onClick={handleSingout}>
+              會員登出
+            </button>
+          )}
         </div>
         <div className="header__hamburger-icon">
           <span></span>
