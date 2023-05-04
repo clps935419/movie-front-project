@@ -11,7 +11,7 @@ export const handlers = [
       })
     );
   }),
-  rest.post('/api/user/singin', (req, res, ctx) => {
+  rest.post('/api/user/login', (req, res, ctx) => {
     const { email, password } = req.body;
     console.log(password !== 'test');
 
@@ -33,7 +33,7 @@ export const handlers = [
       })
     );
   }),
-  rest.post('/api/user/singup', (req, res, ctx) => {
+  rest.post('/api/user/signup', (req, res, ctx) => {
     const { email, password, checkPassword } = req.body;
 
     if (email === '' || password !== checkPassword) {

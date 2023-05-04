@@ -10,15 +10,15 @@ export const getAuth = (props) => {
 
 export const postLogin = (props) => {
   return axios({
-    url: `/user/singin`,
+    url: `/user/login`,
     method: 'post',
     ...props,
   });
 };
 
-export const postSingup = (props) => {
+export const postSignup = (props) => {
   return axios({
-    url: `/user/singup`,
+    url: `/user/signup`,
     method: 'post',
     ...props,
   });

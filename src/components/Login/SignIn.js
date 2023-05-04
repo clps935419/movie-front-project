@@ -1,30 +1,31 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiTest } from '@/api';
-import LoginContext from './store/LoginContext';
+import { useDispatch } from 'react-redux';
 
-const { postSingup } = apiTest;
-const SingUp = ({ closeModal }) => {
+import LoginContext from './store/LoginContext';
+import { setAuth } from '../../store/slice/authSlice';
+const { postLogin } = apiTest;
+
+const SignIn = ({ closeModal }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const context = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [checkPassword, setCheckPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSingUp = async () => {
-    await postSingup({ data: { email, password, checkPassword } })
+  const handleSignIn = async () => {
+    await postLogin({ data: { email, password } })
       .then(({ data }) => {
         if (data.status === 'success') {
+          dispatch(setAuth({ payload: { uid: 1, token: '123', time: '20000' } }));
           closeModal();
           navigate('/member');
         }
       })
       .catch(({ response }) => setErrorMessage(response.data.message));
-  };
-
-  const handleBackSingIn = () => {
-    context.changeSingIn();
   };
 
   const handleEmail = (e) => {
@@ -35,14 +36,10 @@ const SingUp = ({ closeModal }) => {
     setPassword(e.target.value);
   };
 
-  const handleCheckPassword = (e) => {
-    setCheckPassword(e.target.value);
-  };
-
   return (
-    <div className="modal-content">
+    <>
       <div className="modal-header">
-        <h5 className="modal-title">會員註冊</h5>
+        <h5 className="modal-title">會員登入</h5>
         <button type="button" className="btn-close" onClick={closeModal}></button>
       </div>
       <div className="modal-body">
@@ -54,7 +51,6 @@ const SingUp = ({ closeModal }) => {
             <input type="email" id="email" className="form-control" onChange={handleEmail} value={email} />
           </div>
         </div>
-
         <div className="row mb-3">
           <label htmlFor="password" className="col-3 col-form-label">
             密碼
@@ -64,34 +60,24 @@ const SingUp = ({ closeModal }) => {
           </div>
         </div>
 
-        <div className="row mb-3">
-          <label htmlFor="checkPassword" className="col-3 col-form-label">
-            確認密碼
-          </label>
-          <div className="col-9">
-            <input
-              type="password"
-              id="checkPassword"
-              className="form-control"
-              onChange={handleCheckPassword}
-              value={checkPassword}
-            />
-          </div>
-        </div>
-
         <p className="text-danger">{errorMessage}</p>
       </div>
 
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" onClick={handleBackSingIn}>
-          返回登入
-        </button>
-        <button type="button" className="btn btn-primary" onClick={handleSingUp}>
-          註冊
+      <div className="modal-footer d-flex justify-content-between">
+        <div>
+          <button type="button" className="btn btn-warning me-2" onClick={context.changeRecoverPassword}>
+            忘記密碼
+          </button>
+          <button type="button" className="btn btn-secondary" onClick={context.changeSignUp}>
+            註冊
+          </button>
+        </div>
+        <button type="button" className="btn btn-primary" onClick={handleSignIn}>
+          登入
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
-export default SingUp;
+export default SignIn;

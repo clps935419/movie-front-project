@@ -1,9 +1,9 @@
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'singin':
-      return { ...state, status: 'singin' };
-    case 'singup':
-      return { ...state, status: 'singup' };
+    case 'signin':
+      return { ...state, status: 'signin' };
+    case 'signup':
+      return { ...state, status: 'signup' };
     case 'recoverPassword':
       return { ...state, status: 'recoverPassword' };
     default:
