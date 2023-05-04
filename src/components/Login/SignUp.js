@@ -17,6 +17,7 @@ const SignUp = ({ closeModal }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSignUp = async () => {
+    setErrorMessage((pre) => '');
     await postSignup({ data: { email, password, passwordCheck } })
       .then(({ data }) => {
         if (data.status === 'success') {
@@ -25,7 +26,10 @@ const SignUp = ({ closeModal }) => {
           navigate('/member');
         }
       })
-      .catch(({ response }) => setErrorMessage(response.data.message));
+      .catch(({ response }) => {
+        if (response.data.errors) setErrorMessage(response.data.errors[0].msg);
+        else setErrorMessage(response.data.message);
+      });
   };
 
   const handleBackSignIn = () => {
