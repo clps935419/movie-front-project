@@ -2,10 +2,14 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiTest } from '@/api';
 import LoginContext from './store/LoginContext';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../store/slice/authSlice';
 
 const { postSignup } = apiTest;
 const SignUp = ({ closeModal }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const context = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,9 +17,10 @@ const SignUp = ({ closeModal }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSignUp = async () => {
-    await postSignup({ data: { email, password, checkPassword: passwordCheck } })
+    await postSignup({ data: { email, password, passwordCheck } })
       .then(({ data }) => {
         if (data.status === 'success') {
+          dispatch(setAuth({ payload: { uid: data._id, token: data.token, time: '20000' } }));
           closeModal();
           navigate('/member');
         }
