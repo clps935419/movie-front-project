@@ -8,7 +8,7 @@ const RecoverPassword = ({ closeModal }) => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSingUp = async () => {
+  const handleSubmit = async () => {
     await postRecoverPassword({ data: { email } })
       .then(({ data }) => {
         if (data.status === 'success') {
@@ -18,8 +18,8 @@ const RecoverPassword = ({ closeModal }) => {
       .catch(({ response }) => setMessage(response.data.message));
   };
 
-  const handleBackSingIn = () => {
-    context.changeSingIn();
+  const handleBackSignIn = () => {
+    context.changeSignIn();
   };
 
   const handleEmail = (e) => {
@@ -45,10 +45,10 @@ const RecoverPassword = ({ closeModal }) => {
       </div>
 
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" onClick={handleBackSingIn}>
+        <button type="button" className="btn btn-secondary" onClick={handleBackSignIn}>
           返回登入
         </button>
-        <button type="button" className="btn btn-primary" onClick={handleSingUp}>
+        <button type="button" className="btn btn-primary" onClick={handleSubmit}>
           送出
         </button>
       </div>
