@@ -31,11 +31,3 @@ export const postRecoverPassword = (props) => {
     ...props,
   });
 };
-
-export const postRecoverPassword = (props) => {
-  return axios({
-    url: `/user/recoverPassword`,
-    method: 'post',
-    ...props,
-  });
-};
