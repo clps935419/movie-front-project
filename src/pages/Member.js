@@ -1,4 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { selectAuth } from '@/store/slice/authSlice';
+import { apiUser } from '@/api';
 
 const initUser = {
   username: '',
@@ -7,7 +12,11 @@ const initUser = {
   birth: '',
 };
 
+const { getProfile } = apiUser;
+
 const Member = () => {
+  const navigate = useNavigate();
+  const { email } = useSelector(selectAuth);
   const [user, setUser] = useState(initUser);
 
   const handleChange = (e) => {
@@ -28,6 +37,18 @@ const Member = () => {
   };
 
   const handleSubmit = () => {};
+
+  useEffect(() => {
+    getProfile(email)
+      .then(({ data }) => {
+        if (data.status === 'success') {
+          setUser((pre) => ({ ...pre, ...data.data }));
+        }
+      })
+      .catch(() => {
+        navigate('/');
+      });
+  }, [email, navigate]);
 
   return (
     <div className="container">
