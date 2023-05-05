@@ -4,6 +4,7 @@ import Test from '@/pages/Test';
 import Member from '@/pages/Member';
 import NotFound from '@/pages/NotFound';
 import { Navigate } from 'react-router-dom';
+import Activity from '@/pages/Activity';
 
 const routeConfig = [
   {
@@ -24,7 +25,7 @@ const routeConfig = [
       },
       {
         path: '/activity',
-        element: <Test />,
+        element: <Activity />,
       },
       {
         path: '/theaters',
