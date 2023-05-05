@@ -31,3 +31,11 @@ export const getProfile = (email, props) => {
     ...props,
   });
 };
+
+export const patchProfile = (props) => {
+  return axios({
+    url: `/user/profile`,
+    method: 'patch',
+    ...props,
+  });
+};

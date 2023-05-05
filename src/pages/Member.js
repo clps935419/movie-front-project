@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -6,13 +6,14 @@ import { selectAuth } from '@/store/slice/authSlice';
 import { apiUser } from '@/api';
 
 const initUser = {
-  username: '',
-  sex: 'man',
+  name: '',
+  sex: 'male',
   mobile: '',
   birth: '',
+  hobby: [],
 };
 
-const { getProfile } = apiUser;
+const { getProfile, patchProfile } = apiUser;
 
 const Member = () => {
   const navigate = useNavigate();
@@ -36,35 +37,46 @@ const Member = () => {
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    try {
+      await patchProfile({ data: { ...user } });
+      await fetchUserProfile();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchUserProfile = useCallback(async () => {
+    try {
+      const { data } = await getProfile(email);
+      if (data.status === 'success') {
+        const formattedBirth = new Date(data.data.birth).toISOString().split('T')[0];
+        setUser((pre) => ({ ...pre, ...data.data, birth: formattedBirth }));
+      }
+    } catch (error) {
+      navigate('/');
+    }
+  }, [email, navigate]);
 
   useEffect(() => {
-    getProfile(email)
-      .then(({ data }) => {
-        if (data.status === 'success') {
-          setUser((pre) => ({ ...pre, ...data.data }));
-        }
-      })
-      .catch(() => {
-        navigate('/');
-      });
-  }, [email, navigate]);
+    fetchUserProfile();
+  }, [fetchUserProfile]);
 
   return (
     <div className="container">
       <h1 className="text-center">會員中心</h1>
       <form>
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">
+          <label htmlFor="name" className="form-label">
             姓名
           </label>
           <input
             type="text"
             className="form-control"
             autoComplete="off"
-            id="username"
+            id="name"
             placeholder="請填寫姓名"
-            value={user.username}
+            value={user.name}
             onChange={handleChange}
           />
         </div>
@@ -76,7 +88,7 @@ const Member = () => {
               type="radio"
               name="sex"
               id="male"
-              checked={user.sex === 'man'}
+              checked={user.sex === 'male'}
               onChange={handleSex}
             />
             <label className="form-check-label" htmlFor="male">
