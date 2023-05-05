@@ -51,10 +51,12 @@ const EditMember = () => {
     try {
       const { data } = await getProfile(email);
       if (data.status === 'success') {
-        const formattedBirth = new Date(data.data.birth).toISOString().split('T')[0];
+        const formattedBirth = !!data.data.birth ? new Date(data.data.birth).toISOString().split('T')[0] : '';
         setUser((pre) => ({ ...pre, ...data.data, birth: formattedBirth }));
       }
     } catch (error) {
+      console.error(error);
+
       navigate('/');
     }
   }, [email, navigate]);

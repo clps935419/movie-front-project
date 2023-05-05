@@ -24,7 +24,8 @@ const UpdatePassword = () => {
   const handleSubmit = async () => {
     setErrorMessage('');
     try {
-      await updatePassword({ data: { ...password, email } });
+      const { data } = await updatePassword({ data: { ...password, email } });
+      if (data.status === 'success') setPassword(initPassword);
     } catch (error) {
       console.error(error);
       if (!!error.response.data.errors)
@@ -67,9 +68,7 @@ const UpdatePassword = () => {
           onChange={handleChange}
         />
       </div>
-      <p className="text-danger">
-        <pre>{errorMessage}</pre>
-      </p>
+      <p className="text-danger">{errorMessage}</p>
       <div className="d-flex justify-content-center">
         <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
           修改密碼
