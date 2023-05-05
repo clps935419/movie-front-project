@@ -13,8 +13,6 @@ export const handlers = [
   }),
   rest.post('/api/user/login', (req, res, ctx) => {
     const { email, password } = req.body;
-    console.log(password !== 'test');
-
     if (email !== 'test@gmail.com' || password !== 'test') {
       return res(
         ctx.status(400),
@@ -30,6 +28,8 @@ export const handlers = [
       ctx.status(200),
       ctx.json({
         status: 'success',
+        _id: 123,
+        token: '123'
       })
     );
   }),
@@ -51,6 +51,8 @@ export const handlers = [
       ctx.status(200),
       ctx.json({
         status: 'success',
+        _id: 123,
+        token: '123'
       })
     );
   }),
