@@ -39,3 +39,11 @@ export const patchProfile = (props) => {
     ...props,
   });
 };
+
+export const updatePassword = (props) => {
+  return axios({
+    url: `/user/password`,
+    method: 'post',
+    ...props,
+  });
+};
