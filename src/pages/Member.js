@@ -6,6 +6,7 @@ import { selectAuth } from '@/store/slice/authSlice';
 import { apiUser } from '@/api';
 
 const initUser = {
+  email: '',
   name: '',
   sex: 'male',
   mobile: '',
@@ -67,6 +68,13 @@ const Member = () => {
       <h1 className="text-center">會員中心</h1>
       <form>
         <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            電子信箱
+          </label>
+          <input type="email" className="form-control" autoComplete="off" disabled id="email" value={user.email} />
+        </div>
+
+        <div className="mb-3">
           <label htmlFor="name" className="form-label">
             姓名
           </label>
@@ -80,9 +88,10 @@ const Member = () => {
             onChange={handleChange}
           />
         </div>
+
         <div className="mb-3">
-          <label className="form-label">性別</label>
-          <div className="form-check">
+          <p className="form-label">性別</p>
+          <div className="form-check form-check-inline">
             <input
               className="form-check-input"
               type="radio"
@@ -95,7 +104,7 @@ const Member = () => {
               男性
             </label>
           </div>
-          <div className="form-check">
+          <div className="form-check form-check-inline">
             <input
               className="form-check-input"
               type="radio"
@@ -108,7 +117,28 @@ const Member = () => {
               女性
             </label>
           </div>
+          <div className="form-check form-check-inline">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="sex"
+              id="unspecified"
+              checked={user.sex === 'unspecified'}
+              onChange={handleSex}
+            />
+            <label className="form-check-label" htmlFor="unspecified">
+              不提供
+            </label>
+          </div>
         </div>
+
+        <div className="mb-3">
+          <label htmlFor="birth" className="form-label">
+            出生日期
+          </label>
+          <input type="date" className="form-control" id="birth" onChange={handleChange} value={user.birth} />
+        </div>
+
         <div className="mb-3">
           <label htmlFor="mobile" className="form-label">
             行動電話
@@ -121,13 +151,6 @@ const Member = () => {
             value={user.mobile}
             onChange={handleTel}
           />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="birth" className="form-label">
-            出生日期
-          </label>
-          <input type="date" className="form-control" id="birth" onChange={handleChange} value={user.birth} />
         </div>
 
         <div className="d-flex justify-content-center">
