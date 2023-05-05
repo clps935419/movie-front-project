@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
-import { apiTest } from '@/api';
+import { apiUser } from '@/api';
 import LoginContext from './store/LoginContext';
 
-const { postRecoverPassword } = apiTest;
+const { postRecoverPassword } = apiUser;
 const RecoverPassword = ({ closeModal }) => {
   const context = useContext(LoginContext);
   const [email, setEmail] = useState('');

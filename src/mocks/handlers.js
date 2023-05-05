@@ -28,8 +28,10 @@ export const handlers = [
       ctx.status(200),
       ctx.json({
         status: 'success',
-        _id: 123,
-        token: '123'
+        data: {
+          _id: 123,
+          token: '123',
+        },
       })
     );
   }),
@@ -51,8 +53,10 @@ export const handlers = [
       ctx.status(200),
       ctx.json({
         status: 'success',
-        _id: 123,
-        token: '123'
+        data: {
+          _id: 123,
+          token: '123',
+        },
       })
     );
   }),

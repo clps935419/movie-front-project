@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiTest } from '@/api';
+import { apiUser } from '@/api';
 import LoginContext from './store/LoginContext';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../store/slice/authSlice';
 
-const { postSignup } = apiTest;
+const { postSignup } = apiUser;
 const SignUp = ({ closeModal }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,7 +21,8 @@ const SignUp = ({ closeModal }) => {
     await postSignup({ data: { email, password, passwordCheck } })
       .then(({ data }) => {
         if (data.status === 'success') {
-          dispatch(setAuth({ uid: data._id, token: data.token, time: '20000' }));
+          const { _id, token } = data.data;
+          dispatch(setAuth({ uid: _id, token: token, time: '20000' }));
           closeModal();
           navigate('/member');
         }
