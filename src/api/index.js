@@ -1,3 +1,3 @@
-import * as test from "@/api/apiTest";
+import * as user from '@/api/user';
 
-export const apiTest = test;
+export const apiUser = user;
