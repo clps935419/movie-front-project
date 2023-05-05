@@ -35,7 +35,7 @@ export default async (propsConfig) => {
         if (token) {
           config.headers = {
             ...config.headers,
-            Authorization: `${token}`,
+            Authorization: `Bearer ${token}`,
           };
         }
       }
