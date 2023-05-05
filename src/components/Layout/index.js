@@ -30,7 +30,7 @@ function Layout() {
 
   return (
     <div className="wrapper">
-      <Header openloginModal={openModal} />
+      <Header openLoginModal={openModal} />
       <div
         className={clsx('content', {
           noPdTop: noPdTopListArr.includes(pathname),
