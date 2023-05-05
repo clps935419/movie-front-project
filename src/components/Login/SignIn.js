@@ -20,7 +20,7 @@ const SignIn = ({ closeModal }) => {
     await postLogin({ data: { email, password } })
       .then(({ data }) => {
         if (data.status === 'success') {
-          dispatch(setAuth({ payload: { uid: data._id, token: data.token, time: '20000' } }));
+          dispatch(setAuth({ uid: data._id, token: data.token, time: '20000' }));
           closeModal();
           navigate('/member');
         }

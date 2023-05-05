@@ -1,13 +1,25 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { clearAuth } from '@/store/slice/authSlice';
+import { selectAuth, clearAuth } from '@/store/slice/authSlice';
 
-function Header({ openloginModal }) {
-  const authStore = useSelector((store) => store['movie-app'].authReducer.auth);
+function Header({ openLoginModal }) {
+  const authStore = useSelector(selectAuth);
   const dispatch = useDispatch();
 
-  const handleSingout = () => {
+  const handleSignOut = () => {
     dispatch(clearAuth());
   };
+
+  const loginButton = !!authStore.token ?
+    (
+      <button type="button" className="btn btn-outline-customBtn1" onClick={handleSignOut}>
+        會員登出
+      </button>
+    ) :
+    (
+      <button type="button" className="btn btn-outline-customBtn1" onClick={openLoginModal}>
+        會員登入
+      </button>
+    )
 
   return (
     <>
@@ -30,15 +42,7 @@ function Header({ openloginModal }) {
           <button type="button " className="btn btn-customBtn1">
             快速訂票
           </button>
-          {authStore.token === '' ? (
-            <button type="button" className="btn btn-outline-customBtn1" onClick={openloginModal}>
-              會員登入
-            </button>
-          ) : (
-            <button type="button" className="btn btn-outline-customBtn1" onClick={handleSingout}>
-              會員登出
-            </button>
-          )}
+          {loginButton}
         </div>
         <div className="header__hamburger-icon">
           <span></span>

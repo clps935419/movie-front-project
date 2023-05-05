@@ -26,14 +26,6 @@ const LoginModal = ({ modalRef }) => {
     Modal.getInstance(modal).hide();
   };
 
-  useEffect(() => {
-    const modal = modalRef.current;
-    modal.addEventListener('hidden.bs.modal', changeSignIn);
-    return () => {
-      modal.removeEventListener('hidden.bs.modal', changeSignIn);
-    };
-  }, [modalRef]);
-
   let content = <SignIn closeModal={closeModal} />;
 
   if (state.status === 'signup') content = <SignUp closeModal={closeModal} />;
