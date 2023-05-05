@@ -1,6 +1,27 @@
 import { Link, link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAuth, clearAuth } from '@/store/slice/authSlice';
 
-function Header() {
+function Header({ openLoginModal }) {
+  const authStore = useSelector(selectAuth);
+  const dispatch = useDispatch();
+
+  const handleSignOut = () => {
+    dispatch(clearAuth());
+  };
+
+  const loginButton = !!authStore.token ?
+    (
+      <button type="button" className="btn btn-outline-customBtn1" onClick={handleSignOut}>
+        會員登出
+      </button>
+    ) :
+    (
+      <button type="button" className="btn btn-outline-customBtn1" onClick={openLoginModal}>
+        會員登入
+      </button>
+    )
+
   return (
     <>
       <header className="header">
@@ -22,9 +43,7 @@ function Header() {
           <button type="button " className="btn btn-customBtn1">
             快速訂票
           </button>
-          <button type="button" className="btn btn-outline-customBtn1">
-            會員登入
-          </button>
+          {loginButton}
         </div>
         <div className="header__hamburger-icon">
           <span></span>

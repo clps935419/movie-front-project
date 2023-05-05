@@ -10,10 +10,11 @@ export const injectStore = (_store) => {
 
 const isDev = process.env.NODE_ENV === "development";
 const isTest = process.env.NODE_ENV === "test";
+const PRODUCT_URL = process.env.REACT_APP_PRODUCT_URL;
 const BASE_URL =
   isDev || isTest
     ? "/api/"
-    : `${window.location.href.match(/http.*\/{2}.*?\/{1}.+?\//)[0]}api`;
+    : `${PRODUCT_URL}api`;
 const SYSTEM_NAME = process.env.REACT_APP_NAME || "test";
 
 export default async (propsConfig) => {

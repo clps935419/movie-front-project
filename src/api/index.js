@@ -1,3 +1,5 @@
-import * as test from "@/api/apiTest";
+import * as user from '@/api/user';
+import * as activity from "@/api/activity";
 
-export const apiTest = test;
+export const apiUser = user;
+export const apiActivity = activity;

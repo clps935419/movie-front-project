@@ -18,7 +18,7 @@ module.exports = {
     compress: true,
     proxy: {
       "/api": {
-        target: `http://${ENV_VAR.REACT_APP_PROXY_DEV_URL}/${ENV_VAR.REACT_APP_NAME}`,
+        target: `${ENV_VAR.REACT_APP_PROXY_DEV_URL}`,
       },
       "/connect": {
         target: `${ENV_VAR.REACT_APP_PROXY_DEV_URL}/websocket/${ENV_VAR.REACT_APP_NAME}`,
