@@ -21,8 +21,8 @@ const SignUp = ({ closeModal }) => {
     await postSignup({ data: { email, password, passwordCheck } })
       .then(({ data }) => {
         if (data.status === 'success') {
-          const { _id, token } = data.data;
-          dispatch(setAuth({ uid: _id, token: token, time: '20000' }));
+          const { _id, email, token } = data.data;
+          dispatch(setAuth({ uid: _id, email, token, time: '20000' }));
           closeModal();
           navigate('/member');
         }
