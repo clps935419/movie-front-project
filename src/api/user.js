@@ -23,3 +23,27 @@ export const postRecoverPassword = (props) => {
     ...props,
   });
 };
+
+export const getProfile = (email, props) => {
+  return axios({
+    url: `/user/profile/${email}`,
+    method: 'get',
+    ...props,
+  });
+};
+
+export const patchProfile = (props) => {
+  return axios({
+    url: `/user/profile`,
+    method: 'patch',
+    ...props,
+  });
+};
+
+export const updatePassword = (props) => {
+  return axios({
+    url: `/user/password`,
+    method: 'post',
+    ...props,
+  });
+};

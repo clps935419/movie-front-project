@@ -1,15 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import NiceModal from '@ebay/nice-modal-react';
 import ExampleModal from '../components/Modal/ExampleModal';
 
 function Information() {
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await getAuth();
-  //   })();
-  // }, []);
+  const navigate = useNavigate();
 
   return (
     <>
+      <button
+        type="button"
+        className="btn btn-success"
+        onClick={() => {
+          navigate('/member');
+        }}
+      >
+        前往會員資訊
+      </button>
+
       <button
         type="button"
         style={{ marginTop: '200px' }}
