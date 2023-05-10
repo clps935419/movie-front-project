@@ -6,10 +6,11 @@ import NotFound from '@/pages/NotFound';
 import { Navigate } from 'react-router-dom';
 import Activity from '@/pages/Activity';
 import MoviesList from '../pages/MoviesList';
+import RouterInterceptor from './RouterInterceptor';
 
 const routeConfig = [
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     children: [
       {
@@ -17,29 +18,34 @@ const routeConfig = [
         element: <Navigate to="/home" />,
       },
       {
-        path: '/home',
+        path: "/home",
         element: <Information />,
       },
       {
-        path: '/movies',
+        path: "/movies",
         element: <MoviesList />,
       },
       {
-        path: '/activity',
+        path: "/activity",
         element: <Activity />,
       },
       {
-        path: '/theaters',
+        path: "/theaters",
         element: <Test />,
       },
       {
-        path: '/member',
+        path: "/member",
         element: <Member />,
       },
+      //攔截器範例
+      // {
+      //   path: "/member",
+      //   element: <RouterInterceptor inner={<Member />} />,
+      // },
     ],
   },
   {
-    path: '*',
+    path: "*",
     element: <NotFound />,
   },
   //   {
