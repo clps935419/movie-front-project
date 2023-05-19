@@ -3,10 +3,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 17.5px 14px 12px;
-  position: fixed;
+  position: sticky;
+  z-index: $zindex-sticky;
   top: 0;
-  left: 0;
-  right: 0;
   background: rgba(255, 255, 255, 0.4);
 
   a {

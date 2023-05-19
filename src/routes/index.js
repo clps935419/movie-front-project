@@ -6,6 +6,7 @@ import NotFound from '@/pages/NotFound';
 import { Navigate } from 'react-router-dom';
 import Activity from '@/pages/Activity';
 import MoviesList from '../pages/MoviesList';
+import Home from "@/pages/Home";
 import RouterInterceptor from './RouterInterceptor';
 
 const routeConfig = [
@@ -19,7 +20,7 @@ const routeConfig = [
       },
       {
         path: "/home",
-        element: <Information />,
+        element: <Home />,
       },
       {
         path: "/movies",
