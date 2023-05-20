@@ -14,6 +14,7 @@ const GoTopBtn = styled.button`
   height: 48px;
   background: #31e2ce;
   border-radius: 50%;
+  border: none;
 `;
 
 function Footer() {
