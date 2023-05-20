@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout';
 import Activity from '@/pages/Activity';
-import Information from '@/pages/Information';
+import Home from "@/pages/Home";
 import Member from '@/pages/Member';
 import NotFound from '@/pages/NotFound';
 import Test from '@/pages/Test';
@@ -22,7 +22,7 @@ const routeConfig = [
       },
       {
         path: "/home",
-        element: <Information />,
+        element: <Home />,
       },
       {
         path: "/movies",
