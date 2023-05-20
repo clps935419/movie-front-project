@@ -128,20 +128,36 @@ const ContentBtnArea = styled.div`
 `
 
 const FastBtn = styled.div`
-  display: none;
+  background: #8c99ae;
+  width: calc(100% - 24px);
+  color: white;
+  padding: 8px 0;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 auto;
+  cursor: pointer;
+  svg {
+    display: none;
+  }
   ${media.md`
+  width: auto;
+  background: unset;
+  padding:0;
   display: flex;
   align-items: center;
   position: absolute;
   top: 24px;
   right: 24px;
   span {
+    color: black;
     font-weight: 700;
     font-size: 16px;
     margin-right: 9px;
     margin-top: 5px;
   }
   svg {
+    display: block;
     transform: scale(1.5) rotate(-45deg);
   }
   `}
