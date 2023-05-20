@@ -1,17 +1,18 @@
 import Layout from '@/components/Layout';
 import Information from '@/pages/Information';
 import Test from '@/pages/Test';
-import Member from '@/pages/Member';
+import Member, { UserInformation, PurchaseRecord, BonusRecord } from '@/pages/Member';
+
 import NotFound from '@/pages/NotFound';
 import { Navigate } from 'react-router-dom';
 import Activity from '@/pages/Activity';
 import MoviesList from '../pages/MoviesList';
-import Home from "@/pages/Home";
+import Home from '@/pages/Home';
 import RouterInterceptor from './RouterInterceptor';
 
 const routeConfig = [
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
@@ -19,24 +20,29 @@ const routeConfig = [
         element: <Navigate to="/home" />,
       },
       {
-        path: "/home",
+        path: '/home',
         element: <Home />,
       },
       {
-        path: "/movies",
+        path: '/movies',
         element: <MoviesList />,
       },
       {
-        path: "/activity",
+        path: '/activity',
         element: <Activity />,
       },
       {
-        path: "/theaters",
+        path: '/theaters',
         element: <Test />,
       },
       {
-        path: "/member",
-        element: <Member />,
+        path: '/member',
+        element: <RouterInterceptor inner={<Member />} />,
+        children: [
+          { index: true, element: <UserInformation /> },
+          { path: 'purchaseRecord', element: <PurchaseRecord /> },
+          { path: 'bonusRecord', element: <BonusRecord /> },
+        ],
       },
       //攔截器範例
       // {
@@ -46,7 +52,7 @@ const routeConfig = [
     ],
   },
   {
-    path: "*",
+    path: '*',
     element: <NotFound />,
   },
   //   {

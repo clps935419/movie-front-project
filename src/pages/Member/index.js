@@ -1,51 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-import { selectAuth } from '@/store/slice/authSlice';
-import EditMember from './components/EditMember';
-import UpdatePassword from './components/UpdatePassword';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
+import '@/assets/scss/member/navTab.scss';
 
 const Member = () => {
-  const navigate = useNavigate();
-  const { token, email } = useSelector(selectAuth);
-  const [isUpdatePassword, setIsUpdatePassword] = useState(false);
-
-  useEffect(() => {
-    if (!!!token || !!!email) navigate('/');
-  }, [token, email, navigate]);
-
+  const location = useLocation();
   return (
     <div className="container">
-      <h1 className="text-center">會員中心</h1>
-      {isUpdatePassword ? (
-        <div className="text-end">
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={() => {
-              setIsUpdatePassword(false);
-            }}
-          >
-            返回會員資料
-          </button>
-        </div>
-      ) : (
-        <div className="text-end">
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={() => {
-              setIsUpdatePassword(true);
-            }}
-          >
-            修改密碼
-          </button>
-        </div>
-      )}
-      {isUpdatePassword ? <UpdatePassword /> : <EditMember />}
+      <Nav variant="tabs" className="member" defaultActiveKey={`#${location.pathname}`}>
+        <Nav.Item>
+          <Nav.Link href="#/member">個人資料</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="#/member/purchaseRecord">購票紀錄</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="#/member/bonusRecord">紅利點數</Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <Outlet />
     </div>
   );
 };
 
 export default Member;
+export { default as UserInformation } from './UserInformation';
+export { default as BonusRecord } from './BonusRecord';
+export { default as PurchaseRecord } from './PurchaseRecord';
