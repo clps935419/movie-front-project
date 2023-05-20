@@ -3,14 +3,10 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import LoginModal from '../Login/LoginModal';
-import { useLocation } from 'react-router-dom';
-import clsx from 'clsx';
 
 import { Modal } from 'bootstrap';
 
 function Layout() {
-  const { pathname } = useLocation();
-  const noPdTopListArr = ['/home']; //首頁header有蓋住內容，所以有蓋住內容的樣式統一這邊設定
   const modalRef = useRef(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -31,11 +27,7 @@ function Layout() {
   return (
     <div className="wrapper">
       <Header openLoginModal={openModal} />
-      <div
-        className={clsx('content', {
-          noPdTop: noPdTopListArr.includes(pathname),
-        })}
-      >
+      <div className="content">
         <Outlet />
         {isOpenModal && <LoginModal modalRef={modalRef} />}
       </div>
