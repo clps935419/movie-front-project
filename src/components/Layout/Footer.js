@@ -1,9 +1,35 @@
 import { Link, link } from "react-router-dom";
+import styled from "styled-components";
+import { ReactComponent as ArrowBtn } from "@/assets/icons/expand_less_black_24dp 1.svg";
+
+const FooterWrapper = styled.div`
+  position: relative;
+`;
+
+const GoTopBtn = styled.button`
+  position: absolute;
+  top: -24px;
+  right:10%;
+  width: 48px;
+  height: 48px;
+  background: #31e2ce;
+  border-radius: 50%;
+  border: none;
+`;
 
 function Footer() {
+  function handleGoTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
   return (
     <>
-      <footer className="footer">
+      <FooterWrapper className="footer">
+        <GoTopBtn onClick={handleGoTop}>
+          <ArrowBtn />
+        </GoTopBtn>
         <div className="footer__logo">
           <Link to="/home">CineK</Link>
         </div>
@@ -25,7 +51,7 @@ function Footer() {
           </li>
         </ul>
         <div>Copyright © 2023 CineK影城</div>
-      </footer>
+      </FooterWrapper>
     </>
   );
 }
