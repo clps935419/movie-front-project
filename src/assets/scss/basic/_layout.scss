@@ -85,17 +85,9 @@
   }
 }
 .content {
-  padding-top: 58px;
   min-height: calc(100% - 244px);
-  &.noPdTop {
-    padding-top: 0px;
-    @include media-breakpoint-up(md) {
-      padding-top: 0px;
-    }
-  }
   @include media-breakpoint-up(md) {
     min-height: calc(100% - 120px);
-    padding-top: 82px;
   }
 }
 .footer {
