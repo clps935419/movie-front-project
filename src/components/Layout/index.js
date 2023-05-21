@@ -1,14 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
-import LoginModal from '../Login/LoginModal';
+import { useEffect, useRef, useState } from "react";
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
+import LoginModal from "../Login/LoginModal";
 
-import { Modal } from 'bootstrap';
+import { Modal } from "bootstrap";
+import HamburgerMenu from "./HamburgerMenu";
+import { useSelector } from "react-redux";
+import { selectIsShowHamburgerMenu } from "../../store/slice/publicSlice";
 
 function Layout() {
   const modalRef = useRef(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const isShowHamburgerMenu = useSelector(selectIsShowHamburgerMenu);
 
   const openModal = () => {
     setIsOpenModal(true);
@@ -18,7 +22,7 @@ function Layout() {
     const modal = modalRef.current;
     if (modal) {
       new Modal(modal).show();
-      modal.addEventListener('hidden.bs.modal', () => {
+      modal.addEventListener("hidden.bs.modal", () => {
         setIsOpenModal(false);
       });
     }
@@ -32,6 +36,7 @@ function Layout() {
         {isOpenModal && <LoginModal modalRef={modalRef} />}
       </div>
       <Footer />
+      {isShowHamburgerMenu && <HamburgerMenu openLoginModal={openModal} />}
     </div>
   );
 }
