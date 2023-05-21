@@ -1,35 +1,59 @@
-import { Badge, Card, Container } from 'react-bootstrap';
+import { Badge, Card, Col, Container, Row } from 'react-bootstrap';
 
 export default function MovieVersion(params) {
   return (<>
     <Container>
-      <Badge bg="dark" pill>數位版</Badge>
-      <div className="d-flex justify-content-start p-2 gap-3">
-        <Card>
-          <Card.Body>
-            <Card.Title>12:30</Card.Title>
-            <Card.Subtitle>A廳 396席</Card.Subtitle>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>12:30</Card.Title>
-            <Card.Subtitle>A廳 396席</Card.Subtitle>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>12:30</Card.Title>
-            <Card.Subtitle>A廳 396席</Card.Subtitle>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>12:30</Card.Title>
-            <Card.Subtitle>A廳 396席</Card.Subtitle>
-          </Card.Body>
-        </Card>
-      </div>
+      <Badge bg="dark" pill className='fs-5 my-3'>數位版</Badge>
+      <Row xs={3} md={4} lg={6} className='gap-3'>
+        <Col>
+          <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
+            <Card.Body className='text-center'>
+              <Card.Title><h2>12:30</h2></Card.Title>
+              <Card.Subtitle className='fs-6 text-muted'>A廳 396席</Card.Subtitle>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
+            <Card.Body className='text-center'>
+              <Card.Title><h2>12:30</h2></Card.Title>
+              <Card.Subtitle className='fs-6 text-muted'>A廳 396席</Card.Subtitle>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
+            <Card.Body className='text-center'>
+              <Card.Title><h2>12:30</h2></Card.Title>
+              <Card.Subtitle className='fs-6 text-muted'>A廳 396席</Card.Subtitle>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
+            <Card.Body className='text-center'>
+              <Card.Title><h2>12:30</h2></Card.Title>
+              <Card.Subtitle className='fs-6 text-muted'>A廳 396席</Card.Subtitle>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
+            <Card.Body className='text-center'>
+              <Card.Title><h2>12:30</h2></Card.Title>
+              <Card.Subtitle className='fs-6 text-muted'>A廳 396席</Card.Subtitle>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
+            <Card.Body className='text-center'>
+              <Card.Title><h2>12:30</h2></Card.Title>
+              <Card.Subtitle className='fs-6 text-muted'>A廳 396席</Card.Subtitle>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   </>)
 };

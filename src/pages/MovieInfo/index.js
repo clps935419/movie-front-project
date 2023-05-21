@@ -8,7 +8,7 @@ export default function MovieInfo(params) {
       <div className='bg-dark'>
         <Trailer />
       </div>
-      <div className="py-3 px-5">
+      <div>
         <MovieIntroduction />
         <TimeTable />
       </div>
