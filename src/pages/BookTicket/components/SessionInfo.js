@@ -4,10 +4,11 @@ export default function SessionInfo(params) {
   return (<>
     <Container>
       <Row>
-        <Col md={4}><img className="img-fluid h-50" src="https://www.vscinemas.com.tw/vsweb/upload/film/film_20230218037.jpg" alt="" /></Col>
-        <Col md={8}><h3 class="card-title">超級瑪利歐兄弟電影版</h3>
-          <h6 class="card-subtitle mb-2 text-muted">THE SUPER MARIO BROS MOVIE</h6>
-          <Badge bg="warning" text="dark" pill>普通級</Badge>
+        <Col xs={12} md={4}><img className="img-fluid" src="https://www.vscinemas.com.tw/vsweb/upload/film/film_20230218037.jpg" alt="" /></Col>
+        <Col xs={12} md={8} className="fs-6">
+          <h1 class="card-title">超級瑪利歐兄弟電影版</h1>
+          <p class="fs-3 card-subtitle mb-2 text-muted">THE SUPER MARIO BROS MOVIE</p>
+          <Badge bg="customBadgeYellow" text="dark" pill className='mb-3 caption1'>普通級</Badge>
           <p>地點： 高雄影城A廳</p>
           <p>開演時間： 2023/04/05 13:20</p>
           <hr />
