@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/movie-front-project/static/css/main.595e1849.css",
+    "main.css": "/movie-front-project/static/css/main.fbe3d49e.css",
     "main.js": "/movie-front-project/static/js/main.23751bb2.js",
     "static/js/787.28cb0dcd.chunk.js": "/movie-front-project/static/js/787.28cb0dcd.chunk.js",
     "static/media/NotoSansTC-Regular.otf": "/movie-front-project/static/media/NotoSansTC-Regular.605c23963832d4e5cf08.otf",
     "static/media/logo.png": "/movie-front-project/static/media/logo.e22982efdcf8a6368519.png",
-    "static/media/arrow_circle_right.svg": "/movie-front-project/static/media/arrow_circle_right.f7b4c57a0401a03a88c8a1055a3da875.svg",
+    "static/media/arrow_circle_right.svg": "/movie-front-project/static/media/arrow_circle_right.554a73dfe38620ce3817f3136a893505.svg",
     "index.html": "/movie-front-project/index.html",
     "static/media/schedule_black_24dp 1.svg": "/movie-front-project/static/media/schedule_black_24dp 1.41bbe175b3cc8d5146ad5089e8353f8a.svg",
     "static/media/event_available_black_24dp 1.svg": "/movie-front-project/static/media/event_available_black_24dp 1.ef58fdbdc03667274d8b0668a12625c7.svg",
     "static/media/close-line 1.svg": "/movie-front-project/static/media/close-line 1.6af861f9c499ad6470942b16aab5b552.svg",
     "static/media/arrow_forward_black_24dp 1.svg": "/movie-front-project/static/media/arrow_forward_black_24dp 1.abd1573b8f9ce378031e30d2f7ea70fa.svg",
     "static/media/expand_less_black_24dp 1.svg": "/movie-front-project/static/media/expand_less_black_24dp 1.59597245d338463416bb00a882b5f730.svg",
-    "main.595e1849.css.map": "/movie-front-project/static/css/main.595e1849.css.map",
+    "main.fbe3d49e.css.map": "/movie-front-project/static/css/main.fbe3d49e.css.map",
     "main.23751bb2.js.map": "/movie-front-project/static/js/main.23751bb2.js.map",
     "787.28cb0dcd.chunk.js.map": "/movie-front-project/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.595e1849.css",
+    "static/css/main.fbe3d49e.css",
     "static/js/main.23751bb2.js"
   ]
 }
