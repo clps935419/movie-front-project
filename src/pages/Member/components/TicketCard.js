@@ -49,6 +49,7 @@ const mergedData = (data) =>
 
 const TicketCard = ({ tick }) => {
   const [openDetail, setOpenDetail] = useState(false);
+  const isPay = tick.payMethod !== '未付款';
 
   let tagClass = '';
   switch (tick.status) {
@@ -88,7 +89,7 @@ const TicketCard = ({ tick }) => {
           )}
         </div>
       </CardContainer>
-      {openDetail && (
+      {openDetail && isPay && (
         <div className="col-2 d-flex align-items-center justify-content-center">
           <QRCodeSVG className="border border-2 rounded p-1" value="https://reactjs.org/" size={127} />
         </div>

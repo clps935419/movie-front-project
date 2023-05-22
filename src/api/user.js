@@ -47,3 +47,19 @@ export const updatePassword = (props) => {
     ...props,
   });
 };
+
+export const getPurchaseRecord = (props) => {
+  return axios({
+    url: `/user/purchaseRecord`,
+    method: 'get',
+    ...props,
+  });
+};
+
+export const getBonusRecord = (props) => {
+  return axios({
+    url: `/user/bonusRecord`,
+    method: 'get',
+    ...props,
+  });
+};
