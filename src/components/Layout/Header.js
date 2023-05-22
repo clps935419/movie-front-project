@@ -1,30 +1,17 @@
-import { Link, link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { selectAuth, clearAuth } from "@/store/slice/authSlice";
-import { setIsShowHamburgerMenu } from "@/store/slice/publicSlice";
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAuth } from '@/store/slice/authSlice';
+import MemberDropDown from './MemberDropDown';
+import { setIsShowHamburgerMenu } from '@/store/slice/publicSlice';
 
 function Header({ openLoginModal }) {
   const authStore = useSelector(selectAuth);
   const dispatch = useDispatch();
 
-  const handleSignOut = () => {
-    dispatch(clearAuth());
-  };
-
   const loginButton = !!authStore.token ? (
-    <button
-      type="button"
-      className="btn btn-outline-customBtn1"
-      onClick={handleSignOut}
-    >
-      會員登出
-    </button>
+    <MemberDropDown />
   ) : (
-    <button
-      type="button"
-      className="btn btn-outline-customBtn1"
-      onClick={openLoginModal}
-    >
+    <button type="button" className="btn btn-outline-customBtn1" onClick={openLoginModal}>
       會員登入
     </button>
   );
