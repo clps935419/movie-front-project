@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useSelector, dispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectAuth } from '@/store/slice/authSlice';
 import MemberDropDown from './MemberDropDown';
 import { setIsShowHamburgerMenu } from '@/store/slice/publicSlice';
 
 function Header({ openLoginModal }) {
   const authStore = useSelector(selectAuth);
+  const dispatch = useDispatch();
 
   const loginButton = !!authStore.token ? (
     <MemberDropDown />
