@@ -91,10 +91,7 @@
   }
 }
 .content {
-  min-height: calc(100% - 244px);
-  @include media-breakpoint-up(md) {
-    min-height: calc(100% - 120px);
-  }
+  flex: 1;
 }
 .footer {
   display: flex;
