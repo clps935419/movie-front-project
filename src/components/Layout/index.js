@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
-import LoginModal from '../Login/LoginModal';
-import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
+import { useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import LoginModal from '../Login/LoginModal';
+import Footer from './Footer';
+import Header from './Header';
 
 import { Modal } from 'bootstrap';
 

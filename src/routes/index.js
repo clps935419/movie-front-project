@@ -41,19 +41,19 @@ const routeConfig = [
         element: <Member />,
       },
       {
-        path: "/ticket/movie/movieId",
+        path: "/ticket/movie/:movieId",
         element: <MovieInfo />,
       },
       {
-        path: "/ticket/sessionId",
+        path: "/ticket/:sessionId",
         element: <BookTicket />,
       },
       {
-        path: "/ticket/sessionId/seats",
+        path: "/ticket/:sessionId/seats",
         element: <TicketSeats />,
       },
       {
-        path: "/ticket/sessionId/confirm",
+        path: "/ticket/:sessionId/confirm",
         element: <TicketConfirm />,
       },
       //攔截器範例

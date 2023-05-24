@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { HashRouter } from "react-router-dom";
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter,HashRouter } from "react-router-dom";
 import "./assets/scss/index.scss";
+import reportWebVitals from './reportWebVitals';
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");

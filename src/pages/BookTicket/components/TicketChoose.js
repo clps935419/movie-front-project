@@ -1,4 +1,5 @@
-import { Button, Col, Container, Form, Nav, Row, Table } from "react-bootstrap";
+import { Col, Container, Form, Nav, Row, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function TicketChoose(params) {
   return (<>
@@ -8,18 +9,14 @@ export default function TicketChoose(params) {
           <h4 className="pt-3 pb-1" style={{ letterSpacing: '10px' }}>選取票種</h4>
         </Col>
         <Col md={8} className="d-flex justify-content-end">
-          {/* <button className="btn btn-outline-secondary py-1 px-3 mt-2">
-            <span className="border">已選取2張票：開始選位</span>
-            <span className="material-icons-outlined border">
+          {/* <Button variant="outline-secondary" size="sm" className="my-auto px-3 border h-50 d-flex"> */}
+          <Link to="seats" className="btn btn-outline-secondary d-flex h-50 my-auto">
+            <p className="caption1" style={{ lineHeight: '0.9' }}>已選取2張票：開始選位</p>
+            <span className="material-icons-outlined" style={{ lineHeight: '0.5' }}>
               chevron_right
             </span>
-          </button> */}
-          <Button variant="outline-secondary" size="sm" className="my-auto px-3 border h-50 d-flex">
-            <p className="mb-0 caption1 py-auto">已選取2張票：開始選位</p>
-            <span className="material-icons-outlined" style={{ lineHeight: '0.9' }}>
-              chevron_right
-            </span>
-          </Button>
+          </Link>
+          {/* </Button> */}
         </Col>
       </Row>
       <Nav variant="pills" defaultActiveKey="link-0" className="mt-2 mb-5">
