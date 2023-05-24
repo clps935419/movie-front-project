@@ -1,27 +1,24 @@
-import { Link, link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAuth, clearAuth } from '@/store/slice/authSlice';
+import { selectAuth } from '@/store/slice/authSlice';
+import MemberDropDown from './MemberDropDown';
+import { setIsShowHamburgerMenu } from '@/store/slice/publicSlice';
 
 function Header({ openLoginModal }) {
   const authStore = useSelector(selectAuth);
   const dispatch = useDispatch();
 
-  const handleSignOut = () => {
-    dispatch(clearAuth());
-  };
+  const loginButton = !!authStore.token ? (
+    <MemberDropDown />
+  ) : (
+    <button type="button" className="btn btn-outline-customBtn1" onClick={openLoginModal}>
+      會員登入
+    </button>
+  );
 
-  const loginButton = !!authStore.token ?
-    (
-      <button type="button" className="btn btn-outline-customBtn1" onClick={handleSignOut}>
-        會員登出
-      </button>
-    ) :
-    (
-      <button type="button" className="btn btn-outline-customBtn1" onClick={openLoginModal}>
-        會員登入
-      </button>
-    )
-
+  function handleHamburgerMenu() {
+    dispatch(setIsShowHamburgerMenu(true));
+  }
   return (
     <>
       <header className="header">
@@ -45,7 +42,7 @@ function Header({ openLoginModal }) {
           </button>
           {loginButton}
         </div>
-        <div className="header__hamburger-icon">
+        <div className="header__hamburger-icon" onClick={handleHamburgerMenu}>
           <span></span>
         </div>
       </header>

@@ -58,11 +58,17 @@
   }
   &__hamburger-icon {
     width: 33px;
+    height: 33px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     @include media-breakpoint-up(md) {
       display: none;
     }
     > span {
       background-color: #3d3d3d;
+      width: 100%;
       height: 3px;
       display: block;
       position: relative;
@@ -85,18 +91,7 @@
   }
 }
 .content {
-  padding-top: 58px;
-  min-height: calc(100% - 244px);
-  &.noPdTop {
-    padding-top: 0px;
-    @include media-breakpoint-up(md) {
-      padding-top: 0px;
-    }
-  }
-  @include media-breakpoint-up(md) {
-    min-height: calc(100% - 120px);
-    padding-top: 82px;
-  }
+  flex: 1;
 }
 .footer {
   display: flex;

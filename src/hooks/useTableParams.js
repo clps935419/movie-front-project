@@ -6,6 +6,7 @@ const DEFAULT_PAGE_CONFIG = {
   pageSize: 10,
   totalCounts: 0,
   keyword: "",
+  totalPages:1,
 };
 const useTableParams = (propsParams) => {
   const [tableParams, setTableParams] = useState({

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import Cookies from "js-cookie";
+import { v4 as uuidv4 } from "uuid";
 import { setClearMaskArr, setMaskArr } from "../store/slice/maskSlice";
 
 let store = {};

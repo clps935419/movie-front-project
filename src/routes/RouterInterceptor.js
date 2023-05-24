@@ -1,6 +1,6 @@
-import { useLocation, Navigate, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { selectAuth } from "@/store/slice/authSlice";
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
 
 
 function RouterInterceptor({ inner }) {

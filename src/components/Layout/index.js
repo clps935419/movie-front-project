@@ -1,17 +1,18 @@
-import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import LoginModal from '../Login/LoginModal';
 import Footer from './Footer';
 import Header from './Header';
 
-import { Modal } from 'bootstrap';
+import { Modal } from "bootstrap";
+import { useSelector } from "react-redux";
+import { selectIsShowHamburgerMenu } from "../../store/slice/publicSlice";
+import HamburgerMenu from "./HamburgerMenu";
 
 function Layout() {
-  const { pathname } = useLocation();
-  const noPdTopListArr = ['/home']; //首頁header有蓋住內容，所以有蓋住內容的樣式統一這邊設定
   const modalRef = useRef(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const isShowHamburgerMenu = useSelector(selectIsShowHamburgerMenu);
 
   const openModal = () => {
     setIsOpenModal(true);
@@ -21,7 +22,7 @@ function Layout() {
     const modal = modalRef.current;
     if (modal) {
       new Modal(modal).show();
-      modal.addEventListener('hidden.bs.modal', () => {
+      modal.addEventListener("hidden.bs.modal", () => {
         setIsOpenModal(false);
       });
     }
@@ -30,15 +31,12 @@ function Layout() {
   return (
     <div className="wrapper">
       <Header openLoginModal={openModal} />
-      <div
-        className={clsx('content', {
-          noPdTop: noPdTopListArr.includes(pathname),
-        })}
-      >
+      <div className="content">
         <Outlet />
         {isOpenModal && <LoginModal modalRef={modalRef} />}
       </div>
       <Footer />
+      {isShowHamburgerMenu && <HamburgerMenu openLoginModal={openModal} />}
     </div>
   );
 }

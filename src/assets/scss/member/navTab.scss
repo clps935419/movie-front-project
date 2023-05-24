@@ -1,0 +1,19 @@
+.member.nav {
+  gap: 10px;
+  font-size: 20px;
+  margin-bottom: 66px;
+
+  .nav-link{
+    color: var(--neutralColors900);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 16px 60px;
+    margin-bottom: 0px;
+    border-color: var(--bs-nav-tabs-link-active-border-color);
+  }
+
+  .nav-link.active{
+    color: var(--neutralColors900);
+    background-color: var(--primaryColor);
+  }
+}

@@ -1,19 +1,21 @@
 import Layout from '@/components/Layout';
 import Activity from '@/pages/Activity';
 import Home from "@/pages/Home";
-import Member from '@/pages/Member';
-import NotFound from '@/pages/NotFound';
+import Member, { BonusRecord, PurchaseRecord, UserInformation } from '@/pages/Member';
 import Test from '@/pages/Test';
+
+import NotFound from '@/pages/NotFound';
 import { Navigate } from 'react-router-dom';
 import BookTicket from '../pages/BookTicket';
 import TicketConfirm from '../pages/BookTicket/TicketConfirm';
 import TicketSeats from '../pages/BookTicket/TicketSeats';
 import MovieInfo from '../pages/MovieInfo';
 import MoviesList from '../pages/MoviesList';
+import RouterInterceptor from './RouterInterceptor';
 
 const routeConfig = [
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
@@ -21,24 +23,29 @@ const routeConfig = [
         element: <Navigate to="/home" />,
       },
       {
-        path: "/home",
+        path: '/home',
         element: <Home />,
       },
       {
-        path: "/movies",
+        path: '/movies',
         element: <MoviesList />,
       },
       {
-        path: "/activity",
+        path: '/activity',
         element: <Activity />,
       },
       {
-        path: "/theaters",
+        path: '/theaters',
         element: <Test />,
       },
       {
-        path: "/member",
-        element: <Member />,
+        path: '/member',
+        element: <RouterInterceptor inner={<Member />} />,
+        children: [
+          { index: true, element: <UserInformation /> },
+          { path: 'purchaseRecord', element: <PurchaseRecord /> },
+          { path: 'bonusRecord', element: <BonusRecord /> },
+        ],
       },
       {
         path: "/ticket/movie/:movieId",
@@ -64,7 +71,7 @@ const routeConfig = [
     ],
   },
   {
-    path: "*",
+    path: '*',
     element: <NotFound />,
   },
   //   {
