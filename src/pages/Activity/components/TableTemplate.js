@@ -6,7 +6,7 @@ function TableTemplate({dataArr}) {
     return dataArr.map(item=>{
       return (
         <tr>
-          <td>{item.id}</td>
+          <td>{item._id}</td>
           <td>{item.content}</td>
         </tr>
       );

@@ -72,52 +72,8 @@ const Title = styled.div`
   margin-bottom: 20px;
 `;
 
-const dataArr = [
-  {
-    id: 1,
-    movieCName: "「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/demonSlayer/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 2,
-    movieCName: "2「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 3,
-    movieCName: "3「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 4,
-    movieCName: "4「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 5,
-    movieCName: "5「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-];
-
 function MovieCarousels({ children, ...rest }) {
-  const {title} = rest;
-  // const { dataArr } = props;
+  const { title, dataArr } = rest;
   const [newDataArr, setNewDataArr] = useState([]);
   const { sm, md, lg, xl, xxl } = breakpoints;
   useEffect(() => {
@@ -163,6 +119,7 @@ function MovieCarousels({ children, ...rest }) {
   }, [sm, md, lg, xl, xxl]);
 
   function getProcessData({ dataArr, showNum = 1 }) {
+    console.log('data',dataArr)
     const result = dataArr.reduce((acc, curr, index) => {
       console.log("acc", acc, "curr", curr, "index", index);
       if (index % showNum === 0) {

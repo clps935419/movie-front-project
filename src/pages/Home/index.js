@@ -21,10 +21,18 @@ const MovieArea = styled.div`
 
 function Home() {
   const [homeData, setHomeData] = useState({});
-  const { banner, focusMovie, movieList, activity } = homeData;
+  const {
+    banner,
+    focusMovie,
+    activity,
+    currentMovieList,
+    futureMovieList,
+  } = homeData;
   useEffect(() => {
     (async () => {
       const { data, ...rest } = await getHome();
+      console.log("🚀 ~ file: index.js:34 ~ data:", data)
+      
       setHomeData(data);
     })();
   }, []);
@@ -33,8 +41,8 @@ function Home() {
     <>
       <BannerCarousels dataArr={banner} />
       <MovieArea>
-        <MovieCarousels dataArr={movieList} title={"現正熱映"} />
-        <MovieCarousels dataArr={movieList} title={"即將上映"} />
+        <MovieCarousels dataArr={currentMovieList} title={"現正熱映"} />
+        <MovieCarousels dataArr={futureMovieList} title={"即將上映"} />
       </MovieArea>
       <FocusMovie dataArr={focusMovie} />
       <Activity dataArr={activity} />

@@ -89,7 +89,9 @@ function MoviesList() {
     console.log("is", isCurrent, pageNo, pageSize);
     handleGetMovies();
     async function handleGetMovies() {
-      const { data, ...rest } = await getMovies({
+      const {
+        data: { data, ...rest },
+      } = await getMovies({
         params: {
           isCurrent,
           pageNo,
