@@ -24,7 +24,7 @@ export default async (propsConfig) => {
     baseURL: customBaseUrl === "" ? BASE_URL : customBaseUrl,
     headers: { common: {} },
   });
-  const { dispatch = () => {} } = store;
+  const { dispatch = () => { } } = store;
 
   instance.defaults.headers["Content-Type"] = "application/json";
   instance.interceptors.request.use(

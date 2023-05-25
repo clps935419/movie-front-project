@@ -1,10 +1,14 @@
+import { apiMovieInfo } from "@/api";
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import MovieIntroduction from "./components/MovieIntroduction";
 import TimeTable from "./components/TimeTable";
 import Trailer from "./components/Trailer";
 
+const { getMovieInfo } = apiMovieInfo;
+
 export default function MovieInfo(params) {
-  // const { movieId } = useParams();
+  const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
   const [theaterInfo, setTheaterInfo] = useState([]);
   const sampleMovie = [
@@ -329,7 +333,9 @@ export default function MovieInfo(params) {
   useEffect(() => {
     (async () => {
       // const response = await axios.get(`https://movie-service-d1vx.onrender.com/api/movies/${movieId}`);
-      const result = sampleMovie[0]
+      const result = await getMovieInfo({ params: { movieId } })
+      console.log('result-movie info:', result)
+      // const result = sampleMovie[0]
       setMovieInfo(result.movie);
       setTheaterInfo(result.theater)
     })();

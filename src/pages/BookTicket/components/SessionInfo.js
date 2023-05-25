@@ -1,6 +1,49 @@
-import { Badge, Col, Container, Row } from "react-bootstrap"
+import { Badge, Col, Container, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 export default function SessionInfo(params) {
+  const { sessionId } = useParams();
+  // useEffect(() => {
+  //   const getSessionInfo = async () => {
+  //     const response = await axios.get(`https://movie-service-d1vx.onrender.com/api/sessions/${sessionId}/ticketTypes`);
+  //     console.log('response:', response)
+  //   };
+  //   getSessionInfo();
+  // }, [sessionId])
+  const sampleData = [
+    {
+      _id: "646e3d7ebfff22bfa29c06f2",
+      type: "套票",
+      name: "雙人及拿套票",
+      price: 560,
+      content: "內含：......",
+      ticketCount: 2
+    },
+    {
+      _id: "646e3d7ebfff22bfa29c06f2",
+      type: "套票",
+      name: "雙人爆米花桶套票",
+      price: 600,
+      content: "內含：......",
+      ticketCount: 2
+    },
+    {
+      _id: "",
+      type: "電影票",
+      name: "個人及拿套票",
+      price: 280,
+      content: "內含：......",
+      ticketCount: 1
+    },
+    {
+      _id: "",
+      type: "電影票",
+      name: "個人及拿套票",
+      price: 280,
+      content: "內含：......",
+      ticketCount: 1
+    }
+  ]
   return (<>
     <Container>
       <Row>

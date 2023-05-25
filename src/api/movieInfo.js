@@ -1,9 +1,8 @@
 import axios from '@/utils/axios.js';
 
 export const getMovieInfo = (props) => {
-  console.log('props:', props)
-    return axios({
-    url: `/api/movies/:id`,
+  return axios({
+    url: `/api/movies`,
     method: 'get',
     ...props,
   });
