@@ -2,6 +2,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import Cookies from "js-cookie";
 import { setClearMaskArr, setMaskArr } from "../store/slice/maskSlice";
+ import { ToastContainer, toast } from "react-toastify";
 
 let store = {};
 export const injectStore = (_store) => {
@@ -11,10 +12,8 @@ export const injectStore = (_store) => {
 const isDev = process.env.NODE_ENV === "development";
 const isTest = process.env.NODE_ENV === "test";
 const PRODUCT_URL = process.env.REACT_APP_PRODUCT_URL;
-const BASE_URL =
-  isDev || isTest
-    ? "/api/"
-    : `${PRODUCT_URL}api`;
+const DEV_URL = process.env.REACT_APP_PROXY_DEV_URL;
+const BASE_URL = isDev || isTest ? `${DEV_URL}api` : `${PRODUCT_URL}api`;
 const SYSTEM_NAME = process.env.REACT_APP_NAME || "test";
 
 export default async (propsConfig) => {
@@ -60,6 +59,12 @@ export default async (propsConfig) => {
       return response;
     },
     (e) => {
+      const msg = e.response?.data?.message;
+      if (!!msg){
+        toast(`error msg:${e.response?.data?.message} `, {
+          type: "error",
+        });
+      }
       dispatch(setClearMaskArr(loadingId));
       return Promise.reject(e);
     }
