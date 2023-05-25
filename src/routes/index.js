@@ -1,6 +1,7 @@
 import Layout from '@/components/Layout';
 import Information from '@/pages/Information';
-import Test from '@/pages/Test';
+import TheaterList from '@/pages/TheaterList';
+import Theater from '@/pages/Theater';
 import Member, { UserInformation, PurchaseRecord, BonusRecord } from '@/pages/Member';
 
 import NotFound from '@/pages/NotFound';
@@ -33,7 +34,11 @@ const routeConfig = [
       },
       {
         path: '/theaters',
-        element: <Test />,
+        element: <TheaterList />,
+      },
+      {
+        path: '/theaters/:id',
+        element: <Theater />,
       },
       {
         path: '/member',
