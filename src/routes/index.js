@@ -2,9 +2,9 @@ import Layout from '@/components/Layout';
 import Activity from '@/pages/Activity';
 import Home from "@/pages/Home";
 import Member, { BonusRecord, PurchaseRecord, UserInformation } from '@/pages/Member';
-import Test from '@/pages/Test';
-
 import NotFound from '@/pages/NotFound';
+import Theater from '@/pages/Theater';
+import TheaterList from '@/pages/TheaterList';
 import { Navigate } from 'react-router-dom';
 import BookTicket from '../pages/BookTicket';
 import TicketConfirm from '../pages/BookTicket/TicketConfirm';
@@ -36,7 +36,11 @@ const routeConfig = [
       },
       {
         path: '/theaters',
-        element: <Test />,
+        element: <TheaterList />,
+      },
+      {
+        path: '/theaters/:id',
+        element: <Theater />,
       },
       {
         path: '/member',
