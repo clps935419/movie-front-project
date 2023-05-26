@@ -1,10 +1,10 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { apiUser } from '@/api';
+import { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import LoginContext from './store/LoginContext';
 import { setAuth } from '../../store/slice/authSlice';
+import LoginContext from './store/LoginContext';
 const { postLogin } = apiUser;
 
 const SignIn = ({ closeModal }) => {

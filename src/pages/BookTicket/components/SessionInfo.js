@@ -1,64 +1,75 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Badge, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 export default function SessionInfo(params) {
   const { sessionId } = useParams();
-  // useEffect(() => {
-  //   const getSessionInfo = async () => {
-  //     const response = await axios.get(`https://movie-service-d1vx.onrender.com/api/sessions/${sessionId}/ticketTypes`);
-  //     console.log('response:', response)
-  //   };
-  //   getSessionInfo();
-  // }, [sessionId])
-  const sampleData = [
-    {
-      _id: "646e3d7ebfff22bfa29c06f2",
-      type: "套票",
-      name: "雙人及拿套票",
-      price: 560,
-      content: "內含：......",
-      ticketCount: 2
-    },
-    {
-      _id: "646e3d7ebfff22bfa29c06f2",
-      type: "套票",
-      name: "雙人爆米花桶套票",
-      price: 600,
-      content: "內含：......",
-      ticketCount: 2
-    },
-    {
-      _id: "",
-      type: "電影票",
-      name: "個人及拿套票",
-      price: 280,
-      content: "內含：......",
-      ticketCount: 1
-    },
-    {
-      _id: "",
-      type: "電影票",
-      name: "個人及拿套票",
-      price: 280,
-      content: "內含：......",
-      ticketCount: 1
+  const [sessionInfo, setSessionInfo] = useState({})
+  const ticketInfo = useMemo(() => {
+    //! 從redux拿出資料 => how?
+    const sample = [
+      {
+        _id: '646e40af0aa2b666bd98e847',
+        type: '套票',
+        name: '雙人吉拿套票',
+        price: 740,
+        content: '內含:電影票 X 2, 70元飲料 X 2, 大爆米花 X 1, 吉拿棒 X 1',
+        ticketCount: 2,
+        buyCount: '2'
+      },
+      {
+        _id: '646e40af0aa2b666bd98e848',
+        type: '套票',
+        name: '吉拿套票',
+        price: 370,
+        content: '內含:電影票 X 1, 70元飲料 X 1, 吉拿棒 X 1',
+        ticketCount: 1,
+        buyCount: '1'
+      }
+    ]
+    return {
+      ticketTypes: sample.map(item => {
+        return `${item.name}*${item.buyCount}`
+      }).join(','),
+      ticketDetails: sample.map(item => {
+        return `${item.content}`
+      }).join(','),
+      ticketTotalPrice: sample.map(item => {
+        return item.price * item.buyCount
+      }).reduce((accumulator, currentValue) => { return accumulator + currentValue })
     }
-  ]
+  }, [])
+  useEffect(() => {
+    // 需要再多一隻api - 來獲得場次的資訊
+    const sampleSessionInfo = {
+      imgUrl: "https://www.vscinemas.com.tw/vsweb/upload/film/film_20230426002.jpg",
+      movieCName: "玩命關頭X",
+      movieEName: 'FAST X',
+      releaseMovieTime: "2023/05/17",
+      movieTime: 141,
+      movieLevel: "輔導級",
+      datetime: "2023-05-01T10:21:22.164+00:00",
+      theaterName: "高雄影城",
+      room: "A廳"
+    }
+    setSessionInfo(sampleSessionInfo)
+  }, [sessionId]);
+
   return (<>
     <Container>
       <Row>
-        <Col xs={12} md={4}><img className="img-fluid" src="https://www.vscinemas.com.tw/vsweb/upload/film/film_20230218037.jpg" alt="" /></Col>
+        <Col xs={12} md={4}><img className="img-fluid" src={sessionInfo.imgUrl} alt={sessionInfo.movieCName} /></Col>
         <Col xs={12} md={8} className="fs-6">
-          <h1 className="card-title">超級瑪利歐兄弟電影版</h1>
-          <p className="fs-3 card-subtitle mb-2 text-muted">THE SUPER MARIO BROS MOVIE</p>
-          <Badge bg="customBadgeYellow" text="dark" pill className='mb-3 caption1'>普通級</Badge>
-          <p>地點： 高雄影城A廳</p>
-          <p>開演時間： 2023/04/05 13:20</p>
+          <h1 className="card-title">{sessionInfo.movieCName}</h1>
+          <p className="fs-3 card-subtitle mb-2 text-muted">{sessionInfo.movieEName}</p>
+          <Badge bg="customBadgeYellow" text="dark" pill className='mb-3 caption1'>{sessionInfo.movieLevel}</Badge>
+          <p>地點： {sessionInfo.theaterName}{sessionInfo.room}</p>
+          <p>開演時間： {sessionInfo.datetime}</p>
           <hr />
-          <p>票種： 雙人吉拿套票X1</p>
-          <p>明細： 電影票X2,$70飲料X2,大爆米花X1,吉拿棒X1</p>
+          <p className='d-flex gap-1'><span style={{ whiteSpace: 'nowrap' }}>票種：</span><span>{ticketInfo.ticketTypes}</span></p>
+          <p className='d-flex gap-1'><span style={{ whiteSpace: 'nowrap' }}>明細：</span><span>{ticketInfo.ticketDetails}</span></p>
           <hr />
-          <p>總計： $790</p>
+          <p className='d-flex gap-1'><span style={{ whiteSpace: 'nowrap' }}>總計：</span><span>${ticketInfo.ticketTotalPrice}</span></p>
         </Col>
       </Row>
     </Container>
