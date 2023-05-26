@@ -3,6 +3,7 @@ import React from "react";
 import { ReactComponent as ArrowBtn } from "@/assets/icons/arrow_forward_black_24dp 1.svg";
 import YouTube, { YouTubeProps } from "react-youtube";
 import { media } from "@/components/styleMediaQuery";
+import { useNavigate } from "react-router";
 
 const FocusMovieWrapper = styled.div`
   background: white;
@@ -118,17 +119,20 @@ const FocusMovieCardContent = styled.div`
 
 const ContentBtnArea = styled.div`
   display: flex;
-  gap:8px;
-  &>button{
-    flex: 1;
+  gap: 8px;
+  justify-content: flex-end;
+  & > button {
+    width: 100%;
   }
   ${media.md`
-
+    & > button {
+    width: 50%;
+  }
   `}
-`
+`;
 
 const FastBtn = styled.div`
-  background: #8c99ae;
+  background-color: #8c99ae;
   width: calc(100% - 24px);
   color: white;
   padding: 8px 0;
@@ -137,6 +141,11 @@ const FastBtn = styled.div`
   text-align: center;
   margin: 0 auto;
   cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  &:hover {
+    background-color: var(--primaryColor);
+  }
   svg {
     display: none;
   }
@@ -163,20 +172,25 @@ const FastBtn = styled.div`
   `}
 `;
 
-function FocusMovie() {
-  const data = {
-    title: "驚聲尖叫6",
-    synopsis:
-      "四名逃過鬼臉殺手毒手的倖存者決定離開伍茲柏勒鎮，沒想到夢魘並沒有結束。這回鬼臉殺手聲稱他不像其他的鬼臉殺手，而蓋兒魏德斯為了要誘捕鬼臉殺手，一群人想盡辦法要將他引到一座聖殿裡面，殊不知鬼臉殺手已經鎖定她正一步步逼近中...",
-  };
-  const { title, synopsis } = data;
+function FocusMovie(props) {
+  const navigate = useNavigate();
+  const { data } = props;
+  const { _id, movieCName, synopsis, videoUrl } = data;
+
+  function handleNavTicket() {
+    navigate(`/ticket/movie/${_id}`);
+  }
+  function handleNavMovie() {
+    navigate(`/movies`);
+  }
+
   return (
     <FocusMovieWrapper>
       <FocusMovieCard>
         <VideoWrapper>
           <YouTube
             as={VideoWrapper}
-            videoId="fdDz26uwJ08"
+            videoId={videoUrl}
             opts={{
               width: "100%",
               height: "100%",
@@ -185,18 +199,19 @@ function FocusMovie() {
         </VideoWrapper>
         <FocusMovieCardContent>
           <div>焦點</div>
-          <div>{title}</div>
+          <div>{movieCName}</div>
           <div>{synopsis}</div>
           <ContentBtnArea>
-            <button type="button" className="btn btn-outline-customBtn1">
-              詳細介紹
-            </button>
-            <button type="button" className="btn btn-outline-customBtn1">
+            <button
+              type="button"
+              className="btn btn-outline-customBtn1"
+              onClick={handleNavTicket}
+            >
               上映場次
             </button>
           </ContentBtnArea>
         </FocusMovieCardContent>
-        <FastBtn>
+        <FastBtn onClick={handleNavMovie}>
           <span>快速訂票</span>
           <ArrowBtn />
         </FastBtn>

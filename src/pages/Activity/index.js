@@ -48,7 +48,7 @@ function Activity() {
   }, [pageNo, pageSize]);
 
   return (
-    <div className="py-3 px-5">
+    <div className="py-3 px-5 pb-5">
       {dataArr.length > 0 ? (
         <>
           <h3>活動列表</h3>

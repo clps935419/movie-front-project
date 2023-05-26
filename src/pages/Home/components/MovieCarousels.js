@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Carousel from "react-bootstrap/Carousel";
 import React, { Children, useEffect, useRef, useState } from "react";
 import CarouselTemplate from "./CarouselsTemplate";
-import MovieCardTemplate from "./MovieCardTemplate";
 import { breakpoints } from "@/components/styleMediaQuery";
+import MovieCardTemplate from "@/components/MovieCardTemplate";
 
 const AllWrapper = styled.div`
     /* padding-top: 40px; */
@@ -72,55 +72,14 @@ const Title = styled.div`
   margin-bottom: 20px;
 `;
 
-const dataArr = [
-  {
-    id: 1,
-    movieCName: "「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/demonSlayer/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 2,
-    movieCName: "2「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 3,
-    movieCName: "3「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 4,
-    movieCName: "4「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-  {
-    id: 5,
-    movieCName: "5「鬼滅之刃」上弦集結，前進刀匠村",
-    imgUrl: "https://picsum.photos/seed/ya/1920/830",
-    inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-    movieTime: 90,
-    rating: "G",
-  },
-];
-
 function MovieCarousels({ children, ...rest }) {
-  const {title} = rest;
-  // const { dataArr } = props;
+  const { title, dataArr } = rest;
   const [newDataArr, setNewDataArr] = useState([]);
   const { sm, md, lg, xl, xxl } = breakpoints;
   useEffect(() => {
+    if (dataArr.length === 0) {
+      return;
+    }
     const checkWindowWidth = () => {
       const isSM = window.matchMedia(`(max-width: ${sm})`).matches;
       const isMD = window.matchMedia(
@@ -143,10 +102,10 @@ function MovieCarousels({ children, ...rest }) {
       } else if (isLG) {
         getProcessData({ dataArr, showNum: 1 });
       } else if (isXL) {
-        getProcessData({ dataArr, showNum: 2});
+        getProcessData({ dataArr, showNum: 2 });
       } else if (isXXL) {
         getProcessData({ dataArr, showNum: 2 });
-      }else{
+      } else {
         getProcessData({ dataArr, showNum: 3 });
       }
     };
@@ -160,11 +119,10 @@ function MovieCarousels({ children, ...rest }) {
     return () => {
       window.removeEventListener("resize", checkWindowWidth);
     };
-  }, [sm, md, lg, xl, xxl]);
+  }, [sm, md, lg, xl, xxl, dataArr]);
 
   function getProcessData({ dataArr, showNum = 1 }) {
     const result = dataArr.reduce((acc, curr, index) => {
-      console.log("acc", acc, "curr", curr, "index", index);
       if (index % showNum === 0) {
         acc.push([curr]);
       } else {
@@ -190,7 +148,13 @@ function MovieCarousels({ children, ...rest }) {
               <Carousel.Item key={index}>
                 <MovieCarouselsItem>
                   {itemArr.map((item) => {
-                    return <MovieCardTemplate dataObj={item} />;
+                    return (
+                      <MovieCardTemplate
+                        dataObj={item}
+                        width={"60vh"}
+                        height={"50vh"}
+                      />
+                    );
                   })}
                 </MovieCarouselsItem>
               </Carousel.Item>

@@ -38,6 +38,9 @@
     > li {
       font-weight: 400;
     }
+    a.active{
+      color: var(--primaryColor);
+    }
     a {
       color: var(--neutralColors800);
       &:hover {
