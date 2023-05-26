@@ -1,10 +1,17 @@
 import { Container, Ratio } from 'react-bootstrap';
+import YouTube from "react-youtube";
 
-export default function Trailer({title,url}) {
+export default function Trailer({ url }) {
   return (<>
     <Container>
       <Ratio aspectRatio="21x9">
-        <iframe width="1200" height="506" src={url} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+        <YouTube
+          videoId={url}
+          opts={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
       </Ratio>
     </Container>
   </>)

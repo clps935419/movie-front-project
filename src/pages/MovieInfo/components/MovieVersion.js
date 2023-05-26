@@ -25,7 +25,7 @@ export default function MovieVersion({ timeInfos }) {
                     <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
                       <Card.Body className='text-center'>
                         <Card.Title><h2>{session.time}</h2></Card.Title>
-                        <Card.Subtitle className='fs-6 text-muted'>{session.room}廳{session.seats}席</Card.Subtitle>
+                        <Card.Subtitle className='fs-6 text-muted'>{session.room}{session.seats}席</Card.Subtitle>
                       </Card.Body>
                     </Card>
                   </Link>

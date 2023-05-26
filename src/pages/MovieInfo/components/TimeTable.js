@@ -1,8 +1,8 @@
-import axios from 'axios';
+import { apiTheater } from '@/api';
 import { useEffect, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import MovieVersion from "./MovieVersion";
-
+const { getTheaters } = apiTheater;
 export default function TimeTable({ theaterInfo }) {
   const [selectionDates, setSelectionDates] = useState([]);
   const [selectionLocations, setSelectionLocations] = useState([]);
@@ -11,12 +11,11 @@ export default function TimeTable({ theaterInfo }) {
   const [timetableInfo, setTimetableInfo] = useState([]);
   useEffect(() => {
     setSelectionDates(theaterInfo.map(item => { return item.datetime }));
-    // setSelectionLocations(theaterInfo.map(item => { return item.theaterInfo }));
   }, [theaterInfo]);
   useEffect(() => {
     const getAllTheaters = async () => {
       try {
-        const theaters = await axios.get("https://movie-service-d1vx.onrender.com/api/theaters");
+        const theaters = await getTheaters()
         setSelectionLocations(theaters.data.data.map(theater => { return theater.name }));
       } catch (error) {
         console.error(error)

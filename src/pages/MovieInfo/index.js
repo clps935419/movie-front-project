@@ -1,14 +1,14 @@
-import { apiMovieInfo } from "@/api";
+// import { apiMovieInfo } from "@/api";
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import MovieIntroduction from "./components/MovieIntroduction";
 import TimeTable from "./components/TimeTable";
 import Trailer from "./components/Trailer";
 
-const { getMovieInfo } = apiMovieInfo;
+// const { getMovieInfo } = apiMovieInfo;
 
 export default function MovieInfo(params) {
-  const { movieId } = useParams();
+  // const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
   const [theaterInfo, setTheaterInfo] = useState([]);
   const sampleMovie = [
@@ -16,7 +16,7 @@ export default function MovieInfo(params) {
       movie: {
         id: "12312412",
         imgUrl: "https://www.vscinemas.com.tw/vsweb/upload/film/film_20230426002.jpg",
-        videoUrl: "https://www.youtube.com/embed/5gcuGLJN2uU",
+        videoUrl: "5gcuGLJN2uU",
         movieCName: "玩命關頭X",
         movieEName: 'FAST X',
         director: "路易斯賴托瑞",
@@ -332,10 +332,10 @@ export default function MovieInfo(params) {
   ]
   useEffect(() => {
     (async () => {
-      // const response = await axios.get(`https://movie-service-d1vx.onrender.com/api/movies/${movieId}`);
-      const result = await getMovieInfo({ params: { movieId } })
-      console.log('result-movie info:', result)
-      // const result = sampleMovie[0]
+      // const res = await getMovieInfo({ params: { id: movieId } })
+      // const result = res.data.data
+      // console.log('result-movie info:', result)
+      const result = sampleMovie[0]
       setMovieInfo(result.movie);
       setTheaterInfo(result.theater)
     })();
@@ -343,7 +343,7 @@ export default function MovieInfo(params) {
   return (<>
     <div>
       <div className='bg-dark'>
-        <Trailer title={movieInfo.movieCName} url={movieInfo.videoUrl} />
+        <Trailer url={movieInfo.videoUrl} />
       </div>
       <div>
         <MovieIntroduction movieInfo={movieInfo} />

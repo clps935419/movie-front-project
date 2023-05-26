@@ -2,7 +2,7 @@ import axios from '@/utils/axios.js';
 
 export const getMovieInfo = (props) => {
   return axios({
-    url: `/api/movies`,
+    url: `/movies`,
     method: 'get',
     ...props,
   });
