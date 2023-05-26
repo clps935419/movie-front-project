@@ -1,30 +1,33 @@
 import { useMemo } from "react";
 import Table from "react-bootstrap/Table";
+import styled from "styled-components";
 
-function TableTemplate({dataArr}) {
-  const row = useMemo(()=>{
-    return dataArr.map(item=>{
+const Th1 = styled.th`
+  width: 30%;
+`;
+
+function TableTemplate({ dataArr }) {
+  const row = useMemo(() => {
+    return dataArr.map((item) => {
       return (
         <tr>
           <td>{item._id}</td>
           <td>{item.content}</td>
         </tr>
       );
-    })
-  },[dataArr])
+    });
+  }, [dataArr]);
 
   return (
     <>
       <Table responsive="sm">
         <thead>
           <tr>
-            <th>編號</th>
+            <Th1>編號</Th1>
             <th>活動內容</th>
           </tr>
         </thead>
-        <tbody>
-          {row}
-        </tbody>
+        <tbody>{row}</tbody>
       </Table>
     </>
   );

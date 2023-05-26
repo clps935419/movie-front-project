@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { ReactComponent as ArrowBtn } from "@/assets/icons/arrow_forward_black_24dp 1.svg";
 import { media } from "@/components/styleMediaQuery";
+import { useNavigate } from "react-router";
 
 const ActivityWrapper = styled.div`
   display: flex;
@@ -105,51 +106,37 @@ const MoreBtn = styled.button`
   `}
 `;
 
-function Activity() {
-  const dataArr = [
-    {
-      id: "123123",
-      title: "最新優惠",
-      content: "Cinek看電影APP會員訂票 加購餐點 直接取餐超方便",
-      img: "https://picsum.photos/seed/hamburger/1920/830",
-    },
-    {
-      id: "12313453",
-      title: "會員專屬",
-      content: "會員出示APP QR Code方享各項優惠折扣",
-      img: "https://picsum.photos/seed/qrcode/1920/830",
-    },
-    {
-      id: "13142313453",
-      title: "最新優惠",
-      content: "購買電影優待券、包廳服務、影廳租借",
-      img: "https://picsum.photos/seed/movie/1920/830",
-    },
-    {
-      id: "13122342313453",
-      title: "最新優惠",
-      content: "各銀行信用卡優惠",
-      img: "https://picsum.photos/seed/bank/1920/830",
-    },
-  ];
+function Activity(props) {
+  const navigate = useNavigate();
+  const {dataArr} = props;
+
+  function handleNavToActivity(){
+    navigate("/activity");
+  }
 
   return (
     <ActivityWrapper>
-      {dataArr.map((item) => {
-        const { id, title, content, img } = item;
-        return (
-          <CardWrapper key={id} imgUrl={img}>
-            <CardContent>
-              <div className="fs-6">{title}</div>
-              <h3>{content}</h3>
-              <NavBtn type="button " className="btn btn-customBtn1">
-                <span>詳細內容</span> <ArrowBtn />
-              </NavBtn>
-            </CardContent>
-          </CardWrapper>
-        );
-      })}
+      {dataArr.length >= 4 &&
+        dataArr.slice(-4).map((item) => {
+          const { _id, title, content, img } = item;
+          return (
+            <CardWrapper key={_id} imgUrl={img}>
+              <CardContent>
+                <div className="fs-6">{title}</div>
+                <h3>{content}</h3>
+                <NavBtn
+                  type="button "
+                  className="btn btn-customBtn1"
+                  onClick={handleNavToActivity}
+                >
+                  <span>詳細內容</span> <ArrowBtn />
+                </NavBtn>
+              </CardContent>
+            </CardWrapper>
+          );
+        })}
       <MoreBtn
+        onClick={handleNavToActivity}
         type="button"
         className="btn btn-outline-customBtn1"
       >
