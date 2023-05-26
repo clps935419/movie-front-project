@@ -9,9 +9,6 @@ export default function TicketConfirm(params) {
         <Col md={4} style={{ backgroundColor: '#B7B7B7' }} className="text-center">
           <h4 className="pt-3 pb-1" style={{ letterSpacing: '10px' }}>付款方式</h4>
         </Col>
-        {/* <Col md={8} className="d-flex justify-content-end">
-          
-        </Col> */}
       </Row>
       <Form className="d-flex justify-content-center my-5">
         <Form.Check

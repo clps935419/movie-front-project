@@ -6,18 +6,16 @@ export const getSessionTicketTypes = (props) => {
         method: 'get',
     });
 }
-
 export const getSessionTicketSeats = (props) => {
     return axios({
-        url: `/sessions/:id/seats`,
+        url: `/sessions/${props.params.id}/seats`,
         method: 'get',
-        ...props,
     });
 }
 
 export const checkSeatsAvailable = (props) => {
     return axios({
-        url: `/sessions/:id/seats`,
+        url: `/sessions/${props.params.id}/seats`,
         method: 'post',
         ...props,
     });
