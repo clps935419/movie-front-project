@@ -31,48 +31,7 @@ const PageWrapper = styled.div`
   margin: 30px 0;
 `;
 function MoviesList() {
-  const [movieData, setMovieData] = useState([
-    {
-      id: 1,
-      movieCName: "「鬼滅之刃」上弦集結，前進刀匠村",
-      imgUrl: "https://picsum.photos/seed/demonSlayer/1920/830",
-      inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-      movieTime: 90,
-      rating: "G",
-    },
-    {
-      id: 2,
-      movieCName: "2「鬼滅之刃」上弦集結，前進刀匠村",
-      imgUrl: "https://picsum.photos/seed/ya/1920/830",
-      inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-      movieTime: 90,
-      rating: "G",
-    },
-    {
-      id: 3,
-      movieCName: "3「鬼滅之刃」上弦集結，前進刀匠村",
-      imgUrl: "https://picsum.photos/seed/ya/1920/830",
-      inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-      movieTime: 90,
-      rating: "G",
-    },
-    {
-      id: 4,
-      movieCName: "4「鬼滅之刃」上弦集結，前進刀匠村",
-      imgUrl: "https://picsum.photos/seed/ya/1920/830",
-      inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-      movieTime: 90,
-      rating: "G",
-    },
-    {
-      id: 5,
-      movieCName: "5「鬼滅之刃」上弦集結，前進刀匠村",
-      imgUrl: "https://picsum.photos/seed/ya/1920/830",
-      inTheatersTime: "2023-05-01T10:21:22.164+00:00",
-      movieTime: 90,
-      rating: "G",
-    },
-  ]);
+  const [movieData, setMovieData] = useState([]);
   const [isCurrent, setIsCurrent] = useState(false);
   const [tableParams, setTableParams] = useTableParams();
   const { pageNo, pageSize } = tableParams;
@@ -86,17 +45,17 @@ function MoviesList() {
     );
   });
   useEffect(() => {
-    console.log("is", isCurrent, pageNo, pageSize);
     handleGetMovies();
     async function handleGetMovies() {
-      const { data, ...rest } = await getMovies({
+      const {
+        data: { data, ...rest },
+      } = await getMovies({
         params: {
           isCurrent,
           pageNo,
           pageSize,
         },
       });
-      console.log("rest", rest);
       setTableParams((prev) => {
         return {
           ...prev,
@@ -160,7 +119,7 @@ function MoviesList() {
             <MyPagination
               as={PageWrapper}
               tableParams={tableParams}
-              setTableParams={tableParams}
+              setTableParams={setTableParams}
             />
           </PageWrapper>
         </>

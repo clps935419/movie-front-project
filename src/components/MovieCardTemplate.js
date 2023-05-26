@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ReactComponent as Calendar } from "@/assets/icons/event_available_black_24dp 1.svg";
 import { ReactComponent as Time } from "@/assets/icons/schedule_black_24dp 1.svg";
 import { ReactComponent as ArrowCircle } from "@/assets/icons/arrow_circle_right.svg";
+import { useNavigate } from "react-router";
 
 const CardWrapper = styled.div`
   width: ${(props) => props.width};
@@ -86,7 +87,9 @@ const NavTicketBtn = styled.div`
 `;
 
 function MovieCardTemplate({ dataObj, width = "30vh", height = "30vh" }) {
-  const { movieCName, imgUrl, inTheatersTime, movieTime, rating } = dataObj;
+  const navigate = useNavigate();
+  const { _id, movieCName, imgUrl, inTheatersTime, movieTime, rating } =
+    dataObj;
   const rateObj = {
     G: {
       text: "普遍級",
@@ -109,6 +112,10 @@ function MovieCardTemplate({ dataObj, width = "30vh", height = "30vh" }) {
     const remainingMinutes = minutes % 60;
     return hours + "時" + remainingMinutes + "分";
   }
+  function handleNavTicket() {
+    navigate(`/ticket/movie/${_id}`);
+  }
+
   return (
     <CardWrapper imgUrl={imgUrl} width={width} height={height}>
       <RateArea currentRateColor={currentRateColor}>{currentRateText}</RateArea>
@@ -124,7 +131,7 @@ function MovieCardTemplate({ dataObj, width = "30vh", height = "30vh" }) {
             <span>{inTheatersTime.substring(0, 10)}</span>
           </div>
         </CardContentText>
-        <NavTicketBtn>
+        <NavTicketBtn onClick={handleNavTicket}>
           <span>前往訂票</span>
           <ArrowCircle />
         </NavTicketBtn>

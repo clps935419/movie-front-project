@@ -22,29 +22,8 @@ const CarouselCaption = styled.div`
   }
 `;
 
-const dataArr = [
-  {
-    imgUrl: "https://picsum.photos/seed/red/1920/830",
-    movieCName: "First slide label",
-    inTheatersTime: "2023.1.2",
-    outOfTheatersTime: "2023.4.2",
-  },
-  {
-    imgUrl: "https://picsum.photos/seed/apple/1920/830",
-    movieCName: "second slide label",
-    inTheatersTime: "2023.1.2",
-    outOfTheatersTime: "2023.4.2",
-  },
-  {
-    imgUrl: "https://picsum.photos/seed/rww/1920/830",
-    movieCName: "Third slide label",
-    inTheatersTime: "2023.1.2",
-    outOfTheatersTime: "2023.4.2",
-  },
-];
-
 function BannerCarousels({ children, ...rest }) {
-  // const { dataArr } = props;
+  const { dataArr } = rest;
   return (
     <CarouselTemplate as={CarouselsWrapper}>
       {() =>
@@ -56,7 +35,9 @@ function BannerCarousels({ children, ...rest }) {
               <img className="d-block w-100" src={imgUrl} alt={movieCName} />
               <Carousel.Caption as={CarouselCaption}>
                 <div className="carousel-caption__title">{movieCName}</div>
-                <p className="carousel-caption__time">{`${inTheatersTime} ~ ${outOfTheatersTime}`}</p>
+                <p className="carousel-caption__time">{`${formatDateString(
+                  inTheatersTime
+                )} ~ ${formatDateString(outOfTheatersTime)}`}</p>
               </Carousel.Caption>
             </Carousel.Item>
           );
@@ -64,5 +45,14 @@ function BannerCarousels({ children, ...rest }) {
       }
     </CarouselTemplate>
   );
+}
+
+function formatDateString(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
 }
 export default BannerCarousels;

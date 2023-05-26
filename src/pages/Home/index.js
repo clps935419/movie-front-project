@@ -1,9 +1,7 @@
 import Activity from "./components/Activity";
 import BannerCarousels from "./components/BannerCarousels";
 import FocusMovie from "./components/FocusMovie";
-import MovieCardTemplate from "./components/MovieCardTemplate";
 import styled from "styled-components";
-import Carousel from "react-bootstrap/Carousel";
 import MovieCarousels from "./components/MovieCarousels";
 import { useEffect } from "react";
 import { apiHome } from "../../api";
@@ -21,23 +19,39 @@ const MovieArea = styled.div`
 
 function Home() {
   const [homeData, setHomeData] = useState({});
-  const { banner, focusMovie, movieList, activity } = homeData;
+  const {
+    banner,
+    focusMovie,
+    activity,
+    currentMovieList,
+    futureMovieList,
+  } = homeData;
+
   useEffect(() => {
     (async () => {
-      const { data, ...rest } = await getHome();
+      const { data:{data}, ...rest } = await getHome();
+      console.log("🚀 ~ file: index.js:34 ~ data:----", data)
       setHomeData(data);
     })();
   }, []);
+  useEffect(() => {
+  console.log("home", homeData);
+
+  }, [homeData]);
 
   return (
     <>
-      <BannerCarousels dataArr={banner} />
-      <MovieArea>
-        <MovieCarousels dataArr={movieList} title={"現正熱映"} />
-        <MovieCarousels dataArr={movieList} title={"即將上映"} />
-      </MovieArea>
-      <FocusMovie dataArr={focusMovie} />
-      <Activity dataArr={activity} />
+      {Object.keys(homeData).length !== 0 && (
+        <>
+          <BannerCarousels dataArr={banner} />
+          <MovieArea>
+            <MovieCarousels dataArr={currentMovieList} title={"現正熱映"} />
+            <MovieCarousels dataArr={futureMovieList} title={"即將上映"} />
+          </MovieArea>
+          <FocusMovie data={focusMovie} />
+          <Activity dataArr={activity} />
+        </>
+      )}
     </>
   );
 }

@@ -9,17 +9,22 @@
   src: local("Helvetica");
   unicode-range: U+00-024F;
 }
-html, body {
+html,
+body {
   height: 100%;
   font-family: custom-sans-serif !important;
   font-size: 16px;
 }
-#root,.wrapper{
+#root,
+.wrapper {
   min-height: 100vh;
 }
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
 }
-
-
+html {
+  @include media-breakpoint-up(md) {
+    overflow-y: overlay;
+  }
+}
