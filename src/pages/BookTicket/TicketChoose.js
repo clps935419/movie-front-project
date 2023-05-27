@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import { Button, ButtonGroup, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from "react-router-dom";
+import { apiTicket } from "@/api";
 
+const { getSessionTicketTypes } = apiTicket;
 
 export default function TicketChoose({ ticketTypes }) {
   const { sessionId } = useParams();
