@@ -1,12 +1,13 @@
-import { setTickets } from "@/store/slice/ticketsSlice";
 import _ from "lodash";
+import { useEffect } from "react";
 import { useMemo, useState } from "react";
 import { Button, ButtonGroup, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { useDispatch } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 export default function TicketChoose({ ticketTypes }) {
+  const { sessionId } = useParams();
   const [ticketInTypes, setTicketInTypes] = useState([])
   const [totalTicketCount, setTotalTicketCount] = useState(0)
   const dispatch = useDispatch();
@@ -14,6 +15,19 @@ export default function TicketChoose({ ticketTypes }) {
   const ticketChoose = useMemo(() => {
     return _.cloneDeep(ticketTypes)
   }, [ticketTypes])
+    useEffect(() => {
+      (async () => {
+        try {
+          const res = await getSessionTicketTypes({
+            params: { id: sessionId },
+          });
+          console.log("res:", res);
+        } catch (error) {
+          console.log("🚀 ~ file: TicketChoose.js:25 ~ error:", error)
+        }
+        
+      })();
+    }, [sessionId]);
 
   function handleClick(e, type) {
     switch (type) {
@@ -45,7 +59,6 @@ export default function TicketChoose({ ticketTypes }) {
   function handleTicketContent() {
     const allChoosedTickets = ticketChoose.filter(item => item.buyCount > 0);
     console.log('allChoosedTickets:', allChoosedTickets)
-    dispatch(setTickets(allChoosedTickets));
   }
 
   const buttonTypes = [

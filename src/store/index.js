@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import authReducer from "@/store/slice/authSlice";
 import maskReducer from "@/store/slice/maskSlice.js";
 import publicReducer from "@/store/slice/publicSlice.js";
+import ticketsReducer from "@/store/slice/ticketsSlice.js";
 
 
 const SYSTEM_NAME = process.env.REACT_APP_NAME || "test";
@@ -10,6 +11,7 @@ const reducers = combineReducers({
   authReducer,
   maskReducer,
   publicReducer,
+  ticketsReducer
 });
 
 const store = configureStore({
