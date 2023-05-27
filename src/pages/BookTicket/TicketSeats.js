@@ -119,7 +119,6 @@ export default function TicketSeats(params) {
   ));
   return (<>
     <Container>
-      <SessionInfo />
       <Row className="my-3 border-bottom border-top">
         <Col md={4} style={{ backgroundColor: '#B7B7B7' }} className="text-center">
           <h4 className="pt-3 pb-1" style={{ letterSpacing: '10px' }}>選取座位</h4>
