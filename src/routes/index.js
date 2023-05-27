@@ -1,21 +1,26 @@
-import Layout from '@/components/Layout';
-import Activity from '@/pages/Activity';
+import Layout from "@/components/Layout";
+import Activity from "@/pages/Activity";
 import Home from "@/pages/Home";
-import Member, { BonusRecord, PurchaseRecord, UserInformation } from '@/pages/Member';
-import NotFound from '@/pages/NotFound';
-import Theater from '@/pages/Theater';
-import TheaterList from '@/pages/TheaterList';
-import { Navigate } from 'react-router-dom';
-import BookTicket from '../pages/BookTicket';
-import TicketConfirm from '../pages/BookTicket/TicketConfirm';
-import TicketSeats from '../pages/BookTicket/TicketSeats';
-import MovieInfo from '../pages/MovieInfo';
-import MoviesList from '../pages/MoviesList';
-import RouterInterceptor from './RouterInterceptor';
+import Member, {
+  BonusRecord,
+  PurchaseRecord,
+  UserInformation,
+} from "@/pages/Member";
+import NotFound from "@/pages/NotFound";
+import Theater from "@/pages/Theater";
+import TheaterList from "@/pages/TheaterList";
+import { Navigate } from "react-router-dom";
+import BookTicket from "../pages/BookTicket";
+import TicketConfirm from "../pages/BookTicket/TicketConfirm";
+import TicketSeats from "../pages/BookTicket/TicketSeats";
+import MovieInfo from "../pages/MovieInfo";
+import MoviesList from "../pages/MoviesList";
+import RouterInterceptor from "./RouterInterceptor";
+import TicketChoose from "../pages/BookTicket/TicketChoose";
 
 const routeConfig = [
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     children: [
       {
@@ -23,32 +28,32 @@ const routeConfig = [
         element: <Navigate to="/home" />,
       },
       {
-        path: '/home',
+        path: "/home",
         element: <Home />,
       },
       {
-        path: '/movies',
+        path: "/movies",
         element: <MoviesList />,
       },
       {
-        path: '/activity',
+        path: "/activity",
         element: <Activity />,
       },
       {
-        path: '/theaters',
+        path: "/theaters",
         element: <TheaterList />,
       },
       {
-        path: '/theaters/:id',
+        path: "/theaters/:id",
         element: <Theater />,
       },
       {
-        path: '/member',
+        path: "/member",
         element: <RouterInterceptor inner={<Member />} />,
         children: [
           { index: true, element: <UserInformation /> },
-          { path: 'purchaseRecord', element: <PurchaseRecord /> },
-          { path: 'bonusRecord', element: <BonusRecord /> },
+          { path: "purchaseRecord", element: <PurchaseRecord /> },
+          { path: "bonusRecord", element: <BonusRecord /> },
         ],
       },
       {
@@ -56,17 +61,14 @@ const routeConfig = [
         element: <MovieInfo />,
       },
       {
-        path: "/ticket/:sessionId",
+        path: "/ticket",
         element: <BookTicket />,
-      },
-      {
-        path: "/ticket/:sessionId/seats",
-        element: <TicketSeats />,
-      },
-      {
-        path: "/ticket/:sessionId/confirm",
-        element: <TicketConfirm />,
-      },
+        children: [
+          { path: ":sessionId", index: true, element: <TicketChoose /> },
+          { path: ":sessionId/seats", element: <TicketSeats /> },
+          { path: ":sessionId/confirm", element: <TicketConfirm /> },
+        ],
+      }
       //攔截器範例
       // {
       //   path: "/member",
@@ -75,7 +77,7 @@ const routeConfig = [
     ],
   },
   {
-    path: '*',
+    path: "*",
     element: <NotFound />,
   },
   //   {
