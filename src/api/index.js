@@ -1,12 +1,16 @@
-import * as user from '@/api/user';
-
-import * as activity from '@/api/activity';
-import * as movies from '@/api/movies';
-import * as home from '@/api/home';
+import * as activity from "@/api/activity";
+import * as home from "@/api/home";
+import * as movieInfo from "@/api/movieInfo";
+import * as movies from "@/api/movies";
 import * as theater from '@/api/theater';
+import * as ticket from '@/api/ticket';
+import * as user from '@/api/user';
 
 export const apiUser = user;
 export const apiActivity = activity;
 export const apiMovies = movies;
+export const apiMovieInfo = movieInfo;
 export const apiHome = home;
 export const apiTheater = theater;
+export const apiTicket = ticket;
+

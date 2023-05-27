@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { Outlet } from "react-router-dom";
-import Header from "./Header";
-import Footer from "./Footer";
-import LoginModal from "../Login/LoginModal";
+import { useEffect, useRef, useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import LoginModal from '../Login/LoginModal';
+import Footer from './Footer';
+import Header from './Header';
 
 import { Modal } from "bootstrap";
-import HamburgerMenu from "./HamburgerMenu";
 import { useSelector } from "react-redux";
 import { selectIsShowHamburgerMenu } from "../../store/slice/publicSlice";
+import HamburgerMenu from "./HamburgerMenu";
 
 function Layout() {
   const modalRef = useRef(null);

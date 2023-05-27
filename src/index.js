@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter,HashRouter } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "./assets/scss/index.scss";
+import { HashRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import App from './App';
+import "./assets/scss/index.scss";
+import reportWebVitals from './reportWebVitals';
 
-if (process.env.NODE_ENV === "development") {
-  const { worker } = require("./mocks/browser");
-  worker.start();
-}
+// if (process.env.NODE_ENV === "development") {
+//   const { worker } = require("./mocks/browser");
+//   worker.start();
+// }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

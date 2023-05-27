@@ -1,12 +1,12 @@
-import Tab from "react-bootstrap/Tab";
-import Nav from "react-bootstrap/Nav";
 import { apiMovies } from "@/api";
-import { useEffect, useState } from "react";
 import MovieCardTemplate from "@/components/MovieCardTemplate";
-import useTableParams from "@/hooks/useTableParams";
 import MyPagination from "@/components/Pagination";
-import styled from "styled-components";
 import { media } from "@/components/styleMediaQuery";
+import useTableParams from "@/hooks/useTableParams";
+import { useEffect, useState } from "react";
+import Nav from "react-bootstrap/Nav";
+import Tab from "react-bootstrap/Tab";
+import styled from "styled-components";
 
 const { getMovies } = apiMovies;
 

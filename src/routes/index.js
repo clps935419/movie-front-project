@@ -1,14 +1,16 @@
 import Layout from '@/components/Layout';
-import Information from '@/pages/Information';
-import TheaterList from '@/pages/TheaterList';
-import Theater from '@/pages/Theater';
-import Member, { UserInformation, PurchaseRecord, BonusRecord } from '@/pages/Member';
-
-import NotFound from '@/pages/NotFound';
-import { Navigate } from 'react-router-dom';
 import Activity from '@/pages/Activity';
+import Home from "@/pages/Home";
+import Member, { BonusRecord, PurchaseRecord, UserInformation } from '@/pages/Member';
+import NotFound from '@/pages/NotFound';
+import Theater from '@/pages/Theater';
+import TheaterList from '@/pages/TheaterList';
+import { Navigate } from 'react-router-dom';
+import BookTicket from '../pages/BookTicket';
+import TicketConfirm from '../pages/BookTicket/TicketConfirm';
+import TicketSeats from '../pages/BookTicket/TicketSeats';
+import MovieInfo from '../pages/MovieInfo';
 import MoviesList from '../pages/MoviesList';
-import Home from '@/pages/Home';
 import RouterInterceptor from './RouterInterceptor';
 
 const routeConfig = [
@@ -48,6 +50,22 @@ const routeConfig = [
           { path: 'purchaseRecord', element: <PurchaseRecord /> },
           { path: 'bonusRecord', element: <BonusRecord /> },
         ],
+      },
+      {
+        path: "/ticket/movie/:movieId",
+        element: <MovieInfo />,
+      },
+      {
+        path: "/ticket/:sessionId",
+        element: <BookTicket />,
+      },
+      {
+        path: "/ticket/:sessionId/seats",
+        element: <TicketSeats />,
+      },
+      {
+        path: "/ticket/:sessionId/confirm",
+        element: <TicketConfirm />,
       },
       //攔截器範例
       // {

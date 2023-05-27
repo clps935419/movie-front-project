@@ -1,6 +1,6 @@
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import Cookies from "js-cookie";
+import { v4 as uuidv4 } from "uuid";
 import { setClearMaskArr, setMaskArr } from "../store/slice/maskSlice";
  import { ToastContainer, toast } from "react-toastify";
 
@@ -23,7 +23,7 @@ export default async (propsConfig) => {
     baseURL: customBaseUrl === "" ? BASE_URL : customBaseUrl,
     headers: { common: {} },
   });
-  const { dispatch = () => {} } = store;
+  const { dispatch = () => { } } = store;
 
   instance.defaults.headers["Content-Type"] = "application/json";
   instance.interceptors.request.use(

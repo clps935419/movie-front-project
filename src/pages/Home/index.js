@@ -1,11 +1,10 @@
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { apiHome } from "../../api";
 import Activity from "./components/Activity";
 import BannerCarousels from "./components/BannerCarousels";
 import FocusMovie from "./components/FocusMovie";
-import styled from "styled-components";
 import MovieCarousels from "./components/MovieCarousels";
-import { useEffect } from "react";
-import { apiHome } from "../../api";
-import { useState } from "react";
 
 const { getHome } = apiHome;
 
@@ -29,13 +28,13 @@ function Home() {
 
   useEffect(() => {
     (async () => {
-      const { data:{data}, ...rest } = await getHome();
+      const { data: { data }, ...rest } = await getHome();
       console.log("🚀 ~ file: index.js:34 ~ data:----", data)
       setHomeData(data);
     })();
   }, []);
   useEffect(() => {
-  console.log("home", homeData);
+    console.log("home", homeData);
 
   }, [homeData]);
 
