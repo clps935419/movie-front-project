@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { key } from "localforage";
+import { object } from "prop-types";
 const SYSTEM_NAME = process.env.REACT_APP_NAME;
 
 const initialState = {
@@ -119,5 +121,17 @@ export const selectCurrentTicketTotalCount = (state) => {
   }
 
   return tmpTotalNum;
+};
+//回傳票種ID陣列(會重複)
+export const selectCurrentTicketIdArr = (state) => {
+  const currentChooseObj =
+    state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
+  let tmpArr = [];
+  Object.keys(currentChooseObj).forEach(key=>{
+    const ticketNum = currentChooseObj[key].currentTicketCount;
+    const resultArr = Array.from({ length: ticketNum }, () => key);
+    tmpArr = [...tmpArr, ...resultArr];
+  })
+  return tmpArr;
 };
 export default ticketsSlice.reducer;
