@@ -113,11 +113,12 @@ export const selectCurrentTicketTotalCount = (state) => {
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   let tmpTotalNum = 0;
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
-    const { name, currentTicketCount, content, price } = ticketObj;
+    const { name, currentTicketCount, content, price,ticketCount } = ticketObj;
     if (currentTicketCount === 0) {
       continue;
     }
-    tmpTotalNum += currentTicketCount;
+    const calcTicketNum = currentTicketCount * ticketCount;
+    tmpTotalNum += calcTicketNum;
   }
 
   return tmpTotalNum;
