@@ -7,6 +7,7 @@ import {
   selectCurrentTicketTotalPrice,
 } from "../../store/slice/ticketsSlice";
 import { apiTicket } from "../../api";
+import EcpayOrderBuilder from "./components/EcPayOrderBuilder";
 //須送API資料
 // {
 // 	"sessionId":"",
@@ -31,6 +32,8 @@ export default function TicketConfirm(params) {
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const ticketIdArr = useSelector(selectCurrentTicketIdArr);
   const totalPrice = useSelector(selectCurrentTicketTotalPrice);
+  const [ecpayData,setEcpayData] = useState({});
+  const [isGoEcpay,setIsGoEcpay] = useState(false);
   console.log(
     "🚀 ~ file: TicketConfirm.js:27 ~ TicketConfirm ~ ticketIdArr:",
     ticketIdArr,
@@ -39,7 +42,7 @@ export default function TicketConfirm(params) {
 
   async function handleSubmit() {
     try {
-      const res = await hashBookInfo({
+      const {data:{data}} = await hashBookInfo({
         data: {
           sessionId,
           ticketTypeIds: ticketIdArr,
@@ -56,8 +59,11 @@ export default function TicketConfirm(params) {
           ],
         },
       });
-      console.log("🚀 ~ file: TicketConfirm.js:42 ~ handleSubmit ~ res:", res);
+      console.log("🚀 ~ file: TicketConfirm.js:42 ~ handleSubmit ~ res:", data);
+      setEcpayData(data);
+      setIsGoEcpay(true);
     } catch (error) {
+      setIsGoEcpay(false);
       console.log(
         "🚀 ~ file: TicketConfirm.js:45 ~ handleSubmit ~ error:",
         error
@@ -99,6 +105,7 @@ export default function TicketConfirm(params) {
           </Button>
         </Container>
       </Container>
+      <EcpayOrderBuilder postData={ecpayData} isGoEcpay={isGoEcpay} />
     </>
   );
 }

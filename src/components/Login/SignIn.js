@@ -2,9 +2,10 @@ import { apiUser } from '@/api';
 import { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from "react-toastify";
 import { setAuth } from '../../store/slice/authSlice';
 import LoginContext from './store/LoginContext';
+
 const { postLogin } = apiUser;
 
 const SignIn = ({ closeModal }) => {
@@ -23,7 +24,10 @@ const SignIn = ({ closeModal }) => {
           const { _id, email, token } = data.data;
           dispatch(setAuth({ uid: _id, email, token, time: '20000' }));
           closeModal();
-          navigate('/member');
+          // navigate('/member');
+          toast(`登入成功!`, {
+            type: "success",
+          });
         }
       })
       .catch(({ response }) => setErrorMessage(response.data.message));
