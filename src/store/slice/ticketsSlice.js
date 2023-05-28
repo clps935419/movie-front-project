@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { object } from "prop-types";
 const SYSTEM_NAME = process.env.REACT_APP_NAME;
 
 const initialState = {
@@ -15,6 +14,7 @@ const initialState = {
     theaterName: "高雄影城",
     room: "A廳",
     currentChooseTickets: {}, //目前已經選擇的票種物件
+    seats: []
   },
 };
 
@@ -48,11 +48,14 @@ export const ticketsSlice = createSlice({
           reduxTicketObj.currentChooseTickets[_id] = ticketItem;
         }
       }
-      
+
     },
+    setTicketsSeats: (state, action) => {
+      state.seats = action.payload;
+    }
   },
 });
-export const { setTicketsInfo, setCurrentChooseTickets } = ticketsSlice.actions;
+export const { setTicketsInfo, setCurrentChooseTickets, setTicketsSeats } = ticketsSlice.actions;
 export const selectTicketInfo = (state) => {
   return state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo;
 };
