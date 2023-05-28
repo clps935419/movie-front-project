@@ -3,7 +3,7 @@ import { selectCurrentTicketTotalCount, setTicketsSeats } from "@/store/slice/ti
 import { useEffect, useState } from 'react';
 import { Alert, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const { getSessionTicketSeats } = apiTicket;
 export default function TicketSeats(params) {
@@ -13,6 +13,7 @@ export default function TicketSeats(params) {
   const [seats, setSeats] = useState([]);
   const [seatChoosed, setSeatChoosed] = useState([]);
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const currentTicketTotalCount = useSelector(selectCurrentTicketTotalCount);
   useEffect(() => {
     (async () => {
@@ -105,6 +106,11 @@ export default function TicketSeats(params) {
       }
     </div>
   ));
+  function handleSeatsCheckAvailable() {
+    // 根據檢查結果決定導向的頁面
+    // navigate(`/ticket/${sessionId}/seats`);
+    // navigate(`/ticket/${sessionId}/confirm`);
+  }
   return (<>
     <Container>
       <Row className="my-3 border-bottom border-top">

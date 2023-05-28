@@ -1,5 +1,11 @@
 import axios from '@/utils/axios.js';
 
+export const getSessionInfo = (props) => {
+    return axios({
+        url: `/sessions/${props.id}`,
+        method: 'get',
+    });
+}
 export const getSessionTicketTypes = (props) => {
     return axios({
         url: `/sessions/${props.params.id}/ticketTypes`,

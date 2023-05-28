@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { key } from "localforage";
-import { object } from "prop-types";
 const SYSTEM_NAME = process.env.REACT_APP_NAME;
 
 const initialState = {
@@ -53,7 +51,7 @@ export const ticketsSlice = createSlice({
 
     },
     setTicketsSeats: (state, action) => {
-      state.seats = action.payload;
+      state.ticketInfo.seats = action.payload;
     }
   },
 });
@@ -113,7 +111,7 @@ export const selectCurrentTicketTotalCount = (state) => {
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   let tmpTotalNum = 0;
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
-    const { name, currentTicketCount, content, price,ticketCount } = ticketObj;
+    const { name, currentTicketCount, content, price, ticketCount } = ticketObj;
     if (currentTicketCount === 0) {
       continue;
     }
@@ -128,7 +126,7 @@ export const selectCurrentTicketIdArr = (state) => {
   const currentChooseObj =
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   let tmpArr = [];
-  Object.keys(currentChooseObj).forEach(key=>{
+  Object.keys(currentChooseObj).forEach(key => {
     const ticketNum = currentChooseObj[key].currentTicketCount;
     const resultArr = Array.from({ length: ticketNum }, () => key);
     tmpArr = [...tmpArr, ...resultArr];

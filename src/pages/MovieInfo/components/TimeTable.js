@@ -10,6 +10,7 @@ export default function TimeTable({ theaterInfo }) {
   const [location, setLocation] = useState("");
   const [timetableInfo, setTimetableInfo] = useState([]);
   useEffect(() => {
+    console.log('theaterInfo:', theaterInfo)
     setSelectionDates(theaterInfo.map(item => { return item.datetime }));
   }, [theaterInfo]);
   useEffect(() => {
@@ -46,11 +47,12 @@ export default function TimeTable({ theaterInfo }) {
       tempTimetablesInfos = theaterInfo.find(item => new Date(item.datetime).toLocaleDateString() === new Date(datetime).toLocaleDateString()).theaterInfo;
     }
     if (location && location !== 'all') {
-      tempTimetablesInfos = [tempTimetablesInfos.find(item => item.name === location)];
+      let result = tempTimetablesInfos.find(item => item.name === location);
+      tempTimetablesInfos = result ? [result] : null;
     }
-    setTimetableInfo(tempTimetablesInfos)
+    setTimetableInfo(tempTimetablesInfos);
   }, [datetime, location, theaterInfo]);
-
+  console.log("timetableInfo:", timetableInfo)
   return (<>
     <Container className="mb-5">
       <Form className="mb-5">
@@ -80,7 +82,7 @@ export default function TimeTable({ theaterInfo }) {
         </Row>
       </Form>
       <div>
-        {
+        {timetableInfo &&
           timetableInfo.map((area, index) => (
             <div key={area.name}>
               {index !== 0 && <hr />}
@@ -91,6 +93,12 @@ export default function TimeTable({ theaterInfo }) {
               <MovieVersion timeInfos={area.timeInfo} />
             </div>
           ))
+        }
+      </div>
+      <div>
+        {
+          !timetableInfo &&
+          <p>此影城無上映。</p>
         }
       </div>
     </Container>
