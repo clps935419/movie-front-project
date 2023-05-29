@@ -1,5 +1,6 @@
 import { apiTicket } from "@/api";
 import { selectCurrentTicketTotalCount, setTicketsSeats } from "@/store/slice/ticketsSlice";
+import _ from "lodash";
 import { useEffect, useState } from 'react';
 import { Alert, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +31,7 @@ export default function TicketSeats(params) {
   }, [sessionId]);
   useEffect(() => {
     setSeats(origSeats.map(element => {
-      element["isChecked"] = false
+      element["isChecked"] = false;
       return element
     }));
   }, [origSeats])
@@ -57,11 +58,15 @@ export default function TicketSeats(params) {
     if (seatChoosed.length === currentTicketTotalCount && !seatChoosed.find(item => item.x === x && item.y === y)) {
       setShow(true)
     } else if (seatChoosed.find(item => item.x === x && item.y === y)) {
-      seats[index].isChecked = false;
+      let newSeats = _.cloneDeep(seats);
+      newSeats[index].isChecked = false;
+      setSeats(newSeats);
       const itemIndex = seatChoosed.findIndex(item => item.x === x && item.y === y);
       setSeatChoosed(item => item.filter((_, index) => index !== itemIndex));
     } else {
-      seats[index].isChecked = true
+      let newSeats = _.cloneDeep(seats);
+      newSeats[index].isChecked = true;
+      setSeats(newSeats);
       setSeatChoosed(item => [...item, { x, y }])
     }
   }

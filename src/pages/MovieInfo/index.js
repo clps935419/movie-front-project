@@ -1,14 +1,14 @@
-// import { apiMovieInfo } from "@/api";
+import { apiMovieInfo } from "@/api";
 import { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import MovieIntroduction from "./components/MovieIntroduction";
 import TimeTable from "./components/TimeTable";
 import Trailer from "./components/Trailer";
 
-// const { getMovieInfo } = apiMovieInfo;
+const { getMovieInfo } = apiMovieInfo;
 
 export default function MovieInfo(params) {
-  // const { movieId } = useParams();
+  const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
   const [theaterInfo, setTheaterInfo] = useState([]);
   const sampleMovie = [
@@ -332,12 +332,12 @@ export default function MovieInfo(params) {
   ]
   useEffect(() => {
     (async () => {
-      // const res = await getMovieInfo({ params: { id: movieId } })
-      // const result = res.data.data
+      const res = await getMovieInfo({ params: { id: movieId } })
+      const result = res.data.data
       // console.log('result-movie info:', result)
-      const result = sampleMovie[0]
+      // const result = sampleMovie[0]
       setMovieInfo(result.movie);
-      setTheaterInfo(result.theater)
+      setTheaterInfo(result.theaters)
     })();
   }, [])
   return (<>
