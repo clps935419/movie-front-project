@@ -11,7 +11,7 @@ export default function TimeTable({ theaterInfo }) {
   const [timetableInfo, setTimetableInfo] = useState([]);
   useEffect(() => {
     console.log('theaterInfo:', theaterInfo)
-    setSelectionDates(theaterInfo.map(item => { return item.datetime }));
+    setSelectionDates(theaterInfo.map(item => { return item.date }));
   }, [theaterInfo]);
   useEffect(() => {
     const getAllTheaters = async () => {
@@ -44,7 +44,7 @@ export default function TimeTable({ theaterInfo }) {
   useEffect(() => {
     let tempTimetablesInfos = [];
     if (datetime) {
-      tempTimetablesInfos = theaterInfo.find(item => new Date(item.datetime).toLocaleDateString() === new Date(datetime).toLocaleDateString()).theaterInfo;
+      tempTimetablesInfos = theaterInfo.find(item => new Date(item.date).toLocaleDateString() === new Date(datetime).toLocaleDateString()).theaterInfo;
     }
     if (location && location !== 'all') {
       let result = tempTimetablesInfos.find(item => item.name === location);
@@ -52,7 +52,6 @@ export default function TimeTable({ theaterInfo }) {
     }
     setTimetableInfo(tempTimetablesInfos);
   }, [datetime, location, theaterInfo]);
-  console.log("timetableInfo:", timetableInfo)
   return (<>
     <Container className="mb-5">
       <Form className="mb-5">
