@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectTicketInfo } from "@/store/slice/ticketsSlice";
 import { selectCurrentTicketDetailsArr, selectCurrentTicketTotalCount, selectCurrentTicketTotalPrice, selectCurrentTicketTypesArr } from "@/store/slice/ticketsSlice";
+import { selectCurrentChooseSeatArr } from "../../../store/slice/ticketsSlice";
 
 export default function SessionInfo(params) {
   const myTicketInfo = useSelector(selectTicketInfo);
   const myTicketTypeArr = useSelector(selectCurrentTicketTypesArr);
   const myTicketContent = useSelector(selectCurrentTicketDetailsArr);
   const myTicketTotalPrice = useSelector(selectCurrentTicketTotalPrice);
-
+  const seatsArr = useSelector(selectCurrentChooseSeatArr);
   const {
     imgUrl,
     movieCName,
@@ -23,12 +24,16 @@ export default function SessionInfo(params) {
     room,
   } = myTicketInfo;
   const ticketTypesEle = myTicketTypeArr.map((item) => {
-    return <div>{item}</div>;
+    return <div key={item}>{item}</div>;
   });
   const ticketDetailsEle = myTicketContent.map((item) => {
-    return <div>{item}</div>;
+    return <div key={item}>{item}</div>;
   });
-
+  const seatEle = seatsArr
+    .map((item) => {
+      const { row, col } = item;
+      return <div key={row}>{`${row}排 ${col}號`}</div>;
+    });
 
   return (
     <>
@@ -61,6 +66,10 @@ export default function SessionInfo(params) {
             <p className="d-flex gap-1">
               <span style={{ whiteSpace: "nowrap" }}>明細：</span>
               <div>{ticketDetailsEle}</div>
+            </p>
+            <p className="d-flex gap-1">
+              <span style={{ whiteSpace: "nowrap" }}>座位：</span>
+              <div>{seatEle}</div>
             </p>
             <hr />
             <p className="d-flex gap-1">
