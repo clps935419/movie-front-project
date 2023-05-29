@@ -334,7 +334,7 @@ export default function MovieInfo(params) {
     (async () => {
       const res = await getMovieInfo({ params: { id: movieId } })
       const result = res.data.data
-      console.log('result-movie info:', result)
+      // console.log('result-movie info:', result)
       // const result = sampleMovie[0]
       setMovieInfo(result.movie);
       setTheaterInfo(result.theaters)

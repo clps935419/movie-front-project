@@ -16,7 +16,7 @@ export default function BookTicket(params) {
       try {
         const res = await getSessionInfo({ id: sessionId })
         const resultData = res.data.data;
-        console.log('result:', resultData);
+        // console.log('result:', resultData);
         const result = {
           imgUrl: resultData.movie.imgUrl,
           movieCName: resultData.movie.movieCName,
