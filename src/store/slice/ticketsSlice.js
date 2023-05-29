@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import _ from "lodash";
+
 const SYSTEM_NAME = process.env.REACT_APP_NAME;
 
 const initialState = {
@@ -14,7 +16,7 @@ const initialState = {
     theaterName: "高雄影城",
     room: "A廳",
     currentChooseTickets: {}, //目前已經選擇的票種物件
-    seats: []
+    seats: [],
   },
 };
 
@@ -30,6 +32,9 @@ export const ticketsSlice = createSlice({
     },
     setCurrentChooseTickets: (state, action) => {
       const ticketItem = action.payload;
+      if (_.isEmpty(ticketItem)) {
+        return;
+      }
       let reduxTicketObj = state.ticketInfo;
       const { _id, currentTicketCount } = ticketItem;
       if (
@@ -48,22 +53,28 @@ export const ticketsSlice = createSlice({
           reduxTicketObj.currentChooseTickets[_id] = ticketItem;
         }
       }
-
     },
     setTicketsSeats: (state, action) => {
       state.ticketInfo.seats = action.payload;
-    }
+    },
   },
 });
-export const { setTicketsInfo, setCurrentChooseTickets, setTicketsSeats } = ticketsSlice.actions;
+export const { setTicketsInfo, setCurrentChooseTickets, setTicketsSeats } =
+  ticketsSlice.actions;
 export const selectTicketInfo = (state) => {
   return state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo;
+};
+export const selectCurrentChooseTicket = (state) => {
+  return state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
 };
 //票種名稱計算
 export const selectCurrentTicketTypesArr = (state) => {
   const currentChooseObj =
-    state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;;
+    state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   let tmpNameArr = [];
+  if (_.isEmpty(currentChooseObj)) {
+    return [];
+  }
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
     const { name, currentTicketCount, content, price } = ticketObj;
     if (currentTicketCount === 0) {
@@ -78,6 +89,9 @@ export const selectCurrentTicketTypesArr = (state) => {
 export const selectCurrentTicketDetailsArr = (state) => {
   const currentChooseObj =
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
+  if (_.isEmpty(currentChooseObj)) {
+    return [];
+  }
   let tmpTicketContent = [];
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
     const { name, currentTicketCount, content, price } = ticketObj;
@@ -93,6 +107,9 @@ export const selectCurrentTicketDetailsArr = (state) => {
 export const selectCurrentTicketTotalPrice = (state) => {
   const currentChooseObj =
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
+  if (_.isEmpty(currentChooseObj)) {
+    return 0;
+  }
   let tmpTotalNum = 0;
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
     const { name, currentTicketCount, content, price } = ticketObj;
@@ -109,6 +126,9 @@ export const selectCurrentTicketTotalPrice = (state) => {
 export const selectCurrentTicketTotalCount = (state) => {
   const currentChooseObj =
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
+  if (_.isEmpty(currentChooseObj)) {
+    return 0;
+  }  
   let tmpTotalNum = 0;
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
     const { name, currentTicketCount, content, price, ticketCount } = ticketObj;
@@ -125,12 +145,28 @@ export const selectCurrentTicketTotalCount = (state) => {
 export const selectCurrentTicketIdArr = (state) => {
   const currentChooseObj =
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
+  if (_.isEmpty(currentChooseObj)) {
+    return [];
+  }  
   let tmpArr = [];
-  Object.keys(currentChooseObj).forEach(key => {
+  Object.keys(currentChooseObj).forEach((key) => {
     const ticketNum = currentChooseObj[key].currentTicketCount;
     const resultArr = Array.from({ length: ticketNum }, () => key);
     tmpArr = [...tmpArr, ...resultArr];
-  })
+  });
   return tmpArr;
+};
+//回傳目前選的座位
+export const selectCurrentChooseSeatArr = (state) => {
+  const currentSeats = state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.seats;
+  if (currentSeats.length === 0) {
+    return [];
+  }
+  return currentSeats.map((item) => {
+    return {
+      col: item.col,
+      row: item.row,
+    };
+  });
 };
 export default ticketsSlice.reducer;

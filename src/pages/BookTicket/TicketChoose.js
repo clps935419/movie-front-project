@@ -16,11 +16,13 @@ import { apiTicket } from "@/api";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import {
+  selectCurrentChooseTicket,
   selectCurrentTicketTotalCount,
   setCurrentChooseTickets,
 } from "../../store/slice/ticketsSlice";
 import styled from "styled-components";
 import { media } from "@/components/styleMediaQuery";
+import ChooseTicketTable from "./components/ChooseTicketTable";
 
 const { getSessionTicketTypes } = apiTicket;
 
@@ -35,13 +37,7 @@ const NavBtn = styled.button`
     margin:0;
   `};
 `;
-const Th1 = styled.th`
-  width: 70%;
-`;
-const Th2 = styled.th`
-  width: 10%;
-  text-align: center;
-`;
+
 
 const TICKET_TYPE_KEY = {
   package: "套票",
@@ -55,7 +51,13 @@ export default function TicketChoose() {
   const { sessionId } = useParams();
   const [currentType, setCurrentType] = useState("package"); //目前在哪個票種分類
   const [ticketTypeObj, setTicketTypeObj] = useState({}); //API拿回來分類的資料
+  console.log("ite", ticketTypeObj);
   const myTicketTotalCount = useSelector(selectCurrentTicketTotalCount);
+  const currentChooseTicket = useSelector(selectCurrentChooseTicket);
+
+  useEffect(()=>{
+    dispatch(setCurrentChooseTickets({}));
+  });
 
   useEffect(() => {
     (async () => {
@@ -81,6 +83,26 @@ export default function TicketChoose() {
       }
     })();
   }, [sessionId]);
+
+  //redux撈回來的值做預設值處理 之後再做
+  // useEffect(() => {
+  //   const tmpCurrentArr = ticketTypeObj[currentType];
+  //   if(tmpCurrentArr.length===0){
+  //     return;
+  //   }
+  //   tmpCurrentArr.map((item) => {
+  //     const {_id} = item;
+  //     if (!!currentChooseTicket[_id]) {
+  //       return {
+  //         ...item,
+  //       };
+  //     }
+  //   });
+  // }, [
+  //   JSON.stringify(ticketTypeObj),
+  //   currentType,
+  //   JSON.stringify(currentChooseTicket),
+  // ]);
 
   function handleTicketChoose({ e, ticketObj }) {
     const num = e.target.value;
@@ -139,72 +161,10 @@ export default function TicketChoose() {
           {Object.keys(TICKET_TYPE_KEY).map((type) => {
             return (
               <Tab key={type} eventKey={type} title={TICKET_TYPE_KEY[type]}>
-                {!!ticketTypeObj[currentType] &&
-                ticketTypeObj[currentType].length > 0 ? (
-                  ticketTypeObj[currentType].map((item) => {
-                    const {
-                      content,
-                      name,
-                      price,
-                      ticketCount,
-                      type,
-                      _id,
-                      currentTicketCount,
-                    } = item;
-                    return (
-                      <Table hover className="mb-5" responsive="sm">
-                        <thead>
-                          <tr>
-                            <Th1>票種</Th1>
-                            <Th2>單價</Th2>
-                            <Th2>數量</Th2>
-                            <Th2>小記</Th2>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr
-                            key={_id}
-                            onChange={(e) => {
-                              handleTicketChoose({
-                                e,
-                                ticketObj: item,
-                              });
-                            }}
-                          >
-                            <td>
-                              <p>{name}</p>
-                              <p>{content}</p>
-                            </td>
-                            <td className="text-center align-middle">
-                              ${price}
-                            </td>
-                            <td className="text-center align-middle">
-                              <Form.Select style={{ width: "60px" }}>
-                                {[...Array(11)]
-                                  .map((_, i) => i)
-                                  .map((subItem) => {
-                                    return (
-                                      <option
-                                        key={`${name}-${subItem}`}
-                                        value={subItem}
-                                      >
-                                        {subItem}
-                                      </option>
-                                    );
-                                  })}
-                              </Form.Select>
-                            </td>
-                            <td className="text-center align-middle">
-                              ${price * currentTicketCount}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    );
-                  })
-                ) : (
-                  <div className="text-center p-5">查無資料</div>
-                )}
+                <ChooseTicketTable
+                  dataArr={ticketTypeObj[currentType]}
+                  handleTicketChoose={handleTicketChoose}
+                />
               </Tab>
             );
           })}

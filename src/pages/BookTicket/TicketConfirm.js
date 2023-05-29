@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import {
+  selectCurrentChooseSeatArr,
   selectCurrentTicketIdArr,
   selectCurrentTicketTotalPrice,
 } from "../../store/slice/ticketsSlice";
@@ -32,6 +33,7 @@ export default function TicketConfirm(params) {
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const ticketIdArr = useSelector(selectCurrentTicketIdArr);
   const totalPrice = useSelector(selectCurrentTicketTotalPrice);
+  const seatsArr = useSelector(selectCurrentChooseSeatArr);
   const [ecpayData,setEcpayData] = useState({});
   const [isGoEcpay,setIsGoEcpay] = useState(false);
   console.log(
@@ -42,21 +44,14 @@ export default function TicketConfirm(params) {
 
   async function handleSubmit() {
     try {
-      const {data:{data}} = await hashBookInfo({
+      const {
+        data: { data },
+      } = await hashBookInfo({
         data: {
           sessionId,
           ticketTypeIds: ticketIdArr,
           price: totalPrice,
-          seats: [
-            {
-              col:2,
-              row: 7,
-            },
-            {
-              col: 2,
-              row: 8,
-            },
-          ],
+          seats: seatsArr,
         },
       });
       console.log("🚀 ~ file: TicketConfirm.js:42 ~ handleSubmit ~ res:", data);
