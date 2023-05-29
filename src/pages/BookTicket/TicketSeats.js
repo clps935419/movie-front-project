@@ -1,88 +1,77 @@
 import { apiTicket } from "@/api";
+import { selectCurrentTicketTotalCount, setTicketsSeats } from "@/store/slice/ticketsSlice";
 import { useEffect, useState } from 'react';
-import { Col, Container, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
-import SessionInfo from "./components/SessionInfo";
-
+import { Alert, Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const { getSessionTicketSeats } = apiTicket;
 export default function TicketSeats(params) {
+  const dispatch = useDispatch();
   const { sessionId } = useParams();
+  const [origSeats, setOrigSeats] = useState([]);
   const [seats, setSeats] = useState([]);
-  // const ticketInfo = useMemo(() => {
-  //   //! 從redux拿出資料
-  //   const sample = [
-  //     {
-  //       _id: '646e40af0aa2b666bd98e847',
-  //       type: '套票',
-  //       name: '雙人吉拿套票',
-  //       price: 740,
-  //       content: '內含:電影票 X 2, 70元飲料 X 2, 大爆米花 X 1, 吉拿棒 X 1',
-  //       ticketCount: 2,
-  //       buyCount: '2'
-  //     },
-  //     {
-  //       _id: '646e40af0aa2b666bd98e848',
-  //       type: '套票',
-  //       name: '吉拿套票',
-  //       price: 370,
-  //       content: '內含:電影票 X 1, 70元飲料 X 1, 吉拿棒 X 1',
-  //       ticketCount: 1,
-  //       buyCount: '1'
-  //     }
-  //   ]
-  //   return {
-  //     rowCount: sample.map(item => {
-  //       return item.price * item.buyCount
-  //     }).reduce((accumulator, currentValue) => { return accumulator + currentValue }),
-  //     colCount: sample.map(item => {
-  //       return item.price * item.buyCount
-  //     }).reduce((accumulator, currentValue) => { return accumulator + currentValue }),
-  //   }
-  // }, [])
-  const seatRows = Array.from({ length: 16 }, (v, i) => i);
-  const seatCols = Array.from({ length: 10 }, (v, i) => i);
+  const [seatChoosed, setSeatChoosed] = useState([]);
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const currentTicketTotalCount = useSelector(selectCurrentTicketTotalCount);
   useEffect(() => {
     (async () => {
-      const res = await getSessionTicketSeats()
+      await getSessionTicketSeats({ params: { id: sessionId } })
         .then(({ data }) => {
           if (data.status === 'success') {
-            console.log('data:', data)
-            setSeats(data.data);
+            setOrigSeats(data.data);
           }
         })
-        .catch(({ response }) => {
-          throw new Error(response.data.errors[0].msg || response.data.message);
+        .catch((error) => {
+          console.log('TicketSeats.js error:', error)
         });
-      console.log('res:', res)
     })();
-    // setSeats(() => {
-    //   for (var i = 0; i < 9; i++) {
-    //     seats[i] = new Array(9)
-    //   }
-    // })
-  }, []);
+  }, [sessionId]);
+  useEffect(() => {
+    setSeats(origSeats.map(element => {
+      element["isChecked"] = false
+      return element
+    }));
+  }, [origSeats])
+  // console.log('seats:', seats)
+  // const maxSeatRow = seats[seats.length - 1];
+  // const maxSeatCol = seats[seats.length - 1];
+  // console.log('row', maxSeatRow.y, ' col', maxSeatCol.x);
+  const seatRows = Array.from({ length: 15 }, (v, i) => i);
+  const seatCols = Array.from({ length: 20 }, (v, i) => i);
   function checkForSale(x, y) {
     const result = seats.find((item) => item.x === x && item.y === y);
-    if (!result) return true;
-    return result.isForSale;
+    if (result && !result.isSold && result.situation === "可販售") return true;
+    return false
   }
   function checkChoosed(x, y) {
-    const index = seats.findIndex((item) => item.x === x && item.y === y);
-    if (index === -1) return false;
-    // seats[index].isChoosed = !seats[index].isChoosed;
-    return seats[index].isChoosed;
+    const result = seats.find((item) => item.x === x && item.y === y);
+    if (!result) return false
+    return result.isChecked
   }
   function handleChooseSeat(x, y) {
-    const index = seats.findIndex((item) => item.x === x && item.y === y);
-    console.log("index:", index, x, y);
-    if (index === -1) return;
-    console.log("choosed1:", x, y, seats[index].isChoosed);
-    setSeats((item) => {
-      item[index].isChoosed = !item[index].isChoosed;
-    });
-    console.log("choosed2:", x, y, seats[index].isChoosed);
+    const index = seats.findIndex(item => item.x === x && item.y === y);
+    if (index === -1) return
+    // 超過選取上限
+    if (seatChoosed.length === currentTicketTotalCount && !seatChoosed.find(item => item.x === x && item.y === y)) {
+      setShow(true)
+    } else if (seatChoosed.find(item => item.x === x && item.y === y)) {
+      seats[index].isChecked = false;
+      const itemIndex = seatChoosed.findIndex(item => item.x === x && item.y === y);
+      setSeatChoosed(item => item.filter((_, index) => index !== itemIndex));
+    } else {
+      seats[index].isChecked = true
+      setSeatChoosed(item => [...item, { x, y }])
+    }
   }
+  useEffect(() => {
+    const result = seatChoosed.map(item => {
+      const temp = seats.find(element => element.x === item.x && element.y === item.y)
+      return temp
+    });
+    dispatch(setTicketsSeats(result));
+  }, [seatChoosed])
   const seatsPicker = seatCols.map((seatCol) => (
     <div
       key={`seatCol-${seatCol}`}
@@ -97,19 +86,19 @@ export default function TicketSeats(params) {
           key={`Col-${seatCol}-Row-${seatRow}`}
           disabled={!checkForSale(seatRow, seatCol)}
           style={{
-            width: "30px",
-            height: "30px",
-            margin: "2px",
+            width: "20px",
+            height: "20px",
+            margin: "3px 7px",
             fontSize: "10px",
-            backgroundColor: `${checkChoosed(seatRow, seatCol) ? "red" : "white"
+            backgroundColor: `${!checkForSale(seatRow, seatCol) ? '#8C99AE' : checkChoosed(seatRow, seatCol) ? "#00A886" : "white"
               }`,
-            visibility: `${seatCol === 3 || seatRow === 5 || seatRow === 9
-              ? "hidden"
-              : "visible"
+            visibility: `${seats.find(item => item.x === seatRow && item.y === seatCol)
+              ? "visible"
+              : "hidden"
               }`
           }}
           onClick={() => {
-            handleChooseSeat(seatCol, seatRow);
+            handleChooseSeat(seatRow, seatCol);
           }}
         >
         </button>
@@ -117,6 +106,11 @@ export default function TicketSeats(params) {
       }
     </div>
   ));
+  function handleSeatsCheckAvailable() {
+    // 根據檢查結果決定導向的頁面
+    // navigate(`/ticket/${sessionId}/seats`);
+    // navigate(`/ticket/${sessionId}/confirm`);
+  }
   return (<>
     <Container>
       <Row className="my-3 border-bottom border-top">
@@ -124,8 +118,8 @@ export default function TicketSeats(params) {
           <h4 className="pt-3 pb-1" style={{ letterSpacing: '10px' }}>選取座位</h4>
         </Col>
         <Col md={8} className="d-flex justify-content-end">
-          <Link to={`/ticket/${sessionId}/confirm`} className="btn btn-outline-secondary d-flex h-50 my-auto">
-            <p className="caption1" style={{ lineHeight: '0.9' }}>確認訂單</p>
+          <Link style={{ pointerEvents: seatChoosed.length === currentTicketTotalCount ? '' : 'none' }} activeclassname="active" to={`/ticket/${sessionId}/confirm`} className="btn btn-outline-secondary d-flex h-50 my-auto">
+            <p className="caption1" style={{ lineHeight: '0.9' }}>{seatChoosed.length === currentTicketTotalCount ? "確認訂單" : `還剩${currentTicketTotalCount - seatChoosed.length}座位需選取`}</p>
             <span className="material-icons-outlined" style={{ lineHeight: '0.5' }}>
               chevron_right
             </span>
@@ -142,6 +136,9 @@ export default function TicketSeats(params) {
         </p>
         <p className="w-75 text-light text-center mx-auto caption1" style={{ backgroundColor: '#6F6F6F' }}>銀幕</p>
         <Container>
+          {show && <Alert variant="danger" onClose={() => setShow(false)} dismissible className="mt-5 w-75 mx-auto">
+            座位選取數量已達上限，要先取消部分位子才能重新選擇新的位子。
+          </Alert>}
           {
             seatsPicker
           }

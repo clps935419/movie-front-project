@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { key } from "localforage";
-import { object } from "prop-types";
 const SYSTEM_NAME = process.env.REACT_APP_NAME;
 
 const initialState = {
@@ -16,6 +14,7 @@ const initialState = {
     theaterName: "高雄影城",
     room: "A廳",
     currentChooseTickets: {}, //目前已經選擇的票種物件
+    seats: []
   },
 };
 
@@ -49,11 +48,14 @@ export const ticketsSlice = createSlice({
           reduxTicketObj.currentChooseTickets[_id] = ticketItem;
         }
       }
-      
+
     },
+    setTicketsSeats: (state, action) => {
+      state.ticketInfo.seats = action.payload;
+    }
   },
 });
-export const { setTicketsInfo, setCurrentChooseTickets } = ticketsSlice.actions;
+export const { setTicketsInfo, setCurrentChooseTickets, setTicketsSeats } = ticketsSlice.actions;
 export const selectTicketInfo = (state) => {
   return state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo;
 };
@@ -109,7 +111,7 @@ export const selectCurrentTicketTotalCount = (state) => {
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   let tmpTotalNum = 0;
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
-    const { name, currentTicketCount, content, price,ticketCount } = ticketObj;
+    const { name, currentTicketCount, content, price, ticketCount } = ticketObj;
     if (currentTicketCount === 0) {
       continue;
     }
@@ -124,7 +126,7 @@ export const selectCurrentTicketIdArr = (state) => {
   const currentChooseObj =
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   let tmpArr = [];
-  Object.keys(currentChooseObj).forEach(key=>{
+  Object.keys(currentChooseObj).forEach(key => {
     const ticketNum = currentChooseObj[key].currentTicketCount;
     const resultArr = Array.from({ length: ticketNum }, () => key);
     tmpArr = [...tmpArr, ...resultArr];
