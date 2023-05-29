@@ -21,7 +21,7 @@ export default function MovieVersion({ timeInfos }) {
             {
               movieVersion.map(session => (
                 <Col key={`${session.time}-${session.room}`}>
-                  <Link to={`/ticket/${session.sessionId}`} className="btn">
+                  <Link to={`/ticket/${session.SessionId}`} className="btn">
                     <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
                       <Card.Body className='text-center'>
                         <Card.Title><h2>{`${new Date(session.time).getHours()}:${new Date(session.time).getMinutes()}`}</h2></Card.Title>
