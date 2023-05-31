@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import LoginContext from './store/LoginContext';
 import LoginReducer from './store/LoginReducer';
 import { Modal } from 'bootstrap';
