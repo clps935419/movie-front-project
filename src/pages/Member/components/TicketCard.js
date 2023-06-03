@@ -95,7 +95,7 @@ const TicketCard = ({ tick }) => {
         </div>
       )}
 
-      <CardImg className="col position-relative pe-0" style={{ backgroundImage: `url(${tick.imgUrl})` }}>
+      <CardImg className="col position-relative pe-0" style={{ backgroundImage: `url(${tick.movieImgUrl})` }}>
         <div className="position-absolute top-50 translate-middle" onClick={handleOpenDetail}>
           <div className={`circle-arrow ${openDetail ? 'circle-lift' : 'circle-right'}`}></div>
         </div>

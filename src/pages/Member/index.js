@@ -24,12 +24,10 @@ const Member = () => {
     <>
       <HeaderImg />
       <div className="container">
-        <Nav variant="tabs" className="member">
+        <Nav variant="tabs" activeKey={`#${location.pathname}`} className="member">
           {navItem.map((item) => (
             <Nav.Item key={item.name}>
-              <Nav.Link href={item.href} className={`${item.href === `#${location.pathname}` ? 'active' : ''}`}>
-                {item.name}
-              </Nav.Link>
+              <Nav.Link href={item.href}>{item.name}</Nav.Link>
             </Nav.Item>
           ))}
         </Nav>

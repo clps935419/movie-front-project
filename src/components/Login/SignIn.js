@@ -1,48 +1,38 @@
 import { apiUser } from '@/api';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
 import { setAuth } from '../../store/slice/authSlice';
 import LoginContext from './store/LoginContext';
 
 const { postLogin } = apiUser;
 
 const SignIn = ({ closeModal }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const context = useContext(LoginContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSignIn = async () => {
-    await postLogin({ data: { email, password } })
-      .then(({ data }) => {
-        if (data.status === 'success') {
-          const { _id, email, token } = data.data;
-          dispatch(setAuth({ uid: _id, email, token, time: '20000' }));
-          closeModal();
-          // navigate('/member');
-          toast(`登入成功!`, {
-            type: "success",
-          });
-        }
-      })
-      .catch(({ response }) => setErrorMessage(response.data.message));
-  };
-
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
+  const onSubmit = async (data) => {
+    await postLogin({ data }).then(({ data }) => {
+      if (data.status === 'success') {
+        const { _id, email, token } = data.data;
+        dispatch(setAuth({ uid: _id, email, token, time: '20000' }));
+        closeModal();
+        toast(`登入成功!`, {
+          type: 'success',
+        });
+      }
+    });
   };
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="modal-header">
         <h5 className="modal-title">會員登入</h5>
         <button type="button" className="btn-close" onClick={closeModal}></button>
@@ -53,7 +43,13 @@ const SignIn = ({ closeModal }) => {
             Email
           </label>
           <div className="col-9">
-            <input type="email" id="email" className="form-control" onChange={handleEmail} value={email} />
+            <input
+              id="email"
+              {...register('email', { required: true, pattern: /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.com$/ })}
+              className="form-control"
+            />
+            {errors?.email?.type === 'required' && <p className="text-danger mb-0 mt-1">信箱必填</p>}
+            {errors?.email?.type === 'pattern' && <p className="text-danger mb-0 mt-1">信箱格式錯誤</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -61,11 +57,15 @@ const SignIn = ({ closeModal }) => {
             密碼
           </label>
           <div className="col-9">
-            <input type="password" id="password" className="form-control" onChange={handlePassword} value={password} />
+            <input
+              id="password"
+              type="password"
+              {...register('password', { required: true })}
+              className="form-control"
+            />
+            {errors?.password?.type === 'required' && <p className="text-danger mb-0 mt-1">密碼必填</p>}
           </div>
         </div>
-
-        <p className="text-danger">{errorMessage}</p>
       </div>
 
       <div className="modal-footer d-flex justify-content-between">
@@ -77,11 +77,11 @@ const SignIn = ({ closeModal }) => {
             註冊
           </button>
         </div>
-        <button type="button" className="btn btn-primary" onClick={handleSignIn}>
+        <button type="submit" className="btn btn-primary">
           登入
         </button>
       </div>
-    </>
+    </form>
   );
 };
 
