@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { selectCurrentTicketDetailsArr, selectCurrentTicketTotalPrice, selectCurrentTicketTypesArr, selectTicketInfo } from "@/store/slice/ticketsSlice";
+import _ from 'lodash';
 import { Badge, Col, Container, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { selectTicketInfo } from "@/store/slice/ticketsSlice";
-import { selectCurrentTicketDetailsArr, selectCurrentTicketTotalCount, selectCurrentTicketTotalPrice, selectCurrentTicketTypesArr } from "@/store/slice/ticketsSlice";
-import { selectCurrentChooseSeatArr } from "../../../store/slice/ticketsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentChooseSeatArr, setCurrentChooseTickets } from "../../../store/slice/ticketsSlice";
 
 export default function SessionInfo(params) {
   const myTicketInfo = useSelector(selectTicketInfo);
@@ -12,6 +10,7 @@ export default function SessionInfo(params) {
   const myTicketContent = useSelector(selectCurrentTicketDetailsArr);
   const myTicketTotalPrice = useSelector(selectCurrentTicketTotalPrice);
   const seatsArr = useSelector(selectCurrentChooseSeatArr);
+  const dispatch = useDispatch();
   const {
     imgUrl,
     movieCName,
@@ -22,7 +21,11 @@ export default function SessionInfo(params) {
     dateTime,
     theaterName,
     room,
+    currentChooseTickets
   } = myTicketInfo;
+  if (_.isEmpty(currentChooseTickets)) {
+    dispatch(setCurrentChooseTickets(JSON.parse(sessionStorage.getItem("currentChooseTickets"))));
+  }
   const ticketTypesEle = myTicketTypeArr.map((item) => {
     return <div key={item}>{item}</div>;
   });
@@ -30,9 +33,9 @@ export default function SessionInfo(params) {
     return <div key={item}>{item}</div>;
   });
   const seatEle = seatsArr
-    .map((item) => {
+    .map((item, index) => {
       const { row, col } = item;
-      return <div key={row}>{`${row}排 ${col}號`}</div>;
+      return <div key={`${row}-${col}`}>{index !== 0 && <span>,</span>}{`${row}排 ${col}號`}</div>;
     });
 
   return (
@@ -69,7 +72,7 @@ export default function SessionInfo(params) {
             </p>
             <p className="d-flex gap-1">
               <span style={{ whiteSpace: "nowrap" }}>座位：</span>
-              <div>{seatEle}</div>
+              <div className="d-flex">{seatEle}</div>
             </p>
             <hr />
             <p className="d-flex gap-1">
