@@ -10,8 +10,7 @@ export default function TimeTable({ theaterInfo }) {
   const [location, setLocation] = useState("");
   const [timetableInfo, setTimetableInfo] = useState([]);
   useEffect(() => {
-    console.log('theaterInfo:', theaterInfo)
-    setSelectionDates(theaterInfo.map(item => { return item.date }));
+    setSelectionDates(theaterInfo.map(item => { return item[0].datetime }));
   }, [theaterInfo]);
   useEffect(() => {
     const getAllTheaters = async () => {
@@ -44,7 +43,7 @@ export default function TimeTable({ theaterInfo }) {
   useEffect(() => {
     let tempTimetablesInfos = [];
     if (datetime) {
-      tempTimetablesInfos = theaterInfo.find(item => new Date(item.date).toLocaleDateString() === new Date(datetime).toLocaleDateString()).theaterInfo;
+      tempTimetablesInfos = theaterInfo.find(item => new Date(item[0].datetime).toLocaleDateString() === new Date(datetime).toLocaleDateString());
     }
     if (location && location !== 'all') {
       let result = tempTimetablesInfos.find(item => item.name === location);
@@ -60,8 +59,8 @@ export default function TimeTable({ theaterInfo }) {
             <Form.Group>
               <Form.Select value={datetime} onChange={handleSelectDatetime}>
                 <option>選擇日期</option>
-                {selectionDates.map(date => (
-                  <option key={date} value={date}>{new Date(date).toLocaleDateString()}&emsp;
+                {selectionDates.map((date, index) => (
+                  <option key={`${date}-${index}`} value={date}>{new Date(date).toLocaleDateString()}&emsp;
                     {new Date(date).toLocaleDateString() === new Date(Date.now()).toLocaleDateString() ? '當日' : weekday[new Date(date).getDay()]}
                   </option>))}
               </Form.Select>
