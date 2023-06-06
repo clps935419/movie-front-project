@@ -1,27 +1,22 @@
+import { apiTicket } from "@/api";
+import { media } from "@/components/styleMediaQuery";
 import _ from "lodash";
-import { useEffect } from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Button,
-  ButtonGroup,
   Col,
   Container,
-  Form,
-  Row,
-  Table,
+  Row
 } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { apiTicket } from "@/api";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 import {
   selectCurrentChooseTicket,
   selectCurrentTicketTotalCount,
   setCurrentChooseTickets,
 } from "../../store/slice/ticketsSlice";
-import styled from "styled-components";
-import { media } from "@/components/styleMediaQuery";
 import ChooseTicketTable from "./components/ChooseTicketTable";
 
 const { getSessionTicketTypes } = apiTicket;
@@ -55,7 +50,7 @@ export default function TicketChoose() {
   const myTicketTotalCount = useSelector(selectCurrentTicketTotalCount);
   const currentChooseTicket = useSelector(selectCurrentChooseTicket);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(setCurrentChooseTickets({}));
   });
 
@@ -118,6 +113,7 @@ export default function TicketChoose() {
       return updatedObj;
     });
     dispatch(setCurrentChooseTickets(ticketObj));
+    sessionStorage.setItem("currentChooseTickets", JSON.stringify(ticketObj));
   }
   function handleNavToSeat() {
     navigate(`/ticket/${sessionId}/seats`);

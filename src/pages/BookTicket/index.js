@@ -16,7 +16,6 @@ export default function BookTicket(params) {
       try {
         const res = await getSessionInfo({ id: sessionId })
         const resultData = res.data.data;
-        // console.log('result:', resultData);
         const result = {
           imgUrl: resultData.movie.imgUrl,
           movieCName: resultData.movie.movieCName,
@@ -27,6 +26,7 @@ export default function BookTicket(params) {
           room: resultData.roomInfo.name,
         }
         dispatch(setTicketsInfo(result));
+        sessionStorage.setItem("sessionInfo", JSON.stringify(setTicketsInfo(result)));
       } catch (error) {
         console.log('BookTicket error:', error)
       }

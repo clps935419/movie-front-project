@@ -2,11 +2,13 @@ import { apiTicket } from "@/api";
 import { selectCurrentTicketTotalCount, setTicketsSeats } from "@/store/slice/ticketsSlice";
 import _ from "lodash";
 import { useEffect, useState } from 'react';
-import { Alert, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from 'react-router';
+import { useParams } from "react-router-dom";
+import NoticeModal from "./components/NoticeModal";
 
-const { getSessionTicketSeats } = apiTicket;
+const { getSessionTicketSeats, checkSeats } = apiTicket;
 export default function TicketSeats(params) {
   const dispatch = useDispatch();
   const { sessionId } = useParams();
@@ -14,8 +16,10 @@ export default function TicketSeats(params) {
   const [seats, setSeats] = useState([]);
   const [seatChoosed, setSeatChoosed] = useState([]);
   const [show, setShow] = useState(false);
-  const navigate = useNavigate();
+  const [modalContent, setModalContent] = useState({ title: '', content: '' });
+  const [rechooseSeat, setRechooseSeat] = useState(false);
   const currentTicketTotalCount = useSelector(selectCurrentTicketTotalCount);
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       await getSessionTicketSeats({ params: { id: sessionId } })
@@ -28,7 +32,7 @@ export default function TicketSeats(params) {
           console.log('TicketSeats.js error:', error)
         });
     })();
-  }, [sessionId]);
+  }, [sessionId, rechooseSeat]);
   useEffect(() => {
     setSeats(origSeats.map(element => {
       element["isChecked"] = false;
@@ -51,11 +55,13 @@ export default function TicketSeats(params) {
     if (!result) return false
     return result.isChecked
   }
-  function handleChooseSeat(x, y) {
+  function handleChooseSeat(x, y, event) {
+    event.stopPropagation();
     const index = seats.findIndex(item => item.x === x && item.y === y);
     if (index === -1) return
     // 超過選取上限
     if (seatChoosed.length === currentTicketTotalCount && !seatChoosed.find(item => item.x === x && item.y === y)) {
+      setModalContent({ title: '超過座位選取上限', content: '座位選取數量已達上限，要先取消部分位子才能重新選擇新的位子。' })
       setShow(true)
     } else if (seatChoosed.find(item => item.x === x && item.y === y)) {
       let newSeats = _.cloneDeep(seats);
@@ -82,8 +88,9 @@ export default function TicketSeats(params) {
       key={`seatCol-${seatCol}`}
       style={{
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
+      onClick={(event) => { event.preventDefault() }}
     >
       {seatRows.map((seatRow) => (
         <button
@@ -102,8 +109,8 @@ export default function TicketSeats(params) {
               : "hidden"
               }`
           }}
-          onClick={() => {
-            handleChooseSeat(seatRow, seatCol);
+          onClick={(event) => {
+            handleChooseSeat(seatRow, seatCol, event);
           }}
         >
         </button>
@@ -111,10 +118,35 @@ export default function TicketSeats(params) {
       }
     </div>
   ));
-  function handleSeatsCheckAvailable() {
-    // 根據檢查結果決定導向的頁面
-    // navigate(`/ticket/${sessionId}/seats`);
-    // navigate(`/ticket/${sessionId}/confirm`);
+  async function handleSeatsCheckAvailable() {
+    const body = {
+      ticketCount: seatChoosed.length,
+      seats: seatChoosed.map(item => {
+        const temp = seats.find(element => element.x === item.x && element.y === item.y)
+        return {
+          row: temp.row,
+          col: temp.col
+        }
+      })
+    }
+    // console.log('body:', body);
+    await checkSeats({ sessionId, body })
+      .then(({ data }) => {
+        console.log('data:', data);
+        if (data.status === 'success' && data.data.unAvailable.length === 0) {
+          console.log('data1:', data);
+          navigate(`/ticket/${sessionId}/confirm`);
+        } else if (data.status === 'success') {
+          setModalContent({ title: '座位已被選取', content: '座位已被選取，請重新選擇座位。' })
+          setShow(true)
+          setRechooseSeat(true);
+          navigate(`/ticket/${sessionId}/seats`);
+          console.log('data2:', data);
+        }
+      })
+      .catch((error) => {
+        console.log('TicketSeats.js error:', error)
+      });
   }
   return (<>
     <Container>
@@ -123,12 +155,12 @@ export default function TicketSeats(params) {
           <h4 className="pt-3 pb-1" style={{ letterSpacing: '10px' }}>選取座位</h4>
         </Col>
         <Col md={8} className="d-flex justify-content-end">
-          <Link style={{ pointerEvents: seatChoosed.length === currentTicketTotalCount ? '' : 'none' }} activeclassname="active" to={`/ticket/${sessionId}/confirm`} className="btn btn-outline-secondary d-flex h-50 my-auto">
-            <p className="caption1" style={{ lineHeight: '0.9' }}>{seatChoosed.length === currentTicketTotalCount ? "確認訂單" : `還剩${currentTicketTotalCount - seatChoosed.length}座位需選取`}</p>
-            <span className="material-icons-outlined" style={{ lineHeight: '0.5' }}>
+          <Button onClick={handleSeatsCheckAvailable} variant="outline-secondary" disabled={seatChoosed.length !== currentTicketTotalCount} size="sm" className="d-flex justify-content-center w-25 h-50 my-auto">
+            <p className="caption1 mt-1" style={{ lineHeight: '0.9' }}>{seatChoosed.length === currentTicketTotalCount ? "確認訂單" : `還剩${currentTicketTotalCount - seatChoosed.length}座位需選取`}</p>
+            <span className="material-icons-outlined mt-1" style={{ lineHeight: '0.5' }}>
               chevron_right
             </span>
-          </Link>
+          </Button>
         </Col>
       </Row>
       <Container className="my-5">
@@ -141,9 +173,9 @@ export default function TicketSeats(params) {
         </p>
         <p className="w-75 text-light text-center mx-auto caption1" style={{ backgroundColor: '#6F6F6F' }}>銀幕</p>
         <Container>
-          {show && <Alert variant="danger" onClose={() => setShow(false)} dismissible className="mt-5 w-75 mx-auto">
-            座位選取數量已達上限，要先取消部分位子才能重新選擇新的位子。
-          </Alert>}
+          <NoticeModal show={show}
+            onHide={() => setShow(false)}
+            modalContent={modalContent} />
           {
             seatsPicker
           }

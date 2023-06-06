@@ -35,10 +35,11 @@ export const hashBookInfo = (props) => {
     });
 };
 
-export const getPayInfo = (props) => {
+export const checkSeats = (props) => {
+    console.log('qq:', props.body)
     return axios({
-        url: `/booking/rePay/:orderId`,
-        method: 'get',
-        ...props,
+        url: `/sessions/${props.sessionId}/seats`,
+        method: 'post',
+        data: props.body,
     });
 };

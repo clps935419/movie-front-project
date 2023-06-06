@@ -20,12 +20,12 @@ export default function MovieVersion({ timeInfos }) {
           <Row xs={3} md={4} lg={6} className='gap-3'>
             {
               movieVersion.map(session => (
-                <Col key={`${session.time}-${session.room}`}>
-                  <Link to={`/ticket/${session.SessionId}`} className="btn">
+                <Col key={`${session._id}`}>
+                  <Link to={`/ticket/${session._id}`} className="btn">
                     <Card style={{ width: '158px', height: '100px', borderRadius: '20px' }}>
                       <Card.Body className='text-center'>
-                        <Card.Title><h2>{`${new Date(session.time).getHours()}:${new Date(session.time).getMinutes()}`}</h2></Card.Title>
-                        <Card.Subtitle className='fs-6 text-muted'>{session.room}{session.seats}席</Card.Subtitle>
+                        <Card.Title><h2>{`${new Date(session.datetime).getHours()}:${new Date(session.datetime).getMinutes()}`}</h2></Card.Title>
+                        <Card.Subtitle className='fs-6 text-muted'>{session.name}{session.seats.length}席</Card.Subtitle>
                       </Card.Body>
                     </Card>
                   </Link>
