@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { apiTicket } from "../../api";
 import {
   selectCurrentChooseSeatArr,
   selectCurrentTicketIdArr,
   selectCurrentTicketTotalPrice,
 } from "../../store/slice/ticketsSlice";
-import { apiTicket } from "../../api";
 import EcpayOrderBuilder from "./components/EcPayOrderBuilder";
 //須送API資料
 // {
@@ -34,8 +34,8 @@ export default function TicketConfirm(params) {
   const ticketIdArr = useSelector(selectCurrentTicketIdArr);
   const totalPrice = useSelector(selectCurrentTicketTotalPrice);
   const seatsArr = useSelector(selectCurrentChooseSeatArr);
-  const [ecpayData,setEcpayData] = useState({});
-  const [isGoEcpay,setIsGoEcpay] = useState(false);
+  const [ecpayData, setEcpayData] = useState({});
+  const [isGoEcpay, setIsGoEcpay] = useState(false);
   console.log(
     "🚀 ~ file: TicketConfirm.js:27 ~ TicketConfirm ~ ticketIdArr:",
     ticketIdArr,

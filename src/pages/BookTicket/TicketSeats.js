@@ -26,13 +26,17 @@ export default function TicketSeats(params) {
         .then(({ data }) => {
           if (data.status === 'success') {
             setOrigSeats(data.data);
+          } else {
+            navigate(`/ticket/${sessionId}`);
           }
         })
         .catch((error) => {
-          console.log('TicketSeats.js error:', error)
+          console.log('TicketSeats.js error:', error);
+          navigate(`/ticket/${sessionId}`);
         });
     })();
-  }, [sessionId, rechooseSeat]);
+    if (!sessionStorage.getItem("currentChooseTickets")) navigate(`/ticket/${sessionId}`);
+  }, [sessionId, rechooseSeat, navigate]);
   useEffect(() => {
     setSeats(origSeats.map(element => {
       element["isChecked"] = false;

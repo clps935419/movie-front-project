@@ -1,6 +1,7 @@
 import { apiMovieInfo } from "@/api";
 import _ from 'lodash';
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router";
 import { useParams } from 'react-router-dom';
 import MovieIntroduction from "./components/MovieIntroduction";
 import TimeTable from "./components/TimeTable";
@@ -12,6 +13,7 @@ export default function MovieInfo(params) {
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
   const [theaterInfo, setTheaterInfo] = useState([]);
+  const navigate = useNavigate();
   // const sampleMovie = [
   //   {
   //     movie: {
@@ -333,22 +335,26 @@ export default function MovieInfo(params) {
   // ]
   useEffect(() => {
     (async () => {
-      const res = await getMovieInfo({ params: { id: movieId } })
-      const result2 = res.data.data
-      // const result = sampleMovie[0]
-      setMovieInfo(result2[0].movie);
-      setTheaterInfo(result2.filter(item => !_.isEmpty(item.theaterInfo)).map(item => { return item.theaterInfo }))
+      const res = await getMovieInfo({ params: { id: movieId } });
+      const result = res.data.data;
+      if (!result[0].movie) {
+        navigate(`/movies`);
+      }
+      setMovieInfo(result[0].movie);
+      setTheaterInfo(result.filter(item => !_.isEmpty(item.theaterInfo)).map(item => { return item.theaterInfo }))
     })();
-  }, [movieId])
+  }, [movieId, navigate])
   return (<>
     <div>
-      <div className='bg-dark'>
-        <Trailer url={movieInfo.videoUrl} />
-      </div>
-      <div>
-        <MovieIntroduction movieInfo={movieInfo} />
-        <TimeTable theaterInfo={theaterInfo} />
-      </div>
+      {movieInfo && <div>
+        <div className='bg-dark'>
+          <Trailer url={movieInfo.videoUrl} />
+        </div>
+        <div>
+          <MovieIntroduction movieInfo={movieInfo} />
+          <TimeTable theaterInfo={theaterInfo} />
+        </div>
+      </div>}
     </div>
   </>)
 };
