@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { apiUser } from '@/api';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+
 import LoginContext from './store/LoginContext';
 
 const { postRecoverPassword } = apiUser;
@@ -15,7 +17,9 @@ const RecoverPassword = ({ closeModal }) => {
   const onSubmit = async (data) => {
     await postRecoverPassword({ data }).then(({ data }) => {
       if (data.status === 'success') {
-        console.log('送出新密碼至信箱');
+        toast('送出密碼信箱', {
+          type: 'success',
+        });
       }
     });
   };
