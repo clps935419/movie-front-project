@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TicketCard from './components/TicketCard';
 import { apiUser } from '@/api';
-
 import '@/assets/scss/member/purchaseRecord.scss';
 
 const { getPurchaseRecord } = apiUser;
