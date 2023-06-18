@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import styled from 'styled-components';
+
+import { ReactComponent as Location } from '@/assets/icons/location_on_primary.svg';
+import { ReactComponent as Confirmation } from '@/assets/icons/confirmation_number_primary.svg';
+import { ReactComponent as Schedule } from '@/assets/icons/schedule_primary.svg';
+import { ReactComponent as Chair } from '@/assets/icons/chair_primary.svg';
+import { ReactComponent as Paid } from '@/assets/icons/paid_primary.svg';
+import { ReactComponent as Credit } from '@/assets/icons/credit_card_primary.svg';
+import { ReactComponent as Numbers } from '@/assets/icons/numbers_primary.svg';
+import { ReactComponent as Available } from '@/assets/icons/event_available_primary.svg';
 
 const Card = styled.div`
   margin-bottom: 40px;
@@ -16,6 +25,11 @@ const CardTitle = styled.h3`
   color: #000000;
 `;
 const CardImg = styled.div`
+  @media (max-width: 768px) {
+    height: 250px;
+    -webkit-mask: radial-gradient(circle at 15px 0px, transparent 15px, white 0) -15px / 20%;
+    border-radius: 20px;
+  }
   background: no-repeat center;
   background-size: cover;
   border-top-right-radius: 20px;
@@ -23,11 +37,18 @@ const CardImg = styled.div`
   -webkit-mask: radial-gradient(circle at 10px, transparent 10px, white 0) -10px / 120% 30px;
 `;
 const Tag = styled.h4`
+  @media (max-width: 768px) {
+    left: 40px;
+    top: 50%;
+    transform: translate(0%, -50%);
+  }
+  @media (min-width: 768px) {
+    right: 28px;
+    top: 28px;
+  }
   border-radius: 30px;
   padding: 8px 20px;
   position: absolute;
-  top: 28px;
-  right: 28px;
   line-height: 36px;
 `;
 
@@ -49,6 +70,7 @@ const mergedData = (data) =>
 
 const TicketCard = ({ tick }) => {
   const [openDetail, setOpenDetail] = useState(false);
+  const [matches, setMatches] = useState(window.matchMedia('(min-width: 768px)').matches);
   const isPay = tick.payMethod !== '未付款';
 
   let tagClass = '';
@@ -70,35 +92,70 @@ const TicketCard = ({ tick }) => {
     setOpenDetail((pre) => !pre);
   };
 
+  useEffect(() => {
+    window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => setMatches(e.matches));
+  }, []);
+
   return (
     <Card className="row">
-      <CardContainer className="col-6">
+      <CardContainer className="col-md-6 col-12">
         <CardTitle>{tick.movieName}</CardTitle>
         <div className="row gy-3">
-          <div className="col-6">影城：{tick.theaterName}</div>
-          <div className="col-6">時間：{dateTimeStringFormats(tick.movieDatetime)}</div>
-          <div className="col-6">票別：{mergedData(tick.ticketType).join(',')}</div>
-          <div className="col-6">座位：{tick.seats.join(',')}</div>
+          <div className="col-md-6 col-12">
+            <Location />
+            影城：{tick.theaterName}
+          </div>
+          <div className="col-md-6 col-12">
+            <Confirmation />
+            時間：{dateTimeStringFormats(tick.movieDatetime)}
+          </div>
+          <div className="col-md-6 col-12">
+            <Schedule />
+            票別：{mergedData(tick.ticketType).join(',')}
+          </div>
+          <div className="col-md-6 col-12">
+            <Chair />
+            座位：{tick.seats.join(',')}
+          </div>
           {openDetail && (
             <>
-              <div className="col-6">金額：${tick.price}</div>
-              <div className="col-6">訂單編號：{tick.orderId}</div>
-              <div className="col-6">付款方式：{tick.payMethod}</div>
-              <div className="col-6">訂單時間：{dateTimeStringFormats(tick.orderDatetime)}</div>
+              <div className="col-md-6 col-12">
+                <Paid />
+                金額：${tick.price}
+              </div>
+              <div className="col-md-6 col-12">
+                <Credit />
+                訂單編號：{tick.orderId}
+              </div>
+              <div className="col-md-6 col-12">
+                <Numbers />
+                付款方式：{tick.payMethod}
+              </div>
+              <div className="col-md-6 col-12">
+                <Available />
+                訂單時間：{dateTimeStringFormats(tick.orderDatetime)}
+              </div>
             </>
           )}
         </div>
       </CardContainer>
       {openDetail && isPay && (
-        <div className="col-2 d-flex align-items-center justify-content-center">
-          <QRCodeSVG className="border border-2 rounded p-1" value="https://reactjs.org/" size={127} />
+        <div className="col-md-2 col-12 mb-4 mb-md-0 d-flex align-items-center justify-content-center">
+          <QRCodeSVG
+            className="border border-2 rounded p-3 p-md-1"
+            value="https://reactjs.org/"
+            size={matches ? 127 : 270}
+          />
         </div>
       )}
 
-      <CardImg className="col position-relative pe-0" style={{ backgroundImage: `url(${tick.movieImgUrl})` }}>
-        <div className="position-absolute top-50 translate-middle" onClick={handleOpenDetail}>
-          <div className={`circle-arrow ${openDetail ? 'circle-lift' : 'circle-right'}`}></div>
-        </div>
+      <CardImg className="col-12 col-md position-relative pe-0" style={{ backgroundImage: `url(${tick.movieImgUrl})` }}>
+        <div
+          className={`position-absolute top-50 translate-middle-y circle-arrow ${
+            openDetail ? 'circle-close' : 'circle-open'
+          }`}
+          onClick={handleOpenDetail}
+        ></div>
         <Tag className={`${tagClass}`}>{tick.status}</Tag>
       </CardImg>
     </Card>

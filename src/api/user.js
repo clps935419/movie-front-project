@@ -18,7 +18,7 @@ export const postSignup = (props) => {
 
 export const postRecoverPassword = (props) => {
   return axios({
-    url: `/user/recoverPassword`,
+    url: `/user/password/forget`,
     method: 'post',
     ...props,
   });
