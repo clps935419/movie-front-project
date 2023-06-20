@@ -1,23 +1,33 @@
 {
   "files": {
-    "main.css": "/movie-front-project/static/css/main.03844174.css",
-    "main.js": "/movie-front-project/static/js/main.f4695625.js",
+    "main.css": "/movie-front-project/static/css/main.d6d709fe.css",
+    "main.js": "/movie-front-project/static/js/main.561a1caf.js",
     "static/js/787.28cb0dcd.chunk.js": "/movie-front-project/static/js/787.28cb0dcd.chunk.js",
     "static/media/NotoSansTC-Regular.otf": "/movie-front-project/static/media/NotoSansTC-Regular.605c23963832d4e5cf08.otf",
+    "static/media/memberHeaderlg.png": "/movie-front-project/static/media/memberHeaderlg.2f8de2ed666ec4c9b8a4.png",
+    "static/media/memberHeader.png": "/movie-front-project/static/media/memberHeader.f6bba8d081c94841c4de.png",
     "static/media/logo.png": "/movie-front-project/static/media/logo.e22982efdcf8a6368519.png",
+    "static/media/paid_primary.svg": "/movie-front-project/static/media/paid_primary.915b227c243041ab2e1b5def0da19384.svg",
+    "static/media/confirmation_number_primary.svg": "/movie-front-project/static/media/confirmation_number_primary.bfd13b640d4adae3eb71d06c90a961da.svg",
     "static/media/arrow_circle_right.svg": "/movie-front-project/static/media/arrow_circle_right.554a73dfe38620ce3817f3136a893505.svg",
     "index.html": "/movie-front-project/index.html",
+    "static/media/chair_primary.svg": "/movie-front-project/static/media/chair_primary.70689a7965c10725dc9eede4cebf5714.svg",
+    "static/media/event_available_primary.svg": "/movie-front-project/static/media/event_available_primary.f44785eb3aba4c1898dab123b5f92783.svg",
     "static/media/schedule_black_24dp 1.svg": "/movie-front-project/static/media/schedule_black_24dp 1.41bbe175b3cc8d5146ad5089e8353f8a.svg",
+    "static/media/schedule_primary.svg": "/movie-front-project/static/media/schedule_primary.0e9265fd6f098b9e8745e3cd6fa61ef2.svg",
+    "static/media/numbers_primary.svg": "/movie-front-project/static/media/numbers_primary.bb92a805e3b3de977d646d334822ae9b.svg",
     "static/media/event_available_black_24dp 1.svg": "/movie-front-project/static/media/event_available_black_24dp 1.ef58fdbdc03667274d8b0668a12625c7.svg",
+    "static/media/location_on_primary.svg": "/movie-front-project/static/media/location_on_primary.216cbbb6a44e667fdc95a80955c6dd05.svg",
     "static/media/close-line 1.svg": "/movie-front-project/static/media/close-line 1.6af861f9c499ad6470942b16aab5b552.svg",
+    "static/media/credit_card_primary.svg": "/movie-front-project/static/media/credit_card_primary.8329e4d95e235e5aeb61a235ca16a220.svg",
     "static/media/arrow_forward_black_24dp 1.svg": "/movie-front-project/static/media/arrow_forward_black_24dp 1.abd1573b8f9ce378031e30d2f7ea70fa.svg",
     "static/media/expand_less_black_24dp 1.svg": "/movie-front-project/static/media/expand_less_black_24dp 1.59597245d338463416bb00a882b5f730.svg",
-    "main.03844174.css.map": "/movie-front-project/static/css/main.03844174.css.map",
-    "main.f4695625.js.map": "/movie-front-project/static/js/main.f4695625.js.map",
+    "main.d6d709fe.css.map": "/movie-front-project/static/css/main.d6d709fe.css.map",
+    "main.561a1caf.js.map": "/movie-front-project/static/js/main.561a1caf.js.map",
     "787.28cb0dcd.chunk.js.map": "/movie-front-project/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.03844174.css",
-    "static/js/main.f4695625.js"
+    "static/css/main.d6d709fe.css",
+    "static/js/main.561a1caf.js"
   ]
 }
