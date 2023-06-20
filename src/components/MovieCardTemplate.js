@@ -8,6 +8,8 @@ const CardWrapper = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background: url(${(props) => props.imgUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
