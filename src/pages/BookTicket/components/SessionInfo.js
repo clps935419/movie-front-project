@@ -1,8 +1,7 @@
-import { selectCurrentTicketDetailsArr, selectCurrentTicketTotalPrice, selectCurrentTicketTypesArr, selectTicketInfo } from "@/store/slice/ticketsSlice";
+import { selectCurrentChooseSeatArr, selectCurrentTicketDetailsArr, selectCurrentTicketTotalPrice, selectCurrentTicketTypesArr, selectTicketInfo, setCurrentChooseTickets } from "@/store/slice/ticketsSlice";
 import _ from 'lodash';
 import { Badge, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentChooseSeatArr, setCurrentChooseTickets } from "../../../store/slice/ticketsSlice";
 
 export default function SessionInfo(params) {
   const myTicketInfo = useSelector(selectTicketInfo);
@@ -40,7 +39,7 @@ export default function SessionInfo(params) {
 
   return (
     <>
-      <Container>
+      {!_.isEmpty(myTicketInfo.imgUrl) && (<Container>
         <Row>
           <Col xs={12} md={4}>
             <img className="img-fluid" src={imgUrl} alt={movieCName} />
@@ -81,7 +80,7 @@ export default function SessionInfo(params) {
             </p>
           </Col>
         </Row>
-      </Container>
+      </Container>)}
     </>
   );
 }
