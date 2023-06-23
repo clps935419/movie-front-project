@@ -11,12 +11,12 @@ import Theater from "@/pages/Theater";
 import TheaterList from "@/pages/TheaterList";
 import { Navigate } from "react-router-dom";
 import BookTicket from "../pages/BookTicket";
+import TicketChoose from "../pages/BookTicket/TicketChoose";
 import TicketConfirm from "../pages/BookTicket/TicketConfirm";
 import TicketSeats from "../pages/BookTicket/TicketSeats";
 import MovieInfo from "../pages/MovieInfo";
 import MoviesList from "../pages/MoviesList";
 import RouterInterceptor from "./RouterInterceptor";
-import TicketChoose from "../pages/BookTicket/TicketChoose";
 
 const routeConfig = [
   {
@@ -62,7 +62,7 @@ const routeConfig = [
       },
       {
         path: "/ticket",
-        element: <BookTicket />,
+        element: <RouterInterceptor inner={<BookTicket />} />,
         children: [
           { path: ":sessionId", index: true, element: <TicketChoose /> },
           { path: ":sessionId/seats", element: <TicketSeats /> },

@@ -14,8 +14,6 @@ export default function SessionInfo(params) {
     imgUrl,
     movieCName,
     movieENam,
-    inTheatersTime,
-    movieTime,
     rating,
     dateTime,
     theaterName,
