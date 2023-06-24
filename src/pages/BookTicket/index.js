@@ -3,19 +3,22 @@ import { setTicketsInfo } from "@/store/slice/ticketsSlice";
 import { useEffect } from 'react';
 import { Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { Outlet, useParams } from "react-router-dom";
 import SessionInfo from "./components/SessionInfo";
 
 
 const { getSessionInfo } = apiTicket;
-export default function BookTicket(params) {
+export default function BookTicket() {
   const dispatch = useDispatch();
   const { sessionId } = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       try {
         const res = await getSessionInfo({ id: sessionId })
         const resultData = res.data.data;
+        if (!resultData) navigate(`/ticket/movie/${resultData.movie._id}`);
         const result = {
           imgUrl: resultData.movie.imgUrl,
           movieCName: resultData.movie.movieCName,
@@ -28,10 +31,11 @@ export default function BookTicket(params) {
         dispatch(setTicketsInfo(result));
         sessionStorage.setItem("sessionInfo", JSON.stringify(setTicketsInfo(result)));
       } catch (error) {
-        console.log('BookTicket error:', error)
+        console.log('BookTicket error:', error);
+        navigate(`/movies`);
       }
     })()
-  }, [sessionId]);
+  }, [sessionId, dispatch, navigate]);
   return (
     <>
       <Container>

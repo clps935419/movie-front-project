@@ -6,15 +6,15 @@ const SYSTEM_NAME = process.env.REACT_APP_NAME;
 const initialState = {
   ticketInfo: {
     imgUrl:
-      "https://www.vscinemas.com.tw/vsweb/upload/film/film_20230426002.jpg",
-    movieCName: "玩命關頭X",
-    movieEName: "FAST X",
-    inTheatersTime: "2022-03-16T00:00:00.000+00:00",
-    movieTime: 141,
-    rating: "輔導級",
-    dateTime: "2023-05-01T10:21:22.164+00:00",
-    theaterName: "高雄影城",
-    room: "A廳",
+      "",
+    movieCName: "",
+    movieEName: "",
+    inTheatersTime: "",
+    movieTime: 0,
+    rating: "",
+    dateTime: "",
+    theaterName: "",
+    room: "",
     currentChooseTickets: {}, //目前已經選擇的票種物件
     seats: [],
   },
@@ -128,7 +128,7 @@ export const selectCurrentTicketTotalCount = (state) => {
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   if (_.isEmpty(currentChooseObj)) {
     return 0;
-  }  
+  }
   let tmpTotalNum = 0;
   for (const [id, ticketObj] of Object.entries(currentChooseObj)) {
     const { name, currentTicketCount, content, price, ticketCount } = ticketObj;
@@ -147,7 +147,7 @@ export const selectCurrentTicketIdArr = (state) => {
     state?.[SYSTEM_NAME].ticketsReducer?.ticketInfo.currentChooseTickets;
   if (_.isEmpty(currentChooseObj)) {
     return [];
-  }  
+  }
   let tmpArr = [];
   Object.keys(currentChooseObj).forEach((key) => {
     const ticketNum = currentChooseObj[key].currentTicketCount;

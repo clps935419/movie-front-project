@@ -11,7 +11,7 @@ function TableTemplate({ dataArr }) {
     return dataArr.map((item) => {
       return (
         <tr>
-          <td>{item._id}</td>
+          <td>{item.title}</td>
           <td>{item.content}</td>
         </tr>
       );
@@ -23,7 +23,7 @@ function TableTemplate({ dataArr }) {
       <Table responsive="sm">
         <thead>
           <tr>
-            <Th1>編號</Th1>
+            <Th1>標題</Th1>
             <th>活動內容</th>
           </tr>
         </thead>

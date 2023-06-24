@@ -13,9 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
-  selectCurrentChooseTicket,
   selectCurrentTicketTotalCount,
-  setCurrentChooseTickets,
+  setCurrentChooseTickets
 } from "../../store/slice/ticketsSlice";
 import ChooseTicketTable from "./components/ChooseTicketTable";
 
@@ -46,10 +45,16 @@ export default function TicketChoose() {
   const { sessionId } = useParams();
   const [currentType, setCurrentType] = useState("package"); //目前在哪個票種分類
   const [ticketTypeObj, setTicketTypeObj] = useState({}); //API拿回來分類的資料
-  console.log("ite", ticketTypeObj);
+  // console.log("ite", ticketTypeObj);
   const myTicketTotalCount = useSelector(selectCurrentTicketTotalCount);
-  const currentChooseTicket = useSelector(selectCurrentChooseTicket);
+  // const myTicketTotalCount = sessionStorage.getItem('currentChooseTickets');
+  // const currentChooseTicket = useSelector(selectCurrentChooseTicket);
 
+  // useEffect(() => {
+  //   console.log('qq')
+  //   sessionStorage.removeItem('currentChooseTickets');
+
+  // }, []);
   useEffect(() => {
     dispatch(setCurrentChooseTickets({}));
   });
@@ -112,6 +117,7 @@ export default function TicketChoose() {
       );
       return updatedObj;
     });
+    console.log('ticketObj:', ticketObj);
     dispatch(setCurrentChooseTickets(ticketObj));
     sessionStorage.setItem("currentChooseTickets", JSON.stringify(ticketObj));
   }

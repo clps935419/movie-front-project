@@ -9,11 +9,12 @@ import { useParams } from "react-router-dom";
 import NoticeModal from "./components/NoticeModal";
 
 const { getSessionTicketSeats, checkSeats } = apiTicket;
-export default function TicketSeats(params) {
+export default function TicketSeats() {
   const dispatch = useDispatch();
   const { sessionId } = useParams();
   const [origSeats, setOrigSeats] = useState([]);
   const [seats, setSeats] = useState([]);
+  const [matrixRange, setMatrixRange] = useState([0, 0]);
   const [seatChoosed, setSeatChoosed] = useState([]);
   const [show, setShow] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', content: '' });
@@ -26,25 +27,28 @@ export default function TicketSeats(params) {
         .then(({ data }) => {
           if (data.status === 'success') {
             setOrigSeats(data.data);
+          } else {
+            navigate(`/ticket/${sessionId}`);
           }
         })
         .catch((error) => {
-          console.log('TicketSeats.js error:', error)
+          console.log('TicketSeats.js error:', error);
+          navigate(`/ticket/${sessionId}`);
         });
     })();
-  }, [sessionId, rechooseSeat]);
+    if (!sessionStorage.getItem("currentChooseTickets")) navigate(`/ticket/${sessionId}`);
+  }, [sessionId, rechooseSeat, navigate]);
   useEffect(() => {
     setSeats(origSeats.map(element => {
       element["isChecked"] = false;
       return element
     }));
+    if (origSeats.length > 0) {
+      setMatrixRange([origSeats[origSeats.length - 1].x, origSeats[origSeats.length - 1].y]);
+    }
   }, [origSeats])
-  // console.log('seats:', seats)
-  // const maxSeatRow = seats[seats.length - 1];
-  // const maxSeatCol = seats[seats.length - 1];
-  // console.log('row', maxSeatRow.y, ' col', maxSeatCol.x);
-  const seatRows = Array.from({ length: 15 }, (v, i) => i);
-  const seatCols = Array.from({ length: 20 }, (v, i) => i);
+  const seatRows = Array.from({ length: matrixRange[0] }, (v, i) => i);
+  const seatCols = Array.from({ length: matrixRange[1] }, (v, i) => i);
   function checkForSale(x, y) {
     const result = seats.find((item) => item.x === x && item.y === y);
     if (result && !result.isSold && result.situation === "可販售") return true;
@@ -82,7 +86,7 @@ export default function TicketSeats(params) {
       return temp
     });
     dispatch(setTicketsSeats(result));
-  }, [seatChoosed])
+  }, [seatChoosed, dispatch, seats])
   const seatsPicker = seatCols.map((seatCol) => (
     <div
       key={`seatCol-${seatCol}`}
