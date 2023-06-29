@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/movie-front-project/static/css/main.d6d709fe.css",
-    "main.js": "/movie-front-project/static/js/main.493fd21a.js",
+    "main.js": "/movie-front-project/static/js/main.751ae213.js",
     "static/js/787.28cb0dcd.chunk.js": "/movie-front-project/static/js/787.28cb0dcd.chunk.js",
     "static/media/NotoSansTC-Regular.otf": "/movie-front-project/static/media/NotoSansTC-Regular.605c23963832d4e5cf08.otf",
     "static/media/memberHeaderlg.png": "/movie-front-project/static/media/memberHeaderlg.2f8de2ed666ec4c9b8a4.png",
@@ -9,7 +9,7 @@
     "static/media/logo.png": "/movie-front-project/static/media/logo.e22982efdcf8a6368519.png",
     "static/media/paid_primary.svg": "/movie-front-project/static/media/paid_primary.915b227c243041ab2e1b5def0da19384.svg",
     "static/media/confirmation_number_primary.svg": "/movie-front-project/static/media/confirmation_number_primary.bfd13b640d4adae3eb71d06c90a961da.svg",
-    "static/media/arrow_circle_right.svg": "/movie-front-project/static/media/arrow_circle_right.f7b4c57a0401a03a88c8a1055a3da875.svg",
+    "static/media/arrow_circle_right.svg": "/movie-front-project/static/media/arrow_circle_right.554a73dfe38620ce3817f3136a893505.svg",
     "index.html": "/movie-front-project/index.html",
     "static/media/chair_primary.svg": "/movie-front-project/static/media/chair_primary.70689a7965c10725dc9eede4cebf5714.svg",
     "static/media/event_available_primary.svg": "/movie-front-project/static/media/event_available_primary.f44785eb3aba4c1898dab123b5f92783.svg",
@@ -23,11 +23,11 @@
     "static/media/arrow_forward_black_24dp 1.svg": "/movie-front-project/static/media/arrow_forward_black_24dp 1.abd1573b8f9ce378031e30d2f7ea70fa.svg",
     "static/media/expand_less_black_24dp 1.svg": "/movie-front-project/static/media/expand_less_black_24dp 1.59597245d338463416bb00a882b5f730.svg",
     "main.d6d709fe.css.map": "/movie-front-project/static/css/main.d6d709fe.css.map",
-    "main.493fd21a.js.map": "/movie-front-project/static/js/main.493fd21a.js.map",
+    "main.751ae213.js.map": "/movie-front-project/static/js/main.751ae213.js.map",
     "787.28cb0dcd.chunk.js.map": "/movie-front-project/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d6d709fe.css",
-    "static/js/main.493fd21a.js"
+    "static/js/main.751ae213.js"
   ]
 }
