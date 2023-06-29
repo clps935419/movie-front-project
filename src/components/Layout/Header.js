@@ -1,13 +1,28 @@
-import { Link, useNavigate, NavLink } from "react-router-dom";
+import { Link, useNavigate, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAuth } from '@/store/slice/authSlice';
+import { selectAuth, clearAuth } from '@/store/slice/authSlice';
 import MemberDropDown from './MemberDropDown';
 import { setIsShowHamburgerMenu } from '@/store/slice/publicSlice';
+import { useEffect } from 'react';
+import { apiUser } from '@/api';
+
+const { getProfile } = apiUser;
 
 function Header({ openLoginModal }) {
   const authStore = useSelector(selectAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!!authStore.email) {
+      const checkToken = async () => {
+        await getProfile(authStore.email).catch(() => {
+          dispatch(clearAuth());
+        });
+      };
+      checkToken();
+    }
+  }, []);
 
   const loginButton = !!authStore.token ? (
     <MemberDropDown />
@@ -20,8 +35,8 @@ function Header({ openLoginModal }) {
   function handleHamburgerMenu() {
     dispatch(setIsShowHamburgerMenu(true));
   }
-  function handleNavToMovie(){
-    navigate("/movies");
+  function handleNavToMovie() {
+    navigate('/movies');
   }
   return (
     <>
@@ -47,11 +62,7 @@ function Header({ openLoginModal }) {
           </li>
         </ul>
         <div className="header__fast-btn">
-          <button
-            type="button "
-            className="btn btn-customBtn1"
-            onClick={handleNavToMovie}
-          >
+          <button type="button " className="btn btn-customBtn1" onClick={handleNavToMovie}>
             快速訂票
           </button>
           {loginButton}
