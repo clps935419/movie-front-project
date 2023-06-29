@@ -97,7 +97,7 @@ const TicketCard = ({ tick }) => {
   }, []);
 
   return (
-    <Card className="row">
+    <Card className="row mx-0">
       <CardContainer className="col-md-6 col-12">
         <CardTitle>{tick.movieName}</CardTitle>
         <div className="row gy-3">
