@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 const TheaterCard = ({ theater }) => {
   return (
     <Card>
-      <Card.Img variant="top" src={theater.imgUrl} />
+      <Card.Img width={200} height={200} variant="top" src={theater.imgUrl} />
       <Card.Body>
         <Card.Title>{theater.name}</Card.Title>
         <p className="mb-0">{theater.address}</p>
